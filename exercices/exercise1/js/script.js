@@ -19,6 +19,12 @@ var feltTextureImage;
 var feltTextureImageX;
 var feltTextureImageY;
 
+// the image of a duckling holding a knife
+var duckling;
+// the current position of the duckling
+var ducklingX;
+var ducklingY;
+
 
 // preload()
 //
@@ -27,6 +33,7 @@ var feltTextureImageY;
 function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
+  duckling = loadImage("assets/images/bedoclock.png")
 }
 
 
@@ -45,6 +52,10 @@ function setup() {
   // Start the felt image perfectly off screen above the canvas
   feltTextureImageX = width/2;
   feltTextureImageY = 0 - feltTextureImage.height/2;
+
+  // start the duckling off screen to the left of the canvas
+  ducklingX = 0 - duckling.width/2;
+  ducklingY = 640;
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
@@ -75,4 +86,12 @@ function draw() {
 
   // Display the clown image
   image(clownImage,clownImageX,clownImageY);
+
+  // move the duckling towards the right and slightly up
+  ducklingX += 2;
+  ducklingY -= 1;
+
+  //Display the duckling
+
+image(duckling,ducklingX,ducklingY);
 }
