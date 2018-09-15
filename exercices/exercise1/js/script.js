@@ -1,10 +1,13 @@
 // Exercise 1 - Moving pictures
-// Pippin Barr
+// Eugene N. Fournier
 //
-// Starter code for exercise 1.
+// Starter code for exercise 1.by Pippin Bar
+// + added modifications by me
 // It moves two pictures around on the canvas.
+//now 4
 // One moves linearly down the screen.
-// One moves toward the mouse cursor.
+// One moves diagonaly accross the screen
+// Two move toward the mouse cursor.
 
 
 // The image of a clown face
