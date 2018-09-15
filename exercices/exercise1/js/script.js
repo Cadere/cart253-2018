@@ -25,6 +25,12 @@ var duckling;
 var ducklingX;
 var ducklingY;
 
+// image of a fly
+var flyImage;
+//the current position of the fly
+var flyImageX;
+var flyImageY;
+
 
 // preload()
 //
@@ -34,6 +40,7 @@ function preload() {
   clownImage = loadImage("assets/images/clown.png");
   feltTextureImage = loadImage("assets/images/black-felt-texture.png");
   duckling = loadImage("assets/images/bedoclock.png")
+  flyImage = loadImage("assets/images/fly.png")
 }
 
 
@@ -56,6 +63,10 @@ function setup() {
   // start the duckling off screen to the left of the canvas
   ducklingX = 0 - duckling.width/2;
   ducklingY = 640;
+
+  // start the fly on the right corner
+  flyImageX = 620
+  flyImageY = 15
 
   // We'll use imageMode CENTER for this script
   imageMode(CENTER);
@@ -94,4 +105,19 @@ function draw() {
   //Display the duckling
 
 image(duckling,ducklingX,ducklingY);
+
+// move the fly by moving it erratically towards the mouse
+
+//calculate the distance in X and in Y
+var xDistanceFly = mouseX - flyImageX;
+var yDistanceFly = mouseY - flyImageY;
+
+//Add 1/20th of the x and y distance to the fly's current (x,y)
+// + an added random number, for more fun
+var randomFly = random(-10,10)
+flyImageX = flyImageX + xDistanceFly/20 + randomFly
+flyImageY = flyImageY + yDistanceFly/20 + randomFly
+
+//display the fly
+image(flyImage,flyImageX,flyImageY,30,30)
 }
