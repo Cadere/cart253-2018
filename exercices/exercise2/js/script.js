@@ -42,8 +42,6 @@ var blue;
 var avatarOpacity;
 var enemyOpacity;
 
-// A variable that tracks avatar movement
-var avatarMovement = keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW)|| keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW)
 
 // setup()
 //
@@ -85,11 +83,8 @@ function draw() {
   avatarVY = 0;
 
   //avatar opacity value changes when the avatar does not move
-  if (!avatarMovement){
-  avatarOpacity -=1
-  }
-  if (avatarMovement) {
-    avatarOpacity +=5
+  if (avatarVX === 0 && avatarVY === 0) {
+   avatarOpacity = constrain(avatarOpacity-=3, 0, 256);
   }
 
   // Check which keys are down and set the avatar's velocity based on its
@@ -110,6 +105,11 @@ function draw() {
   }
   else if (keyIsDown(DOWN_ARROW)) {
     avatarVY = avatarSpeed;
+  }
+
+// Avatar opacity goes up if the avatar moves
+  if (avatarVX != 0 || avatarVY != 0){
+    avatarOpacity = constrain(avatarOpacity += 10, 0, 256);
   }
 
   // Move the avatar according to its calculated velocity
