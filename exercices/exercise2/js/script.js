@@ -38,6 +38,13 @@ var red;
 var green;
 var blue;
 
+//Avatar and enemy opacity Values
+var avatarOpacity;
+var enemyOpacity;
+
+// A variable that tracks avatar movement
+var avatarMovement = keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW)|| keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW)
+
 // setup()
 //
 // Make the canvas, position the avatar and anemy
@@ -53,6 +60,10 @@ function setup() {
   enemyX = 0;
   enemyY = random(0,height);
 
+  //Basic opacity
+  avatarOpacity = 256
+  enemyOpacity = 256
+
   // No stroke so it looks cleaner
   noStroke();
 }
@@ -65,13 +76,21 @@ function draw() {
   // values of the color variables
   red = 200 + avatarY/10
   green = 200 + avatarX/10
-  blue = 200 + (avatarX+avatarY)/20
+  blue = 250 - (avatarX+avatarY)/20
   // A color changing background
   background(red,green,blue);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
   avatarVY = 0;
+
+  //avatar opacity value changes when the avatar does not move
+  if (!avatarMovement){
+  avatarOpacity -=1
+  }
+  if (avatarMovement) {
+    avatarOpacity +=5
+  }
 
   // Check which keys are down and set the avatar's velocity based on its
   // speed appropriately
@@ -151,8 +170,11 @@ function draw() {
   // Display the current number of successful in the console
   console.log(dodges);
 
-  // The player is black
-  fill(0);
+  // The player is has a white edge
+  stroke(256, avatarOpacity)
+  strokeWeight(5)
+  // The player is transparent
+  fill(0,0);
   // Draw the player as a circle
   ellipse(avatarX,avatarY,avatarSize,avatarSize);
 
