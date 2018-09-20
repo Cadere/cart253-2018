@@ -178,8 +178,12 @@ function draw() {
   // Draw the player as a circle
   ellipse(avatarX,avatarY,avatarSize,avatarSize);
 
+  // the enemy does not have a stroke
+  noStroke()
+  //Set the enemy's opacity in relation to the avatar's position
+  enemyOpacity = 256- avatarX/2
   // The enemy is red
-  fill(255,0,0);
+  fill(255,0,0,enemyOpacity);
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
 
