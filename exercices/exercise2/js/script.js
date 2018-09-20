@@ -33,6 +33,11 @@ var enemySpeedIncrease = 0.5;
 // How many dodges the player has made
 var dodges = 0;
 
+//Values of different colors
+var red;
+var green;
+var blue;
+
 // setup()
 //
 // Make the canvas, position the avatar and anemy
@@ -57,8 +62,12 @@ function setup() {
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
-  // A pink background
-  background(255,220,220);
+  // values of the color variables
+  red = 200 + avatarY/10
+  green = 200 + avatarX/10
+  blue = 200 + (avatarX+avatarY)/20
+  // A color changing background
+  background(red,green,blue);
 
   // Default the avatar's velocity to 0 in case no key is pressed this frame
   avatarVX = 0;
