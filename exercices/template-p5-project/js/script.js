@@ -17,17 +17,24 @@ function preload() {
 
 
 var typedText = "";
+var mouseX;
+var mouseY;
+var redness;
+var greeness;
+var blueness;
 
 function setup() {
   createCanvas(500,500);
   textSize(24);
   textAlign(CENTER,CENTER);
+
 }
 
 function draw() {
-  if (keyIsPressed) {
-    background (255,255,255,30)
-  }
+  redness = 200 + mouseY/10
+  greeness = 200 + mouseX/10
+  blueness = 256 - (mouseX+mouseY)/20
+  background (redness,greeness,blueness)
   text(typedText,width/2,height/2);
 }
 
