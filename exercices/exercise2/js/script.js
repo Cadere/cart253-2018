@@ -42,6 +42,9 @@ var blue;
 var avatarOpacity;
 var enemyOpacity;
 
+//Introduction text text opacity
+var textOpacity = 256
+
 
 // setup()
 //
@@ -71,6 +74,8 @@ function setup() {
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
+
+
   // the avatar speed increase or decrease with every successful dodge
   var avatarSpeedIncrease = random(-2, 2.1);
 
@@ -202,12 +207,18 @@ function draw() {
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
 
+  //Text appears that tells the player how to player how to player
+  textFont("Agency FB");
+  textOpacity =-25;
+  textSize(48);
+  textAlign(CENTER);
+  fill(256,256,256,textOpacity);
+  text("Use ← ↑ ↓ → to move", width/2, 450);
+
   // if dodges = 0, red text that says "you lose" and fades
   if (dodges === 0){
     fill(200,150,150,256-enemyX)
-    textFont("Agency FB");
     textSize(72);
-    textAlign(CENTER);
     text("YOU LOSE",width/2,height/2);
   }
 
