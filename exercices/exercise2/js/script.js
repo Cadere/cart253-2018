@@ -27,7 +27,7 @@ var enemySizeIncrease = 5;
 // The speed and velocity of our enemy circle
 var enemySpeed = 5;
 var enemyVX = 5;
-// How much bigger the enemy circle gets with each successful dodge
+// How much faster the enemy circle gets with each successful dodge
 var enemySpeedIncrease = 0.5;
 
 // How many dodges the player has made
@@ -71,6 +71,12 @@ function setup() {
 // Handle moving the avatar and enemy and checking for dodges and
 // game over situations.
 function draw() {
+  // the avatar speed increase or decrease with every successful dodge
+  var avatarSpeedIncrease = random(-2, 2.1);
+
+  // the avatar size increase or decrease with every successful dodge
+  var avatarSizeIncrease = random(-5, 8);
+
   // values of the color variables
   red = 200 + avatarY/10
   green = 200 + avatarX/10
@@ -138,6 +144,9 @@ function draw() {
     avatarY = height/2;
     // Reset the dodge counter
     dodges = 0;
+    //Reset the avatar size and speed
+    avatarSize = 50
+    avatarSpeed = 10
   }
 
   // Check if the avatar has gone off the screen (cheating!)
@@ -151,6 +160,8 @@ function draw() {
     avatarX = width/2;
     avatarY = height/2;
     dodges = 0;
+    avatarSize = 50
+    avatarSpeed = 10
   }
 
   // Check if the enemy has moved all the way across the screen
@@ -165,6 +176,9 @@ function draw() {
     // Increase the enemy's speed and size to make the game harder
     enemySpeed = enemySpeed + enemySpeedIncrease;
     enemySize = enemySize + enemySizeIncrease;
+    //Modify the avatar's speed and size to make the game harder
+    avatarSize = constrain(avatarSize += avatarSizeIncrease, 10,height/2);
+    avatarSpeed = constrain(avatarSpeed += avatarSpeedIncrease, 2, 20);
   }
 
   // Display the current number of successful in the console
@@ -188,7 +202,7 @@ function draw() {
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
 
-  // if dodges = 0, text that says "you lose" and fades
+  // if dodges = 0, red text that says "you lose" and fades
   if (dodges === 0){
     fill(200,150,150,256-enemyX)
     textFont("Agency FB");
