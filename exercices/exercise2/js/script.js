@@ -170,7 +170,6 @@ function draw() {
   // Display the current number of successful in the console
   console.log(dodges);
 
-  // Display the current number of successful dodges in the game
 
   // The player is has a white edge
   stroke(256, avatarOpacity)
@@ -188,5 +187,32 @@ function draw() {
   fill(100,enemyOpacity);
   // Draw the enemy as a circle
   ellipse(enemyX,enemyY,enemySize,enemySize);
+
+  // if dodges = 0, text that says "you lose" and fades
+  if (dodges === 0){
+    fill(200,150,150,256-enemyX)
+    textFont("Agency FB");
+    textSize(72);
+    textAlign(CENTER);
+    text("YOU LOSE",width/2,height/2);
+  }
+
+
+  var dodgesText= dodges
+
+  // Display the current number of successful dodges in the game
+  // Text changes color depending on position and gets darker as the ennemy gets bigger
+  fill(blue-enemySize, green-enemySize, red-enemySize);
+  textSize(24);
+  textAlign(RIGHT);
+  text("Dodges:", 450,25);
+  //This text is pale red and updates with the number of dodges
+  fill(200,150,150);
+  textAlign(LEFT);
+  text(dodgesText,465,25);
+
+
+
+
 
 }
