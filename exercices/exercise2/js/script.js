@@ -170,6 +170,8 @@ function draw() {
   // Display the current number of successful in the console
   console.log(dodges);
 
+  // Display the current number of successful dodges in the game
+
   // The player is has a white edge
   stroke(256, avatarOpacity)
   strokeWeight(5)
