@@ -209,10 +209,10 @@ function draw() {
 
   //Text appears that tells the player how to player how to player
   textFont("Agency FB");
-  textOpacity =-25;
+  textOpacity -= 1;
   textSize(48);
   textAlign(CENTER);
-  fill(256,256,256,textOpacity);
+  fill(256,textOpacity);
   text("Use ← ↑ ↓ → to move", width/2, 450);
 
   // if dodges = 0, red text that says "you lose" and fades
