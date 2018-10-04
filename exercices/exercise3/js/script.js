@@ -29,7 +29,7 @@ var decoyImage10;
 
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
-var numDecoys = 100;
+var numDecoys = 200;
 
 // Keep track of whether they've won
 var gameOver = false;
@@ -101,17 +101,39 @@ function setup() {
     else if (r < 1.0) {
       image(decoyImage10,x,y,128,128);
     }
+    //gameLegend is a function that draws a rectangle with sausage dog
+    //and a little bit of explanatory text
+    gameLegend();
   }
 
   // Once we've displayed all decoys, we choose a location for the target
+  // this ensures that there is a targetX value for the while loop to evaluate
   targetX = random(0,width);
+  //while loop ensures sausage dog is not under the rectangle
+  while(targetX>15 && targetX<265){
+    targetX = random(0,width);
+  }
+  //this ensures that there is a targetX value for the while loop to evaluate
   targetY = random(0,height);
+  //while loop ensures that dog is not under the rectangle
+  while(targetY>15 && targetY<115){
+  targetY = random(0,height);
+  }
+  //if you wanna cheat (or be sure the dog is actually showing)
+  console.log(targetX,targetY);
   // And draw it (this means it will always be on top)
   image(targetImage,targetX,targetY);
 }
 
 function draw() {
   if (gameOver) {
+    //clear background and redraw sausage dog
+    //i'm using a rectangle for the background bc the background cannot be translucent
+    fill(160,149,142,15);
+    rect(0,0,windowWidth,windowHeight);
+    image(targetImage, targetX, targetY);
+    //we show gameLegend again because it's covered by the background
+    gameLegend();
     // Prepare our typography
     textFont("Helvetica");
     textSize(128);
@@ -140,3 +162,21 @@ function mousePressed() {
     }
   }
 }
+
+function gameLegend(){
+  //rectangle on left corner
+  fill('#4c4c4c');
+  noStroke();
+  rect(15,15,250,100);
+  //Display sausage dog in rectangle
+  fill('#847d79');
+  ellipse(75,65,90);
+  image(targetImage,75,65,95,95);
+  //Diplay "WHERE IS MY DOG!!!" in rectangle
+  textFont('Agency FB');
+  textSize(24);
+  textAlign(CENTER);
+  text('WHERE',195,45);
+  text('IS MY',195,75);
+  text('DOG!!!',195,105);
+  }
