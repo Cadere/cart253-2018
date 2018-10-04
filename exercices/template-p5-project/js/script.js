@@ -8,36 +8,20 @@ author, and this description to match your project!
 
 ******************/
 
-// preload()
-//
-// Description of preload
-
-function preload() {
-}
-
-
-var typedText = "";
-var mouseX;
-var mouseY;
-var redness;
-var greeness;
-var blueness;
-
+var x;
+var y;
+var tx;
+var ty;
 function setup() {
   createCanvas(500,500);
-  textSize(24);
-  textAlign(CENTER,CENTER);
-
+  tx = random(0,1000);
+  ty = random(0,1000);
 }
-
 function draw() {
-  redness = 200 + mouseY/10
-  greeness = 200 + mouseX/10
-  blueness = 256 - (mouseX+mouseY)/20
-  background (redness,greeness,blueness)
-  text(typedText,width/2,height/2);
-}
-
-function keyTyped() {
-  typedText += key;
+  background(255);
+  x = width * noise(tx);
+  y = height * noise(ty);
+  tx += 0.01;
+  ty += 0.01;
+  ellipse(x,y,10,10);
 }
