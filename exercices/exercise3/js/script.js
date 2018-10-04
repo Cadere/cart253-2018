@@ -29,7 +29,7 @@ var decoyImage10;
 
 // The number of decoys to show on the screen, randomly
 // chosen from the decoy images
-var numDecoys = 200;
+var numDecoys = 20;
 
 // Keep track of whether they've won
 var gameOver = false;
@@ -175,8 +175,8 @@ function gameLegend(){
   //Diplay "WHERE IS MY DOG!!!" in rectangle
   textFont('Agency FB');
   textSize(24);
-  textAlign(CENTER);
-  text('WHERE',195,45);
-  text('IS MY',195,75);
-  text('DOG!!!',195,105);
+  textAlign(CENTER,CENTER);
+  text('WHERE',195,35);
+  text('IS MY',195,65);
+  text('DOG!!!',195,95);
   }
