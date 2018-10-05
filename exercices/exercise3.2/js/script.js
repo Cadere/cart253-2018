@@ -15,6 +15,12 @@ var targetX;
 var targetY;
 var targetImage;
 
+// velocity and size of the rat we're searching for after it is found
+var vX;
+var vY;
+var ratSize;
+
+
 //the surprise image at the end ;)
 var winningImage;
 
@@ -65,6 +71,8 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   background("#a8ad9a");
   imageMode(CENTER);
+  //ratSize is 72
+  ratSize=72;
 
   // Use a for loop to draw as many decoys as we need
   for (var i = 0; i < numDecoys; i++) {
@@ -134,22 +142,34 @@ function draw() {
   if (gameOver) {
     //clear background and redraw rat
     background('#a8ad9a');
-    image(targetImage, targetX, targetY,72,72);
+    //show the winning image
+    var winningImageSize = 256;
+    image(winningImage,windowWidth-winningImageSize/2,windowHeight/2,winningImageSize,winningImageSize);
+    //set variables for starting distance between rat and heart
+    var xDistance = windowWidth-200 - targetX;
+    var yDistance = windowHeight/2 - targetY;
+    //set velocity values - constrained so the speed is more constant
+    //also makes the movement less linear
+    vX = constrain(xDistance/40,-4,4);
+    vY = constrain(yDistance/40,-4,4);
+    //targetX and targetY values get progressively closer to the heart position
+    targetX += vX;
+    targetY += vY;
+    //rat gets bigger as it gets closer
+    if(ratSize<200){
+      ratSize += 2;
+    }
+    image(targetImage, targetX, targetY,ratSize,ratSize);
     //we show gameLegend again because it's covered by the background
     gameLegend();
     // Prepare our typography
     textFont("Agency FB");
     textSize(128);
     textAlign(CENTER,CENTER);
-    noStroke();
-    fill(random(255));
+    var colorRange = random(-30,30)
+    fill(200+colorRange,214+colorRange,160+colorRange);
     // Tell them they won!
-    text("YOU WINNED!",width/2,height/2);
-
-    noFill();
-    stroke(random(255));
-    strokeWeight(10);
-    ellipse(targetX,targetY,targetImage.width,targetImage.height);
+    text("YOU DID IT!",width/2,height/2);
   }
 }
 
