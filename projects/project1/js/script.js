@@ -43,6 +43,20 @@ var preyFill = 200;
 var eatHealth = 10;
 // Number of prey eaten during the game
 var preyEaten = 0;
+//Images
+var leaf1Image;
+var leaf2Image;
+var leaf3Image;
+var preyImage;
+var predatorImage;
+
+function preload(){
+leaf1Image = loadImage("assets/images/leaf1.png");
+leaf2Image = loadImage("assets/images/leaf2.png");
+leaf3Image = loadImage("assets/images/leaf3.png");
+preyImage = loadImage("assets/images/prey.png");
+predatorImage = loadImage("assets/images/predator.png");
+}
 
 // setup()
 //
