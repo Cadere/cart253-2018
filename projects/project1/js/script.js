@@ -53,6 +53,9 @@ var leaf3Image;
 var preyImage;
 var predatorImage;
 
+var leafSize;
+var numLeaves = 200;
+
 function preload(){
 leaf1Image = loadImage("assets/images/leaf1.png");
 leaf2Image = loadImage("assets/images/leaf2.png");
@@ -73,7 +76,7 @@ function setup() {
   setupPlayer();
 
   preyTX = 0.0;
-  preyTY = 0.0;
+  preyTY = 1.0;
 }
 
 // setupPrey()
@@ -96,6 +99,30 @@ function setupPlayer() {
   playerHealth = playerMaxHealth;
 }
 
+//setupBackground()
+//
+//Initialises the background's appearance, with leaves on the ground and such
+function setupBackground(){
+  // use a for loop to draw many leaves
+  for (var i = 0; i < numLeaves; i++) {
+    // Choose a random location for a leaf
+    var leafX = random(0,width);
+    var leafY = random(0,height);
+    // Generate a random number we can use for probability
+    var r = random();
+    // Use the random number to display one of the 3 leaf images, each with 1/3 probability
+    if (r < 0.33) {
+      image(leaf1Image,leafX,leafY,248,248);
+    }
+    else if (r < 0.66) {
+      image(leaf2Image,leafX,leafY,200,200);
+    }
+    else if (r < 0.1) {
+      image(leaf3Image,leafX,leafY,128,128);
+    }
+  }
+}
+
 // draw()
 //
 // While the game is active, checks input
@@ -104,7 +131,7 @@ function setupPlayer() {
 // displays the two agents.
 // When the game is over, shows the game over screen.
 function draw() {
-  background(100,100,200);
+  background(110,181,151);
 
   if (!gameOver) {
     handleInput();
@@ -219,24 +246,15 @@ function checkEating() {
 //
 // Moves the prey based on random velocity changes
 function movePrey() {
+  //change the prey's velocity with a perlin noise function
   preyVX = map(noise(preyTX),0,1,-preyMaxSpeed,preyMaxSpeed);
   preyVY = map(noise(preyTY),0,1,-preyMaxSpeed,preyMaxSpeed);
 
-  preyTX = preyTX + 0.01
-  preyTY = preyTY + 0.01
-  // Change the prey's velocity at random intervals
-  // random() will be < 0.05 5% of the time, so the prey
-  // will change direction on 5% of frames
-  //if (random() < 0.05) {
-    // Set velocity based on random values to get a new direction
-    // and speed of movement
-    // Use map() to convert from the 0-1 range of the random() function
-    // to the appropriate range of velocities for the prey
-  //  preyVX = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-    //preyVY = map(random(),0,1,-preyMaxSpeed,preyMaxSpeed);
-//}
+  console.log(noise(preyTX), noise(preyTY));
+  //for some reason the prey's velocity changes at random... but on a 45 angle
+  preyTX = preyTX + 0.01;
+  preyTY = preyTY + 0.01;
 
-  // Update prey position based on velocity
   preyX += preyVX;
   preyY += preyVY;
 
