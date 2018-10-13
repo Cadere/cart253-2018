@@ -1,9 +1,9 @@
 /******************************************************
 
 Game - Chaser
-Pippin Barr
+Eugene Fournier
 
-A simple game of cat and mouse.
+A simple game of cat and mouse.or, uh, theropod and armadillo? who knows
 
 Physics-based movement, keyboard controls, health/stamina,
 sprinting, random movement, screen wrap.
@@ -167,8 +167,16 @@ function handleInput() {
 // wraps around the edges.
 function movePlayer() {
   // Update position
-  playerX += playerVX;
-  playerY += playerVY;
+  // if accounts for the sprint ability
+  if(keyIsDown(SHIFT)){
+    playerX += playerVX*1.5;
+    playerY += playerVY*1.5;
+  }
+  else{
+    playerX += playerVX;
+    playerY += playerVY;
+  }
+
 
   // Wrap when player goes off the canvas
   if (playerX < 0) {
@@ -192,7 +200,12 @@ function movePlayer() {
 // Check if the player is dead
 function updateHealth() {
   // Reduce player health, constrain to reasonable range
-  playerHealth = constrain(playerHealth - 0.5,0,playerMaxHealth);
+  if(keyIsDown(SHIFT)) {
+    playerHealth = constrain(playerHealth - 1, 0, playerMaxHealth);
+    }
+    else{
+    playerHealth = constrain(playerHealth - 0.5,0,playerMaxHealth);
+    }
   // Check if the player is dead
   if (playerHealth === 0) {
     // If so, the game is over
