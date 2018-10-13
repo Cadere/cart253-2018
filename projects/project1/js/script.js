@@ -284,6 +284,8 @@ function showGameOver() {
 //Initialises the background's appearance, with leaves on the ground and such
 function leafBackground(){
   // use a for loop to draw many leaves
+  imageMode(CENTER);
+  
   for (var i = 0; i < numLeaves; i++) {
     // Choose a random location for a leaf
     var leafX = random(0,width);
