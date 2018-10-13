@@ -99,29 +99,7 @@ function setupPlayer() {
   playerHealth = playerMaxHealth;
 }
 
-//setupBackground()
-//
-//Initialises the background's appearance, with leaves on the ground and such
-function setupBackground(){
-  // use a for loop to draw many leaves
-  for (var i = 0; i < numLeaves; i++) {
-    // Choose a random location for a leaf
-    var leafX = random(0,width);
-    var leafY = random(0,height);
-    // Generate a random number we can use for probability
-    var r = random();
-    // Use the random number to display one of the 3 leaf images, each with 1/3 probability
-    if (r < 0.33) {
-      image(leaf1Image,leafX,leafY,248,248);
-    }
-    else if (r < 0.66) {
-      image(leaf2Image,leafX,leafY,200,200);
-    }
-    else if (r < 0.1) {
-      image(leaf3Image,leafX,leafY,128,128);
-    }
-  }
-}
+
 
 // draw()
 //
@@ -132,6 +110,7 @@ function setupBackground(){
 // When the game is over, shows the game over screen.
 function draw() {
   background(110,181,151);
+  leafBackground();
 
   if (!gameOver) {
     handleInput();
@@ -249,9 +228,7 @@ function movePrey() {
   //change the prey's velocity with a perlin noise function
   preyVX = map(noise(preyTX),0,1,-preyMaxSpeed,preyMaxSpeed);
   preyVY = map(noise(preyTY),0,1,-preyMaxSpeed,preyMaxSpeed);
-
-  console.log(noise(preyTX), noise(preyTY));
-  //for some reason the prey's velocity changes at random... but on a 45 angle
+  //I spent at least 3 hours trying to get this damned noise to work
   preyTX = preyTX + 0.01;
   preyTY = preyTY + 0.01;
 
@@ -301,4 +278,29 @@ function showGameOver() {
   gameOverText += "You ate " + preyEaten + " prey\n";
   gameOverText += "before you died."
   text(gameOverText,width/2,height/2);
+}
+//setupBackground()
+//
+//Initialises the background's appearance, with leaves on the ground and such
+function leafBackground(){
+  // use a for loop to draw many leaves
+  for (var i = 0; i < numLeaves; i++) {
+    // Choose a random location for a leaf
+    var leafX = random(0,width);
+    var leafY = random(0,height);
+    // Generate a random number we can use for probability
+    var r = random();
+    //leaf size is randomly generated
+    leafSize = random(48,96);
+    // Use the random number to display one of the 3 leaf images, each with 1/3 probability
+    if (r < 0.33) {
+      image(leaf1Image,leafX,leafY,leafSize,leafSize);
+    }
+    else if (r < 0.66) {
+      image(leaf2Image,leafX,leafY,leafSize,leafSize);
+    }
+    else if (r < 0.1) {
+      image(leaf3Image,leafX,leafY,leafSize,leafSize);
+    }
+  }
 }
