@@ -39,7 +39,8 @@ var preyHealth;
 var preyMaxHealth = 100;
 
 // Amount of health obtained per frame of "eating" the prey
-var eatHealth = 10;
+//modified to smaller value
+var eatHealth = 2.5;
 // Number of prey eaten during the game
 var preyEaten = 0;
 //Images
@@ -112,8 +113,7 @@ function draw() {
   //I would have needed to use arrays to store the leaves's position and angles
   //but I don't know how to use arrays
   leafBackground();
-  //shows the player's health through a healthbar
-  healthBar();
+
 
   if (!gameOver) {
     handleInput();
@@ -130,6 +130,10 @@ function draw() {
   else {
     showGameOver();
   }
+  //shows the player's health through a healthbar: it is this far down so it shows
+  //over the player and prey
+  healthBar();
+  preyHealthBar();
 }
 
 // handleInput()
@@ -312,7 +316,8 @@ function showGameOver() {
   push();
   textSize(32);
   textAlign(CENTER,CENTER);
-  fill(0);
+  textFont("Agency FB");
+  fill(255);
   var gameOverText = "GAME OVER\n";
   gameOverText += "You ate " + preyEaten + " prey\n";
   gameOverText += "before you died."
@@ -378,9 +383,25 @@ function healthBar(){
   text("HEALTH",15,20);
   //this diplays a pink bar that will serve as the background to our healthbar
   fill("#efa294");
-  rect(15,25,playerMaxHealth+15,10);
+  rect(15,25,playerMaxHealth,10);
   //this is the part of the healthbar that gets smaller as the player's health goes down
   fill("#c4796b");
-  rect(15,25,playerHealth+15,10);
+  rect(15,25,playerHealth,10);
+  pop();
+}
+
+function preyHealthBar(){
+  push()
+  //this diplays white text that says PREY HEALTH at the top of the screen
+  fill(255);
+  textFont("Agency FB");
+  textSize(18);
+  text("PREY HEALTH",350,20);
+  //this diplays a yellow bar that will serve as the background to our healthbar
+  fill("#e5e4b9");
+  rect(350,25,map(preyMaxHealth,0,preyMaxHealth,0,100),10);
+  //this is the part of the healthbar that gets smaller as the prey's health goes down
+  fill("#7f785b");
+  rect(350,25,map(preyHealth,0,preyMaxHealth,0,100),10);
   pop();
 }
