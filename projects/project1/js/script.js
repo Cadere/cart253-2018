@@ -308,6 +308,7 @@ function drawPlayer() {
 //
 // Display text about the game being over!
 function showGameOver() {
+  push();
   textSize(32);
   textAlign(CENTER,CENTER);
   fill(0);
@@ -315,6 +316,7 @@ function showGameOver() {
   gameOverText += "You ate " + preyEaten + " prey\n";
   gameOverText += "before you died."
   text(gameOverText,width/2,height/2);
+  pop();
 }
 //setupBackground()
 //
