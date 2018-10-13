@@ -16,7 +16,7 @@ var gameOver = false;
 // Player position, size, velocity
 var playerX;
 var playerY;
-var playerRadius = 25;
+var playerRadius = 70;
 var playerVX = 0;
 var playerVY = 0;
 var playerMaxSpeed = 2;
@@ -29,7 +29,7 @@ var playerFill = 50;
 // Prey position, size, velocity
 var preyX;
 var preyY;
-var preyRadius = 25;
+var preyRadius = 50;
 var preyVX;
 var preyVY;
 var preyMaxSpeed = 4;
@@ -110,6 +110,11 @@ function setupPlayer() {
 // When the game is over, shows the game over screen.
 function draw() {
   background(110,181,151);
+  // draws leaves over the leaves over the background
+  // obviously it looks absolutely awful because new leaves are generated
+  //with every loop and it's a chaotic storm, which was not the point
+  //I would have needed to use arrays to store the leaves's position and angles
+  //but I don't know how to use arrays
   leafBackground();
 
   if (!gameOver) {
@@ -255,16 +260,18 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  fill(preyFill,preyHealth);
-  ellipse(preyX,preyY,preyRadius*2);
+  image(preyImage,preyX,preyY,preyRadius,preyRadius);
+  //fill(preyFill,preyHealth);
+  //ellipse(preyX,preyY,preyRadius*2);
 }
 
 // drawPlayer()
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  fill(playerFill,playerHealth);
-  ellipse(playerX,playerY,playerRadius*2);
+  image(predatorImage,playerX,playerY,playerRadius,playerRadius);
+  //fill(playerFill,playerHealth);
+  //ellipse(playerX,playerY,playerRadius*2);
 }
 
 // showGameOver()
