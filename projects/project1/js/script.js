@@ -71,6 +71,9 @@ function setup() {
 
   setupPrey();
   setupPlayer();
+
+  preyTX = 0.0;
+  preyTY = 0.0;
 }
 
 // setupPrey()
@@ -79,8 +82,8 @@ function setup() {
 function setupPrey() {
   preyX = width/5;
   preyY = height/2;
-  preyVX = -preyMaxSpeed;
-  preyVY = preyMaxSpeed;
+  preyVX = 0;
+  preyVY = 0;
   preyHealth = preyMaxHealth;
 }
 
@@ -216,17 +219,11 @@ function checkEating() {
 //
 // Moves the prey based on random velocity changes
 function movePrey() {
-  preyTX = random(-2,2);
-  preyTY = random(-2,2);
-
   preyVX = map(noise(preyTX),0,1,-preyMaxSpeed,preyMaxSpeed);
   preyVY = map(noise(preyTY),0,1,-preyMaxSpeed,preyMaxSpeed);
 
-  preyX += preyVY;
-  preyY += preyVY;
-
-  preyTX += 0.01;
-  preyTY += 0.01;
+  preyTX = preyTX + 0.01
+  preyTY = preyTY + 0.01
   // Change the prey's velocity at random intervals
   // random() will be < 0.05 5% of the time, so the prey
   // will change direction on 5% of frames
