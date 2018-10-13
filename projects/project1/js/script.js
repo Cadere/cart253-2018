@@ -261,22 +261,37 @@ function movePrey() {
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
   var preyAngle = calculatePreyAngle();
+  //Use push so everything else isn't rotated after
   push();
+  //Rotating rotates on an axis around (0,0)
+  //this is an issue when applied to the player of the prey because it makes them be..
+  // not where we want them (and not in the right angle anyways)
+  //so before using rotate(), i'm using translate to move the grid so that (0,0)
+  //is right under the prey.
+  //The prey now rotates around its center!
   translate(preyX,preyY);
   rotate(preyAngle);
   image(preyImage,0,0,preyRadius,preyRadius);
   pop();
-  //fill(preyFill,preyHealth);
-  //ellipse(preyX,preyY,preyRadius*2);
+  // however it doesn't rotate 360.... only 180.
+  // I remember some memories from the far far land of cegep
+  // and how arc tan only gives positive values
+  // (was it actually that?)
+  // anyways I tried to fix it and didn't work, and i'm too short on time to try more
 }
 
 // drawPlayer()
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  image(predatorImage,playerX,playerY,playerRadius,playerRadius);
-  //fill(playerFill,playerHealth);
-  //ellipse(playerX,playerY,playerRadius*2);
+  var playerAngle = calculatePlayerAngle();
+  //Use push so everything else isn't rotated after
+  push();
+  //this is exactly the same thing as in drawPrey
+  translate(playerX,playerY);
+  rotate(playerAngle);
+  image(predatorImage,0,0,playerRadius,playerRadius);
+  pop();
 }
 
 // showGameOver()
@@ -332,5 +347,10 @@ function leafBackground(){
 //this function calculates the angle of the prey's movement
 function calculatePreyAngle(){
  var result = atan(preyVX/preyVY);
+ return result;
+}
+//this function calculates the angle of the player's movement
+function calculatePlayerAngle(){
+ var result = atan(playerVX/playerVY);
  return result;
 }
