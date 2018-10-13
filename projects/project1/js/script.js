@@ -285,7 +285,6 @@ function showGameOver() {
 function leafBackground(){
   // use a for loop to draw many leaves
   imageMode(CENTER);
-  
   for (var i = 0; i < numLeaves; i++) {
     // Choose a random location for a leaf
     var leafX = random(0,width);
@@ -294,6 +293,12 @@ function leafBackground(){
     var r = random();
     //leaf size is randomly generated
     leafSize = random(48,96);
+    //leaf angle is also randomly generated
+    var angle = random(0,360);
+    //use push()and pop() so that everything I do after calling this function
+    //is not also rotated
+    push();
+    rotate(angle);
     // Use the random number to display one of the 3 leaf images, each with 1/3 probability
     if (r < 0.33) {
       image(leaf1Image,leafX,leafY,leafSize,leafSize);
@@ -304,5 +309,6 @@ function leafBackground(){
     else if (r < 0.1) {
       image(leaf3Image,leafX,leafY,leafSize,leafSize);
     }
+    pop();
   }
 }
