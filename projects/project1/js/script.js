@@ -23,8 +23,6 @@ var playerMaxSpeed = 2;
 // Player health
 var playerHealth;
 var playerMaxHealth = 255;
-// Player fill color
-var playerFill = 50;
 
 // Prey position, size, velocity
 var preyX;
@@ -39,8 +37,6 @@ var preyTY;
 // Prey health
 var preyHealth;
 var preyMaxHealth = 100;
-// Prey fill color
-var preyFill = 200;
 
 // Amount of health obtained per frame of "eating" the prey
 var eatHealth = 10;
@@ -116,6 +112,7 @@ function draw() {
   //I would have needed to use arrays to store the leaves's position and angles
   //but I don't know how to use arrays
   leafBackground();
+  healthBar();
 
   if (!gameOver) {
     handleInput();
@@ -366,4 +363,16 @@ function calculatePreyAngle(){
 function calculatePlayerAngle(){
  var result = atan(playerVX/playerVY);
  return result;
+}
+
+//this function draws a health bar for the player (since they no longer become transparent)
+function healthBar(){
+  push()
+  fill(255);
+  textFont("Agency FB");
+  textSize(18);
+  text("HEALTH",15,20);
+  fill("#efa294");
+  rect(15,25,playerMaxHealth+15,10);
+  pop();
 }
