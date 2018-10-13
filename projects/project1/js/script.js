@@ -299,6 +299,10 @@ function leafBackground(){
     //is not also rotated
     push();
     rotate(angle);
+    //rotate() works by rotating the images on an axis around (0,0)
+    // a couple of these leaves are thus outside the canvas
+    //this can be changed by creating a vector and using it as the axis
+    //but I sincerily do not understand how
     // Use the random number to display one of the 3 leaf images, each with 1/3 probability
     if (r < 0.33) {
       image(leaf1Image,leafX,leafY,leafSize,leafSize);
