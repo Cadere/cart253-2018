@@ -112,6 +112,7 @@ function draw() {
   //I would have needed to use arrays to store the leaves's position and angles
   //but I don't know how to use arrays
   leafBackground();
+  //shows the player's health through a healthbar
   healthBar();
 
   if (!gameOver) {
@@ -370,11 +371,16 @@ function calculatePlayerAngle(){
 //this function draws a health bar for the player (since they no longer become transparent)
 function healthBar(){
   push()
+  //this diplays white text that says HEALTH at the top of the screen
   fill(255);
   textFont("Agency FB");
   textSize(18);
   text("HEALTH",15,20);
+  //this diplays a pink bar that will serve as the background to our healthbar
   fill("#efa294");
   rect(15,25,playerMaxHealth+15,10);
+  //this is the part of the healthbar that gets smaller as the player's health goes down
+  fill("#c4796b");
+  rect(15,25,playerHealth+15,10);
   pop();
 }
