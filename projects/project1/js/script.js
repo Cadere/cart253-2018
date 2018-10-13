@@ -260,7 +260,12 @@ function movePrey() {
 //
 // Draw the prey as an ellipse with alpha based on health
 function drawPrey() {
-  image(preyImage,preyX,preyY,preyRadius,preyRadius);
+  var preyAngle = calculatePreyAngle();
+  push();
+  translate(preyX,preyY);
+  rotate(preyAngle);
+  image(preyImage,0,0,preyRadius,preyRadius);
+  pop();
   //fill(preyFill,preyHealth);
   //ellipse(preyX,preyY,preyRadius*2);
 }
@@ -322,4 +327,10 @@ function leafBackground(){
     }
     pop();
   }
+}
+
+//this function calculates the angle of the prey's movement
+function calculatePreyAngle(){
+ var result = atan(preyVX/preyVY);
+ return result;
 }
