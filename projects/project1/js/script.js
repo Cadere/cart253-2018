@@ -50,8 +50,13 @@ var leaf3Image;
 var preyImage;
 var predatorImage;
 
+//variables for leaf generation
 var leafSize;
 var numLeaves = 200;
+
+//variables for sounds
+var eatingSound;
+var hungrySound;
 
 function preload(){
 leaf1Image = loadImage("assets/images/leaf1.png");
@@ -59,6 +64,8 @@ leaf2Image = loadImage("assets/images/leaf2.png");
 leaf3Image = loadImage("assets/images/leaf3.png");
 preyImage = loadImage("assets/images/prey.png");
 predatorImage = loadImage("assets/images/predator.png");
+eatingSound = new Audio("assets/sounds/eating.mp3");
+hungrySound = new Audio("assets/sounds/growlingstomach.mp3");
 }
 
 // setup()
@@ -123,6 +130,8 @@ function draw() {
 
     updateHealth();
     checkEating();
+
+    checkHunger();
 
     drawPrey();
     drawPlayer();
@@ -222,11 +231,16 @@ function checkEating() {
   // Get distance of player to prey
   var d = dist(playerX,playerY,preyX,preyY);
   // Check if it's an overlap
-  if (d < playerRadius + preyRadius) {
+  //due to using an image instead of a circle there was overlap where there shouldnt
+  //so I reduced the radius so that they need to overlap more
+  if (d < playerRadius/1.5 + preyRadius/1.5) {
     // Increase the player health
     playerHealth = constrain(playerHealth + eatHealth,0,playerMaxHealth);
     // Reduce the prey health
     preyHealth = constrain(preyHealth - eatHealth,0,preyMaxHealth);
+    //play eating sound
+    eatingSound.currentime = 0;
+    eatingSound.play();
 
     // Check if the prey died
     if (preyHealth === 0) {
@@ -238,6 +252,18 @@ function checkEating() {
       // Track how many prey were eaten
       preyEaten++;
     }
+  }
+  //so the sound stops playing when you're no longer eating
+  else {
+    eatingSound.pause();
+  }
+}
+
+//checkHunger plays a sound to remind the player they are hungry
+function checkHunger(){
+  if(playerHealth === 100){
+    hungrySound.currentime = 0.5
+    hungrySound.play();
   }
 }
 
