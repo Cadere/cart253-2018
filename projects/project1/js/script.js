@@ -326,18 +326,12 @@ function drawPrey() {
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  //var playerAngle = calculatePlayerAngle();
+  var playerAngle = calculatePlayerAngle();
   //Use push so everything else isn't rotated after
   push();
   //this is exactly the same thing as in drawPrey
   translate(playerX,playerY);
-
-  if (keyIsDown(DOWN_ARROW)){
-    rotate(180);
-  }
-  else if (keyIsDown(DOWN_ARROW) && keyIsDown(LEFT_ARROW)) {
-   rotate(225);
-  }
+  rotate(playerAngle);
   image(predatorImage,0,0,playerRadius,playerRadius);
   pop();
 }
