@@ -79,6 +79,8 @@ function setup() {
   setupPrey();
   setupPlayer();
 
+  angleMode(DEGREES);
+
   preyTX = 0.0;
   preyTY = 1.0;
 }
@@ -262,7 +264,6 @@ function checkEating() {
 //checkHunger plays a sound to remind the player they are hungry
 function checkHunger(){
   if(playerHealth === 100){
-    hungrySound.currentime = 0.5
     hungrySound.play();
   }
 }
@@ -325,12 +326,18 @@ function drawPrey() {
 //
 // Draw the player as an ellipse with alpha based on health
 function drawPlayer() {
-  var playerAngle = calculatePlayerAngle();
+  //var playerAngle = calculatePlayerAngle();
   //Use push so everything else isn't rotated after
   push();
   //this is exactly the same thing as in drawPrey
   translate(playerX,playerY);
-  rotate(playerAngle);
+
+  if (keyIsDown(DOWN_ARROW)){
+    rotate(180);
+  }
+  else if (keyIsDown(DOWN_ARROW) && keyIsDown(LEFT_ARROW)) {
+   rotate(225);
+  }
   image(predatorImage,0,0,playerRadius,playerRadius);
   pop();
 }
