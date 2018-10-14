@@ -68,6 +68,7 @@ eatingSound = new Audio("assets/sounds/eating.mp3");
 hungrySound = new Audio("assets/sounds/growlingstomach.mp3");
 }
 
+
 // setup()
 //
 // Sets up the basic elements of the game
