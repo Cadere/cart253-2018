@@ -43,10 +43,14 @@ var leftPaddle = {
   h: 70,
   vx: 0,
   vy: 0,
-  speed: 5,
+  ////////// NEW /////////
+  // changed the speed because I found it frustratingly slow
+  //added the score property
+  speed: 8,
   upKeyCode: 87, // The key code for W
   downKeyCode: 83, // The key code for S
   score: 0
+  ////////// END NEW ////////////
 }
 
 // RIGHT PADDLE
@@ -60,10 +64,14 @@ var rightPaddle = {
   h: 70,
   vx: 0,
   vy: 0,
-  speed: 5,
+  ////////// NEW /////////
+  // changed the speed because I found it frustratingly slow
+  //added the score property
+  speed: 8,
   upKeyCode: 38, // The key code for the UP ARROW
   downKeyCode: 40, // The key code for the DOWN ARROW
   score: 0
+  ////////// END NEW ////////////
 }
 
 // A variable to hold the beep sound we will play on bouncing
@@ -87,12 +95,8 @@ function setup() {
   rectMode(CENTER);
   noStroke();
   /////// NEW ////////
-  //set values for color variables
-  redValue = 255;
-  greenValue = 255;
-  blueValue = 255;
-  //changed the fill
-  fill(redValue,greenValue,blueValue);
+  //moved fill() to draw since the color values are now getting updated
+  //every time someone scores a point
   /////// END NEW /////
 
   setupPaddles();
@@ -128,6 +132,10 @@ function setupBall() {
 function draw() {
   // Fill the background
   background(bgColor);
+
+  //update the color of the objects on screen
+  //the values of the color variables are updated at the same time as the scores
+  fill(redValue,greenValue,blueValue);
 
   // Handle input
   // Notice how we're using the SAME FUNCTION to handle the input
