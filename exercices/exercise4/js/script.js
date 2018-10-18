@@ -308,7 +308,10 @@ function handleBallOffScreen() {
 //
 // Draws ball on screen based on its properties
 function displayBall() {
-  rect(ball.x,ball.y,ball.size,ball.size);
+  //////////// NEW//////////////
+  // Make ball an ellipse
+  ellipse(ball.x,ball.y,ball.size,ball.size);
+  /////////// END NEW ///////////////
 }
 
 // displayPaddle(paddle)
@@ -316,4 +319,18 @@ function displayBall() {
 // Draws the specified paddle on screen based on its properties
 function displayPaddle(paddle) {
   rect(paddle.x,paddle.y,paddle.w,paddle.h);
+}
+
+///////// NEW //////
+//this spits a value or its negative at random
+function randomNegative(value) {
+ var r = random();
+  var result;
+ if (r < 0.5){
+  result = value;
+ }
+ else {
+   result = -value;
+ }
+ return result;
 }
