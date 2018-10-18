@@ -1,12 +1,18 @@
 // Pong
 // by Pippin Barr
+//Modified by Eugene Fournier
 //
 // A primitive implementation of Pong with no scoring system
 // just the ability to play the game with the keyboard.
 
 // Game colors
 var bgColor = 0;
-var fgColor = 255;
+//removed fgcolor
+/////// NEW ///////
+var redValue = 255;
+var greenValue = 255;
+var blueValue = 255;
+////// END NEW //////
 
 // BALL
 
@@ -39,7 +45,8 @@ var leftPaddle = {
   vy: 0,
   speed: 5,
   upKeyCode: 87, // The key code for W
-  downKeyCode: 83 // The key code for S
+  downKeyCode: 83, // The key code for S
+  score: 0
 }
 
 // RIGHT PADDLE
@@ -55,7 +62,8 @@ var rightPaddle = {
   vy: 0,
   speed: 5,
   upKeyCode: 38, // The key code for the UP ARROW
-  downKeyCode: 40 // The key code for the DOWN ARROW
+  downKeyCode: 40, // The key code for the DOWN ARROW
+  score: 0
 }
 
 // A variable to hold the beep sound we will play on bouncing
@@ -78,7 +86,10 @@ function setup() {
   createCanvas(640,480);
   rectMode(CENTER);
   noStroke();
-  fill(fgColor);
+  /////// NEW ////////
+  //changed the fill
+  fill(redValue,greenValue,blueValue);
+  /////// END NEW /////
 
   setupPaddles();
   setupBall();
@@ -257,6 +268,17 @@ function handleBallOffScreen() {
     // If it went off either side, reset it to the centre
     ball.x = width/2;
     ball.y = height/2;
+
+    ////////NEW///////
+    //this modifies the paddles's scores depending on which side of the screen the ball went off
+    if(ballRight < 0){
+      rightPaddle.score +=1;
+    }
+    if(ballLeft > width){
+      leftPaddle.score +=1;
+    }
+    ////////END NEW//////////
+
     // NOTE that we don't change its velocity here so it just
     // carries on moving with the same velocity after its
     // position is reset.
