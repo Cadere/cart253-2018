@@ -9,9 +9,9 @@
 var bgColor = 0;
 //removed fgcolor
 /////// NEW ///////
-var redValue = 255;
-var greenValue = 255;
-var blueValue = 255;
+var redValue;
+var greenValue;
+var blueValue;
 ////// END NEW //////
 
 // BALL
@@ -87,6 +87,10 @@ function setup() {
   rectMode(CENTER);
   noStroke();
   /////// NEW ////////
+  //set values for color variables
+  redValue = 255;
+  greenValue = 255;
+  blueValue = 255;
   //changed the fill
   fill(redValue,greenValue,blueValue);
   /////// END NEW /////
@@ -273,9 +277,15 @@ function handleBallOffScreen() {
     //this modifies the paddles's scores depending on which side of the screen the ball went off
     if(ballRight < 0){
       rightPaddle.score +=1;
+      redValue -= 25.5;
+      blueValue += 25.5;
+      constrain(blueValue, 0, 255);
     }
     if(ballLeft > width){
       leftPaddle.score +=1;
+      redValue += 25.5;
+      blueValue -= 25.5;
+      constrain(redValue, 0, 255);
     }
     ////////END NEW//////////
 
