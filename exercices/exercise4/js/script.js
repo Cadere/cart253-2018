@@ -23,6 +23,9 @@ var blueValue;
 // a varaible for the value by which I modify the colors
 var colorModifier = 25.5;
 
+// a variable that checks if the game is over
+var gameOver;
+
 ////// END NEW //////
 
 // BALL
@@ -147,44 +150,47 @@ function setupBall() {
 //
 // Calls the appropriate functions to run the game
 function draw() {
-  //update background color values
-  bgColor();
-  // Fill the background
-  background(bgRed,bgGreen,bgBlue);
-
-  // Handle input
-  // Notice how we're using the SAME FUNCTION to handle the input
-  // for the two paddles!
-  handleInput(leftPaddle);
-  handleInput(rightPaddle);
-
-  // Update positions of all objects
-  // Notice how we're using the SAME FUNCTION to handle the input
-  // for all three objects!
-  updatePosition(leftPaddle);
-  updatePosition(rightPaddle);
-  updatePosition(ball);
-
-  // Handle collisions
-  handleBallWallCollision();
-  handleBallPaddleCollision(leftPaddle);
-  handleBallPaddleCollision(rightPaddle);
-
-  // Handle the ball going off screen
-  handleBallOffScreen();
-
-  //update the color of the objects on screen
-  //the values of the color variables are updated at the same time as the scores
-  fill(redValue,greenValue,blueValue);
-  console.log("redValue", redValue, "greenValue", greenValue, "blueValue", blueValue);
-
-  // Display the paddles and ball
-  displayPaddle(leftPaddle);
-  displayPaddle(rightPaddle);
-  displayBall();
-
-  //this check if a player has won and will cover the rest with very nice, winning text
   winningCondition();
+
+  if(!gameOver){
+    //update background color values
+    bgColor();
+    // Fill the background
+    background(bgRed,bgGreen,bgBlue);
+
+    // Handle input
+    // Notice how we're using the SAME FUNCTION to handle the input
+    // for the two paddles!
+    handleInput(leftPaddle);
+    handleInput(rightPaddle);
+
+    // Update positions of all objects
+    // Notice how we're using the SAME FUNCTION to handle the input
+    // for all three objects!
+    updatePosition(leftPaddle);
+    updatePosition(rightPaddle);
+    updatePosition(ball);
+
+    // Handle collisions
+    handleBallWallCollision();
+    handleBallPaddleCollision(leftPaddle);
+    handleBallPaddleCollision(rightPaddle);
+
+    // Handle the ball going off screen
+    handleBallOffScreen();
+
+    //update the color of the objects on screen
+    //the values of the color variables are updated at the same time as the scores
+    fill(redValue,greenValue,blueValue);
+
+    // Display the paddles and ball
+    displayPaddle(leftPaddle);
+    displayPaddle(rightPaddle);
+    displayBall();
+  }
+  else {
+    displayWinning();
+  }
 }
 
 
@@ -347,15 +353,15 @@ function displayPaddle(paddle) {
 ///////// NEW //////
 //this spits a value or its negative at random
 function randomNegative(value) {
- var r = random();
+  var r = random();
   var result;
- if (r < 0.5){
-  result = value;
- }
- else {
-   result = -value;
- }
- return result;
+  if (r < 0.5){
+    result = value;
+  }
+  else {
+    result = -value;
+  }
+  return result;
 }
 
 //this updates the values of the variables for the background colors
@@ -376,8 +382,31 @@ function bgColor() {
 }
 
 //this function checks if there's a winner or if it's a draw
-// and displays appropriate text if such is the case
 function winningCondition(){
+  // I am using color values to check winning because they are tied to the score:
+  // redValue < 0 or blueValue < 0 means that one of the players has 10 points more than the other
+  if (redValue <= 0) {
+    gameOver = true;
+  }
+  else if (blueValue <=0){
+    gameOver = true;
+  }
+  //Here I am using bgGreen as a measure of the game being a draw
+  // bgGreen > 255 means 125 points have been scored
+  // this is frankly very long
+  // it's time for this to end
+  else if(bgGreen > 255){
+    gameOver = true;
+  }
+  else {
+    gameOver = false;
+  }
+}
+
+
+//this function checks if there's a winner or if it's a draw
+// and displays appropriate text if such is the case
+function displayWinning(){
   // I am using color values to check winning because they are tied to the score:
   // redValue < 0 or blueValue < 0 means that one of the players has 10 points more than the other
   if (redValue <= 0) {
