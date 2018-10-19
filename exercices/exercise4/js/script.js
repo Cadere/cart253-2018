@@ -299,6 +299,7 @@ function handleBallPaddleCollision(paddle) {
       // Play our bouncing sound effect by rewinding and then playing
       beepSFX.currentTime = 0;
       beepSFX.play();
+      resetBallSpeed();
     }
   }
 }
@@ -464,5 +465,15 @@ function displayWinning(){
     textSize(48);
     text("IT'S A DRAW!", width/2, height/2);
     pop();
+  }
+}
+
+//this fucntion resets the ball's velocity to the original speed
+function resetBallSpeed(){
+  if (ball.vy < 0) {
+    ball.vy = -ball.speed;
+  }
+  else {
+    ball.vy = ball.speed;
   }
 }
