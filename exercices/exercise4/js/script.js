@@ -90,12 +90,21 @@ var rightPaddle = {
 
 // A variable to hold the beep sound we will play on bouncing
 var beepSFX;
+////////// NEW /////////
+// a variable to hold the cheering sound when you win
+var cheeringSound;
+var booingSound;
+////////// END NEW ////////////
 
 // preload()
 //
 // Loads the beep audio for the sound of bouncing
 function preload() {
   beepSFX = new Audio("assets/sounds/beep.wav");
+  ////////// NEW /////////
+  cheeringSound = new Audio("assets/sounds/cheering.mp3");
+  booingSound = new Audio("assets/sounds/booing.mp3");
+  ////////// END NEW ////////////
 }
 
 // setup()
@@ -412,6 +421,7 @@ function displayWinning(){
   if (redValue <= 0) {
     push();
     beepSFX.pause();
+    cheeringSound.play();
     background(colorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
@@ -423,6 +433,7 @@ function displayWinning(){
   if (blueValue <= 0) {
     push();
     beepSFX.pause();
+    cheeringSound.play();
     background(colorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
@@ -437,6 +448,7 @@ function displayWinning(){
   if (bgGreen > 255) {
     push();
     beepSFX.pause();
+    booingSound.play();
     background(colorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
