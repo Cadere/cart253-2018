@@ -104,9 +104,9 @@ function setup() {
   //moved fill() to draw since the color values are now getting updated
   //every time someone scores a point
   //base color values are set here; the result is white
-  redValue = 255;
-  greenValue = 255;
-  blueValue = 255;
+  redMod = 255;
+  greenMod = 255;
+  blueMod = 255;
   /////// END NEW /////
 
   setupPaddles();
@@ -300,13 +300,18 @@ function handleBallOffScreen() {
     //this modifies the paddles's scores depending on which side of the screen the ball went off
     if(ballRight < 0){
       rightPaddle.score +=1;
-      redValue -= 25.5;
-      blueValue += 25.5;
+      redMod -= colorModifier;
+      blueMod += colorModifier;
+      redValue = constrain(redMod, 0, 255);
+      blueValue = constrain(blueMod, 0, 255);
+      greenValue = greenMod;
     }
     if(ballLeft > width){
-      leftPaddle.score +=1;
-      redValue += 25.5;
-      blueValue -= 25.5;
+      redMod -= colorModifier;
+      blueMod += colorModifier;
+      redValue = constrain(redMod, 0, 255);
+      blueValue = constrain(blueMod, 0, 255);
+      greenValue = greenMod;
     }
     ////////END NEW//////////
 
