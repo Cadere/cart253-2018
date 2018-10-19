@@ -5,19 +5,23 @@
 // A primitive implementation of Pong with no scoring system
 // just the ability to play the game with the keyboard.
 
-// Game colors
-var bgColor = 0;
-//removed fgcolor
 /////// NEW ///////
+// Game colors
+//removed bgColor
+// this will serve as a base value for the background colors
+var colorBaseValue = 100;
+// these values will serve to replace bgColor
+var bgRed = colorBaseValue;
+var bgGreen = colorBaseValue;
+var bgBlue = colorBaseValue;
+//removed fgcolor
+// these values will serve to replace fgcolor : they are the foreground fill
 var redValue;
 var greenValue;
 var blueValue;
-//other color variables so that it's easier to constrain their end values
-var redMod;
-var greenMod;
-var blueMod;
-//a variable for the value by which I modify colors - yay to avoiding magic numbers
+// a varaible for the value by which I modify the colors
 var colorModifier = 25.5;
+
 ////// END NEW //////
 
 // BALL
@@ -104,9 +108,9 @@ function setup() {
   //moved fill() to draw since the color values are now getting updated
   //every time someone scores a point
   //base color values are set here; the result is white
-  redMod = 255;
-  greenMod = 255;
-  blueMod = 255;
+  redValue = 255;
+  greenValue = 255;
+  blueValue = 255;
   /////// END NEW /////
 
   setupPaddles();
@@ -142,8 +146,10 @@ function setupBall() {
 //
 // Calls the appropriate functions to run the game
 function draw() {
+  //update background color values
+  bgColor();
   // Fill the background
-  background(bgColor);
+  background(bgRed,bgGreen,bgBlue);
 
   // Handle input
   // Notice how we're using the SAME FUNCTION to handle the input
@@ -300,18 +306,13 @@ function handleBallOffScreen() {
     //this modifies the paddles's scores depending on which side of the screen the ball went off
     if(ballRight < 0){
       rightPaddle.score +=1;
-      redMod -= colorModifier;
-      blueMod += colorModifier;
-      redValue = constrain(redMod, 0, 255);
-      blueValue = constrain(blueMod, 0, 255);
-      greenValue = greenMod;
+      redValue = constrain(redValue - colorModifier, 0, 255);
+      blueValue = constrain(blueValue + colorModifier, 0, 255);
     }
     if(ballLeft > width){
-      redMod -= colorModifier;
-      blueMod += colorModifier;
-      redValue = constrain(redMod, 0, 255);
-      blueValue = constrain(blueMod, 0, 255);
-      greenValue = greenMod;
+      leftPaddle.score +=1;
+      redValue = constrain(redValue + colorModifier, 0, 255);
+      blueValue = constrain(blueValue - colorModifier, 0, 255);
     }
     ////////END NEW//////////
 
@@ -351,4 +352,15 @@ function randomNegative(value) {
    result = -value;
  }
  return result;
+}
+
+//this updates the values of the variables for the background colors
+
+function bgColor() {
+  bgGreen = colorBaseValue + (leftPaddle.score + rightPaddle.score)*2;
+  if (bgGreen > 170) {
+    bgRed = colorBaseValue + (rightPaddle.score)*2;
+    bgBlue = colorBaseValue + (leftPaddle.score)*2;
+  }
+  console.log("bgGreen", bgGreen);
 }
