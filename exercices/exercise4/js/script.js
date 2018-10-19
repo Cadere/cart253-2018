@@ -10,6 +10,7 @@
 //removed bgColor
 // this will serve as a base value for the background colors
 var colorBaseValue = 100;
+var maxColorValue = 255;
 // these values will serve to replace bgColor
 var bgRed = colorBaseValue;
 var bgGreen = colorBaseValue;
@@ -359,8 +360,15 @@ function randomNegative(value) {
 function bgColor() {
   bgGreen = colorBaseValue + (leftPaddle.score + rightPaddle.score)*2;
   if (bgGreen > 170) {
-    bgRed = colorBaseValue + (rightPaddle.score)*2;
-    bgBlue = colorBaseValue + (leftPaddle.score)*2;
+    //here I am doing a bad job of avoiding magic numbers
+    // bgRed and bgBlue start changing value when the total score has reached 35
+    // (that's the point I felt the green was getting too saturated)
+    // I am using map() here because at first I was using bgRed = colorBaseValue + leftPaddle.score
+    // but this led to a sudden jump in color when if became true
+    // 13 and  100 here represent slightly arbitrary, plausible score values at the moment of total score = 35
+    // and at the moment bgGreen will max up
+    bgRed = map(leftPaddle.score, 13, 100, colorBaseValue, maxColorValue);
+    bgBlue = map(rightPaddle.score, 13, 100, colorBaseValue, maxColorValue);
   }
-  console.log("bgGreen", bgGreen);
+
 }
