@@ -318,20 +318,29 @@ function handleBallOffScreen() {
     // If it went off either side, reset it to the centre
     ball.x = width/2;
     ball.y = height/2;
-    ball.vx = randomNegative(ball.speed);
-    ball.vy = randomNegative(ball.speed);
+
 
     ////////NEW///////
     //this modifies the paddles's scores depending on which side of the screen the ball went off
+    // it also modifies the fill color
     if(ballRight < 0){
       rightPaddle.score +=1;
+      //the more points the right paddle has vs the left paddle, the more cyan the paddles and ball become
       redValue = constrain(redValue - colorModifier, 0, 255);
       blueValue = constrain(blueValue + colorModifier, 0, 255);
+      //this makes it so the ball will next shoot at a random speed towards this paddle
+      ball.vy = randomNegative(random(ball.speed/2, ball.speed*2));
+      ball.vx = ball.speed;
+
     }
     if(ballLeft > width){
+      //the more points the left  paddle has vs the right paddle, the more yellow the paddles and ball become
       leftPaddle.score +=1;
       redValue = constrain(redValue + colorModifier, 0, 255);
       blueValue = constrain(blueValue - colorModifier, 0, 255);
+      //this makes it so the ball will next shoot at a random speed towards this paddle
+      ball.vy = randomNegative(random(-ball.speed/2, -ball.speed*2));
+      ball.vx = -ball.speed;
     }
     ////////END NEW//////////
 
