@@ -12,6 +12,12 @@ var bgColor = 0;
 var redValue;
 var greenValue;
 var blueValue;
+//other color variables so that it's easier to constrain their end values
+var redMod;
+var greenMod;
+var blueMod;
+//a variable for the value by which I modify colors - yay to avoiding magic numbers
+var colorModifier = 25.5;
 ////// END NEW //////
 
 // BALL
@@ -97,6 +103,10 @@ function setup() {
   /////// NEW ////////
   //moved fill() to draw since the color values are now getting updated
   //every time someone scores a point
+  //base color values are set here; the result is white
+  redValue = 255;
+  greenValue = 255;
+  blueValue = 255;
   /////// END NEW /////
 
   setupPaddles();
@@ -119,12 +129,14 @@ function setupPaddles() {
 // setupBall()
 //
 // Sets the position and velocity of the ball
+///// NEW ///////
 function setupBall() {
   ball.x = width/2;
   ball.y = height/2;
-  ball.vx = ball.speed;
-  ball.vy = ball.speed;
+  ball.vx = randomNegative(ball.speed);
+  ball.vy = randomNegative(ball.speed);
 }
+//////END NEW //////
 
 // draw()
 //
@@ -132,10 +144,6 @@ function setupBall() {
 function draw() {
   // Fill the background
   background(bgColor);
-
-  //update the color of the objects on screen
-  //the values of the color variables are updated at the same time as the scores
-  fill(redValue,greenValue,blueValue);
 
   // Handle input
   // Notice how we're using the SAME FUNCTION to handle the input
@@ -157,6 +165,11 @@ function draw() {
 
   // Handle the ball going off screen
   handleBallOffScreen();
+
+  //update the color of the objects on screen
+  //the values of the color variables are updated at the same time as the scores
+  fill(redValue,greenValue,blueValue);
+  console.log("redValue", redValue, "greenValue", greenValue, "blueValue", blueValue);
 
   // Display the paddles and ball
   displayPaddle(leftPaddle);
@@ -280,6 +293,8 @@ function handleBallOffScreen() {
     // If it went off either side, reset it to the centre
     ball.x = width/2;
     ball.y = height/2;
+    ball.vx = randomNegative(ball.speed);
+    ball.vy = randomNegative(ball.speed);
 
     ////////NEW///////
     //this modifies the paddles's scores depending on which side of the screen the ball went off
@@ -287,13 +302,11 @@ function handleBallOffScreen() {
       rightPaddle.score +=1;
       redValue -= 25.5;
       blueValue += 25.5;
-      constrain(blueValue, 0, 255);
     }
     if(ballLeft > width){
       leftPaddle.score +=1;
       redValue += 25.5;
       blueValue -= 25.5;
-      constrain(redValue, 0, 255);
     }
     ////////END NEW//////////
 
