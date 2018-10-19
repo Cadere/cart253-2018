@@ -182,6 +182,9 @@ function draw() {
   displayPaddle(leftPaddle);
   displayPaddle(rightPaddle);
   displayBall();
+
+  //this check if a player has won and will cover the rest with very nice, winning text
+  winningCondition();
 }
 
 
@@ -370,5 +373,46 @@ function bgColor() {
     bgRed = map(leftPaddle.score, 13, 100, colorBaseValue, maxColorValue);
     bgBlue = map(rightPaddle.score, 13, 100, colorBaseValue, maxColorValue);
   }
+}
 
+//this function checks if there's a winner or if it's a draw
+// and displays appropriate text if such is the case
+function winningCondition(){
+  // I am using color values to check winning because they are tied to the score:
+  // redValue < 0 or blueValue < 0 means that one of the players has 10 points more than the other
+  if (redValue <= 0) {
+    push();
+    beepSFX.pause();
+    background(colorBaseValue);
+    textAlign(CENTER, CENTER);
+    textFont("Agency FB");
+    textSize(48);
+    text("RIGHT PADDLE WON!", width/2, height/2);
+    pop();
+  }
+
+  if (blueValue <= 0) {
+    push();
+    beepSFX.pause();
+    background(colorBaseValue);
+    textAlign(CENTER, CENTER);
+    textFont("Agency FB");
+    textSize(48);
+    text("LEFT PADDLE WON!", width/2, height/2);
+    pop();
+  }
+  //Here I am using bgGreen as a measure of the game being a draw
+  // bgGreen > 255 means 125 points have been scored
+  // this is frankly very long
+  // it's time for this to end
+  if (bgGreen > 255) {
+    push();
+    beepSFX.pause();
+    background(colorBaseValue);
+    textAlign(CENTER, CENTER);
+    textFont("Agency FB");
+    textSize(48);
+    text("IT'S A DRAW!", width/2, height/2);
+    pop();
+  }
 }
