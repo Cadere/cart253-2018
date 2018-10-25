@@ -94,4 +94,14 @@ Ball.prototype.handleCollision = function(paddle) {
 Ball.prototype.reset = function () {
   this.x = width/2;
   this.y = height/2;
+  /////// NEW ////////
+  //this makes it so the ball shoots back towards the paddle that just won a point
+  // ie if it went out left, it will shoot right
+  // this simply reverses the vx value
+  this.vx = -this.vx;
+  //this resets the vy to a random direction and a random speed
+  //this way the scoring paddle cannot know if the ball will go up or down and how fast
+  this.vy = randomNegative(random(this.speed/2, this.speed*2));
+  //////// END NEW///////
+
 }
