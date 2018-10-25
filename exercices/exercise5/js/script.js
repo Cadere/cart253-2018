@@ -39,11 +39,20 @@ var fgColorModifier = 25.5;
 //this sets the initial value of the bgFill color
 var bgColorBaseValue = 100;
 // this sets the pace at which the bgFill color values are modified
-var bgColorModifier = 0.05;
+var bgColorModifier = 0.02;
 
 //variable for whether the game is over or not
 var gameOver;
 
+// preload()
+//
+// Loads the beep audio for the sound of bouncing
+function preload() {
+  beepSFX = new Audio("assets/sounds/beep.wav");
+  cheeringSound = new Audio("assets/sounds/cheering.mp3");
+  booingSound = new Audio("assets/sounds/booing.mp3");
+
+//////// END NEW ////////
 
 // setup()
 //
@@ -179,8 +188,8 @@ function winningCondition(){
 function displayWinning(){
   if (fgFill.red <= colorMinValue) {
     push();
-    //  beepSFX.pause();
-    //  cheeringSound.play();
+    beepSFX.pause();
+    cheeringSound.play();
     background(bgColorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
@@ -191,8 +200,8 @@ function displayWinning(){
 
   if (fgFill.blue <= colorMinValue) {
     push();
-    //  beepSFX.pause();
-    //  cheeringSound.play();
+    beepSFX.pause();
+    cheeringSound.play();
     background(bgColorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
@@ -202,8 +211,8 @@ function displayWinning(){
   }
   if (bgFill.green === colorMaxValue) {
     push();
-    //  beepSFX.pause();
-    //  booingSound.play();
+    beepSFX.pause();
+    booingSound.play();
     background(bgColorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
