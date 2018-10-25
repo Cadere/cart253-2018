@@ -17,10 +17,6 @@ var rightPaddle;
 //////// NEW ////////
 //in exercise 4, the background and fill colors change
 // so I am adding the same variables for it
-//these are the variables for the color of the background
-var bgRed;
-var bgGreen;
-var bgBlue;
 
 //variables for colors in general
 //
@@ -56,25 +52,26 @@ var bgColorModifier = 0.5;
 ///////END NEW//////
 function setup() {
   createCanvas(640,480);
+  ///////// NEW /////////
+  // No stroke because I find it more aesthetic
+  noStroke();
   //Create a foreground fill
   fgFill = new Fill(fgColorBaseValue,fgColorBaseValue,fgColorBaseValue,fgColorModifier);
+  //Create a background fill
+  bgFill = new Fill(bgColorBaseValue, bgColorBaseValue,bgColorBaseValue,bgColorModifier);
+  ///////// END NEW ///////////
   // Create a ball
   ball = new Ball(width/2,height/2,10,5);
   ////////// NEW ////////////
   //added ball.setup to set the velocities randomNegative(speed)
   // for some reason I couldn't do it directly in the constructor
   ball.setup();
+    ///////// END NEW ///////////
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW);
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87);
-
-  //////// NEW /////////
-  ////// TEMP /////////
-  bgRed = 0;
-  bgGreen =  0;
-  bgBlue = 0;
 }
 
 // draw()
@@ -83,8 +80,10 @@ function setup() {
 // and displays everything.
 function draw() {
   /////// NEW ///////
-  //replaced the background color value with variables
-  background(bgRed,bgGreen,bgBlue);
+  //this method makes the color of the background increasingly green as the game progresses
+  bgFill.bgProgress();
+  //replaced the background color value with bgFill properties
+  background(bgFill.red,bgFill.green,bgFill.blue);
   ////// END NEW /////
 
   leftPaddle.handleInput();
