@@ -45,6 +45,10 @@ Ball.prototype.update = function () {
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
     this.vy = -this.vy;
+    //////// NEW //////////
+    // play beep sound
+    beepSFX.play();
+    //////// END NEW ////////
   }
 }
 
@@ -102,6 +106,8 @@ Ball.prototype.handleCollision = function(paddle) {
       // Reverse x velocity to bounce
       this.vx = -this.vx;
       //////// NEW //////////
+      // play beep sound
+      beepSFX.play();
       // Resets vy to original velocity
       if (this.vy < 0){
         this.vy = -this.speed;
@@ -109,7 +115,7 @@ Ball.prototype.handleCollision = function(paddle) {
       else {
         this.vy = this.speed;
       }
-
+     ////// END NEW ///////
     }
   }
 }

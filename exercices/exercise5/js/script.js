@@ -51,6 +51,7 @@ function preload() {
   beepSFX = new Audio("assets/sounds/beep.wav");
   cheeringSound = new Audio("assets/sounds/cheering.mp3");
   booingSound = new Audio("assets/sounds/booing.mp3");
+}
 
 //////// END NEW ////////
 
