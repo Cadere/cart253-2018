@@ -62,12 +62,29 @@ Ball.prototype.isOffScreen = function () {
   }
 }
 
+////////// NEW ///////////
+//wentLeft()
+//
+// checks which side the ball has moved off
+Ball.prototype.wentLeft = function () {
+  // check for going off screen to the left
+  if (this.x + this.size < 0){
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
 // display()
 //
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function () {
   fill(255);
-  rect(this.x,this.y,this.size,this.size);
+  /////// NEW ///////
+  //changed the ball to an ellipse
+  ellipse(this.x,this.y,this.size,this.size);
+  /////// END NEW ////////
 }
 
 // handleCollision(paddle)
@@ -112,5 +129,4 @@ Ball.prototype.reset = function () {
   //this way the scoring paddle cannot know if the ball will go up or down and how fast
   this.vy = randomNegative(random(this.speed/2, this.speed*2));
   //////// END NEW///////
-
 }

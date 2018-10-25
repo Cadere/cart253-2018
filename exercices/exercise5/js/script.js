@@ -70,9 +70,22 @@ function draw() {
   leftPaddle.update();
   rightPaddle.update();
 
+////// NEW /////////
+// if ball.isOffScreen() is true,
+// ball.wentLeft() is checked
+// if ball.wentLeft() is true, rightPaddle's score is updated
+//if ball.wentLeft() is false, then ball went right, and leftPaddle's score is updated
   if (ball.isOffScreen()) {
+    if(ball.wentLeft()) {
+      rightPaddle.updateScore();
+    }
+    else{
+      leftPaddle.updateScore();
+    }
     ball.reset();
   }
+  console.log("rightPaddle score", rightPaddle.score, "leftPaddle score",leftPaddle.score);
+  //////// END NEW ///////
 
   ball.handleCollision(leftPaddle);
   ball.handleCollision(rightPaddle);
