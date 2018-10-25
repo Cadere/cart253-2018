@@ -6,15 +6,28 @@
 
 // Ball constructor
 //
+/////// NEW ////////
+// removed vx and vy from the arguments you can specify, as it made speed obsolete
+// the values of this.vx and this.vy are no longer assigned here
 // Sets the properties with the provided arguments
-function Ball(x,y,vx,vy,size,speed) {
+function Ball(x,y,size,speed) {
   this.x = x;
   this.y = y;
-  this.vx = vx;
-  this.vy = vy;
+  this.vx;
+  this.vy;
   this.size = size;
   this.speed = speed;
 }
+////////// END NEW ////////
+
+///////// NEW ////////
+//this function sets the initial velocity of the Ball to the speed or the negative of the speed, at random
+//I wanted to do this along with stating the arguments but it wasn't working
+Ball.prototype.setup = function(){
+  this.vx = randomNegative(this.speed);
+  this.vy = randomNegative(this.speed);
+}
+////////// END NEW ////////
 
 // update()
 //
