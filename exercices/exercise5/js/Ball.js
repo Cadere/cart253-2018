@@ -84,6 +84,15 @@ Ball.prototype.handleCollision = function(paddle) {
       this.y -= this.vy;
       // Reverse x velocity to bounce
       this.vx = -this.vx;
+      //////// NEW //////////
+      // Resets vy to original velocity
+      if (this.vy < 0){
+        this.vy = -this.speed;
+      }
+      else {
+        this.vy = this.speed;
+      }
+
     }
   }
 }
