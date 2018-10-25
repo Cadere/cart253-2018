@@ -428,7 +428,7 @@ function winningCondition(){
 function displayWinning(){
   // I am using color values to check winning because they are tied to the score:
   // redValue < 0 or blueValue < 0 means that one of the players has 10 points more than the other
-  if (fgFill.red <= 0) {
+  if (redValue <= 0) {
     push();
     beepSFX.pause();
     cheeringSound.play();
@@ -440,7 +440,7 @@ function displayWinning(){
     pop();
   }
 
-  if (fgFill.blue <= 0) {
+  if (blueValue <= 0) {
     push();
     beepSFX.pause();
     cheeringSound.play();
@@ -455,7 +455,7 @@ function displayWinning(){
   // bgGreen > 255 means 125 points have been scored
   // this is frankly very long
   // it's time for this to end
-  if (bgFill.green > 255) {
+  if (bgGreen > 255) {
     push();
     beepSFX.pause();
     booingSound.play();
