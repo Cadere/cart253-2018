@@ -1,5 +1,6 @@
 // Basic OO Pong
 // by Pippin Barr
+// Modified by Eugene Fournier
 //
 // A primitive implementation of Pong with no scoring system
 // just the ability to play the game with the keyboard.
@@ -38,7 +39,10 @@ var fgColorModifier = 25.5;
 //this sets the initial value of the bgFill color
 var bgColorBaseValue = 100;
 // this sets the pace at which the bgFill color values are modified
-var bgColorModifier = 0.5;
+var bgColorModifier = 0.05;
+
+//variable for whether the game is over or not
+var gameOver;
 
 
 // setup()
@@ -80,6 +84,8 @@ function setup() {
 // and displays everything.
 function draw() {
   /////// NEW ///////
+  //the game can now end, so all the play stuff only happens if gameOver is false
+  if (!gameOver) {
   //this method makes the color of the background increasingly green as the game progresses
   bgFill.bgProgress();
   //replaced the background color value with bgFill properties
@@ -118,6 +124,10 @@ function draw() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+  }
+  else {
+    displayWinning();
+  }
 }
 
 /////// NEW ///////
@@ -132,5 +142,69 @@ function randomNegative(value) {
     result = -value;
   }
   return result;
+}
+
+//this function checks if there's a winner or if it's a draw
+function winningCondition(){
+  // I am using color values to check winning because they are tied to the score:
+  // fgFill.red < 0 or fgFill.blue < 0 means that one of the players has 10 points more than the other
+  if (fgFill.red <= 0) {
+    gameOver = true;
+  }
+  else if (fgFill.blue <=0){
+    gameOver = true;
+  }
+  //Here I am using bgGreen as a measure of the game being a draw
+  // bgFill.green = 255 means the game has been going on for a long while
+  // it's time for this to end
+  else if(bgFill.green = 255){
+    gameOver = true;
+  }
+  else {
+    gameOver = false;
+  }
+}
+
+function displayWinning(){
+  // I am using color values to check winning because they are tied to the score:
+  // redValue < 0 or blueValue < 0 means that one of the players has 10 points more than the other
+  if (fgFill.red <= 0) {
+    push();
+  //  beepSFX.pause();
+  //  cheeringSound.play();
+    background(colorBaseValue);
+    textAlign(CENTER, CENTER);
+    textFont("Agency FB");
+    textSize(48);
+    text("RIGHT PADDLE WON!", width/2, height/2);
+    pop();
+  }
+
+  if (fgFill.blue <= 0) {
+    push();
+  //  beepSFX.pause();
+  //  cheeringSound.play();
+    background(colorBaseValue);
+    textAlign(CENTER, CENTER);
+    textFont("Agency FB");
+    textSize(48);
+    text("LEFT PADDLE WON!", width/2, height/2);
+    pop();
+  }
+  //Here I am using bgGreen as a measure of the game being a draw
+  // bgGreen > 255 means 125 points have been scored
+  // this is frankly very long
+  // it's time for this to end
+  if (bgFill.green = 255) {
+    push();
+  //  beepSFX.pause();
+  //  booingSound.play();
+    background(colorBaseValue);
+    textAlign(CENTER, CENTER);
+    textFont("Agency FB");
+    textSize(48);
+    text("IT'S A DRAW!", width/2, height/2);
+    pop();
+  }
 }
 //////// END NEW ///////

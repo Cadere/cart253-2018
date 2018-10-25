@@ -21,7 +21,12 @@ Fill.prototype.rightScored = function(){
   this.blue = constrain(this.blue - this.colorModifier, colorMinValue, colorMaxValue);
 }
 
-//This makes the fill color greener
+//This makes the fill color change as the game progresses
 Fill.prototype.bgProgress = function(){
+  //This makes the fill color greener with time
   this.green = constrain(this.green + this.colorModifier, colorMinValue, colorMaxValue);
+  //this makes the fill color redder as the LeftPaddle scores points
+  this.red = bgColorBaseValue + leftPaddle.score;
+  // this makes the fill color bluer as the RightPaddle scores points
+  this.blue = bgColorBaseValue + rightPaddle.score;
 }
