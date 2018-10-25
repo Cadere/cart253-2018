@@ -70,7 +70,7 @@ function setup() {
   //added ball.setup to set the velocities randomNegative(speed)
   // for some reason I couldn't do it directly in the constructor
   ball.setup();
-    ///////// END NEW ///////////
+  ///////// END NEW ///////////
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW);
   // Create the left paddle with W and S as controls
@@ -85,45 +85,49 @@ function setup() {
 function draw() {
   /////// NEW ///////
   //the game can now end, so all the play stuff only happens if gameOver is false
+  // we check if the game is over
+  winningCondition();
+  //then act accordingly
   if (!gameOver) {
-  //this method makes the color of the background increasingly green as the game progresses
-  bgFill.bgProgress();
-  //replaced the background color value with bgFill properties
-  background(bgFill.red,bgFill.green,bgFill.blue);
-  ////// END NEW /////
+    //this method makes the color of the background increasingly green as the game progresses
+    bgFill.bgProgress();
+    //replaced the background color value with bgFill properties
+    background(bgFill.red,bgFill.green,bgFill.blue);
+    console.log("bgFill.green", bgFill.green);
+    ////// END NEW /////
 
-  leftPaddle.handleInput();
-  rightPaddle.handleInput();
+    leftPaddle.handleInput();
+    rightPaddle.handleInput();
 
-  ball.update();
-  leftPaddle.update();
-  rightPaddle.update();
+    ball.update();
+    leftPaddle.update();
+    rightPaddle.update();
 
-////// NEW /////////
-// if ball.isOffScreen() is true,
-// ball.wentLeft() is checked
-// if ball.wentLeft() is true, rightPaddle's score is updated
-//if ball.wentLeft() is false, then ball went right, and leftPaddle's score is updated
-  if (ball.isOffScreen()) {
-    if(ball.wentLeft()) {
-      rightPaddle.updateScore();
-      fgFill.rightScored();
+    ////// NEW /////////
+    // if ball.isOffScreen() is true,
+    // ball.wentLeft() is checked
+    // if ball.wentLeft() is true, rightPaddle's score is updated
+    //if ball.wentLeft() is false, then ball went right, and leftPaddle's score is updated
+    if (ball.isOffScreen()) {
+      if(ball.wentLeft()) {
+        rightPaddle.updateScore();
+        fgFill.rightScored();
+      }
+      else{
+        leftPaddle.updateScore();
+        fgFill.leftScored();
+      }
+      ball.reset();
     }
-    else{
-      leftPaddle.updateScore();
-      fgFill.leftScored();
-    }
-    ball.reset();
-  }
-  console.log("rightPaddle score", rightPaddle.score, "leftPaddle score",leftPaddle.score);
-  //////// END NEW ///////
+    console.log("rightPaddle score", rightPaddle.score, "leftPaddle score",leftPaddle.score);
+    //////// END NEW ///////
 
-  ball.handleCollision(leftPaddle);
-  ball.handleCollision(rightPaddle);
+    ball.handleCollision(leftPaddle);
+    ball.handleCollision(rightPaddle);
 
-  ball.display();
-  leftPaddle.display();
-  rightPaddle.display();
+    ball.display();
+    leftPaddle.display();
+    rightPaddle.display();
   }
   else {
     displayWinning();
@@ -147,32 +151,37 @@ function randomNegative(value) {
 //this function checks if there's a winner or if it's a draw
 function winningCondition(){
   // I am using color values to check winning because they are tied to the score:
-  // fgFill.red < 0 or fgFill.blue < 0 means that one of the players has 10 points more than the other
-  if (fgFill.red <= 0) {
+  // fgFill.red < colorMinValue or fgFill.blue < colorMinValue means that one of the players has 10 points more than the other
+  if (fgFill.red <= colorMinValue) {
     gameOver = true;
+    return gameOver;
   }
-  else if (fgFill.blue <=0){
+  else if (fgFill.blue <=colorMinValue){
     gameOver = true;
+    return gameOver;
   }
   //Here I am using bgGreen as a measure of the game being a draw
-  // bgFill.green = 255 means the game has been going on for a long while
+  // bgFill.green === colorMaxValue-1 means the game has been going on for a long while
   // it's time for this to end
-  else if(bgFill.green = 255){
+  else if(bgFill.green === colorMaxValue){
     gameOver = true;
+    return gameOver;
   }
   else {
     gameOver = false;
+    return gameOver;
   }
 }
 
+//function displayWinning()
+//
+// this function displays text when one of the players wins or there is a draw
 function displayWinning(){
-  // I am using color values to check winning because they are tied to the score:
-  // redValue < 0 or blueValue < 0 means that one of the players has 10 points more than the other
-  if (fgFill.red <= 0) {
+  if (fgFill.red <= colorMinValue) {
     push();
-  //  beepSFX.pause();
-  //  cheeringSound.play();
-    background(colorBaseValue);
+    //  beepSFX.pause();
+    //  cheeringSound.play();
+    background(bgColorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
     textSize(48);
@@ -180,26 +189,22 @@ function displayWinning(){
     pop();
   }
 
-  if (fgFill.blue <= 0) {
+  if (fgFill.blue <= colorMinValue) {
     push();
-  //  beepSFX.pause();
-  //  cheeringSound.play();
-    background(colorBaseValue);
+    //  beepSFX.pause();
+    //  cheeringSound.play();
+    background(bgColorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
     textSize(48);
     text("LEFT PADDLE WON!", width/2, height/2);
     pop();
   }
-  //Here I am using bgGreen as a measure of the game being a draw
-  // bgGreen > 255 means 125 points have been scored
-  // this is frankly very long
-  // it's time for this to end
-  if (bgFill.green = 255) {
+  if (bgFill.green === colorMaxValue) {
     push();
-  //  beepSFX.pause();
-  //  booingSound.play();
-    background(colorBaseValue);
+    //  beepSFX.pause();
+    //  booingSound.play();
+    background(bgColorBaseValue);
     textAlign(CENTER, CENTER);
     textFont("Agency FB");
     textSize(48);
