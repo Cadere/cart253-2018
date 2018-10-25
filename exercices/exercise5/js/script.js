@@ -14,9 +14,24 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+//////// NEW ////////
+//in exercise 4, the background and fill colors change
+// so I am adding the same variables for it
+//these are the variables for the color of the background
+var bgRed;
+var bgGreen;
+var bgBlue;
+
+
 // setup()
 //
 // Creates the ball and paddles
+/////// NEW //////
+// note: in the previous version I had modified the paddle speed from 5 to 8
+// because 5 was painfully slow
+// in this version the paddle speed has a basic speed of 10 which is totally reasonnable
+// so I did not modify it
+///////END NEW//////
 function setup() {
   createCanvas(640,480);
   // Create a ball
@@ -33,7 +48,10 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-  background(0);
+  /////// NEW ///////
+  //replaced the background color value with variables
+  background(bgRed,bgGreen,bgBlue);
+  ////// END NEW /////
 
   leftPaddle.handleInput();
   rightPaddle.handleInput();
@@ -53,3 +71,18 @@ function draw() {
   leftPaddle.display();
   rightPaddle.display();
 }
+
+/////// NEW ///////
+//this spits a value or its negative at random
+function randomNegative(value) {
+  var r = random();
+  var result;
+  if (r < 0.5){
+    result = value;
+  }
+  else {
+    result = -value;
+  }
+  return result;
+}
+//////// END NEW ///////
