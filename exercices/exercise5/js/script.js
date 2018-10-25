@@ -22,6 +22,15 @@ var bgRed;
 var bgGreen;
 var bgBlue;
 
+//this sets the initial value of the fgFill color
+var fgColorBaseValue = 255;
+//this sets the maximum value of the colors
+var colorMaxValue = 255;
+//this sets the minimum value of the colors
+var colorMinValue = 0;
+// this sets the pace at which the fgFill color values are modified
+var colorModifier = 25.5;
+
 
 // setup()
 //
@@ -34,6 +43,8 @@ var bgBlue;
 ///////END NEW//////
 function setup() {
   createCanvas(640,480);
+  //Create a foreground fill
+  fgFill = new Fill(fgColorBaseValue,fgColorBaseValue,fgColorBaseValue);
   // Create a ball
   ball = new Ball(width/2,height/2,10,5);
   ////////// NEW ////////////
@@ -78,9 +89,11 @@ function draw() {
   if (ball.isOffScreen()) {
     if(ball.wentLeft()) {
       rightPaddle.updateScore();
+      fgFill.rightScored();
     }
     else{
       leftPaddle.updateScore();
+      fgFill.leftScored();
     }
     ball.reset();
   }

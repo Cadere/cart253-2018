@@ -80,8 +80,8 @@ Ball.prototype.wentLeft = function () {
 //
 // Draw the ball as a rectangle on the screen
 Ball.prototype.display = function () {
-  fill(255);
   /////// NEW ///////
+  fill(fgFill.red,fgFill.green,fgFill.blue);
   //changed the ball to an ellipse
   ellipse(this.x,this.y,this.size,this.size);
   /////// END NEW ////////
