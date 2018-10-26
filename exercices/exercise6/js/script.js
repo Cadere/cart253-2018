@@ -44,7 +44,8 @@ function setup() {
       leftPaddle.handleInput();
       rightPaddle.handleInput();
 
-      ball.update;
+//////////////// FIXED: missing () after .update --> ball.update()
+      ball.update();
       leftPaddle.update();
       rightPaddle.update();
 //////////////// FIXED: missing {
