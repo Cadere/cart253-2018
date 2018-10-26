@@ -45,7 +45,8 @@ Paddle.prototype.handleInput = function() {
 Paddle.prototype.update = function() {
   this.y += this.vy;
   //////////////// FIXED: constraint should have been constrain
-  this.y = constrain(this.y,0,hight-this.h);
+  //////////////// FIXED: typo in the parameters: height written hight and "-" instead of ","
+  this.y = constrain(this.y,0,height,this.h);
 }
 
 // display()
