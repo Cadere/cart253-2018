@@ -37,6 +37,11 @@ Paddle.prototype.handleInput = function() {
     //////////////// FIXED: this.vy = -this.speed should have been this.vy = this.speed so it behaves properly
     this.vy = this.speed;
   }
+  //////////////// FIXED: no vy for when no keys are pressed
+  // added else //(if no keys are pressed)// velocity = 0
+  else {
+    this.vy = 0;
+  }
 }
 
 // update()

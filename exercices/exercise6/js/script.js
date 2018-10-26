@@ -36,32 +36,33 @@ function setup() {
 }
 
 
-    // draw()
-    //
-    // Handles input, updates all the elements, checks for collisions
-    // and displays everything.
-    function draw() {
-      background(0);
+// draw()
+//
+// Handles input, updates all the elements, checks for collisions
+// and displays everything.
+function draw() {
+  background(0);
 
-      leftPaddle.handleInput();
-      rightPaddle.handleInput();
+  leftPaddle.handleInput();
+  rightPaddle.handleInput();
 
-//////////////// FIXED: missing () after .update --> ball.update()
-      ball.update();
-      leftPaddle.update();
-      rightPaddle.update();
-//////////////// FIXED: missing {
-//////////////// FIXED: ball.isOffTheScreen should have been ball.isOffScreen
-      if (ball.isOffScreen()){
-        //////////////// FIXED: reset();  should have been ball.reset();
-      ball.reset();
-    }
+  //////////////// FIXED: missing () after .update --> ball.update()
+  ball.update();
+  leftPaddle.update();
+  rightPaddle.update();
+  //////////////// FIXED: missing {
+  //////////////// FIXED: ball.isOffTheScreen should have been ball.isOffScreen
+  if (ball.isOffScreen()){
+    //////////////// FIXED: reset();  should have been ball.reset();
+    ball.reset();
+  }
 
-    ball.handleCollision(leftPaddle);
-    ball.handleCollision(rightPaddle);
+  ball.handleCollision(leftPaddle);
+  ball.handleCollision(rightPaddle);
 
-    ball.display();
-    leftPaddle.display();
-    //////////////// FIXED: missing )
-    rightPaddle.display();
-    }
+  ball.display();
+  leftPaddle.display();
+  //////////////// FIXED: missing )
+  rightPaddle.display();
+  console.log("leftPaddle",leftPaddle.x,leftPaddle.y)
+}
