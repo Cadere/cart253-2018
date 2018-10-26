@@ -65,5 +65,4 @@ function draw() {
   leftPaddle.display();
   //////////////// FIXED: missing )
   rightPaddle.display();
-  console.log("leftPaddle",leftPaddle.x,leftPaddle.y)
 }
