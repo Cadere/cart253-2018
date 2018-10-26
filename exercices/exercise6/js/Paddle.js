@@ -26,11 +26,14 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
 // appropriately
 //////////////// FIXED: prototype misspelled
 Paddle.prototype.handleInput = function() {
-  if (keyDown(upKey)) {
+  //////////////// FIXED: parameter should be this.upKey
+  if (keyDown(this.upKey)) {
     this.vy = -this.speed;
   }
-  else if (keyDown(downKey)) {
-    this.vy = -this.speed;
+  //////////////// FIXED: parameter should have been this.downKey
+  else if (keyDown(this.downKey)) {
+    //////////////// FIXED: this.vy = -this.speed should have been this.vy = this.speed so it behaves properly
+    this.vy = this.speed;
   }
 }
 
