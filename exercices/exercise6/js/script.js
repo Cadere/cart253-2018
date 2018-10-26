@@ -48,7 +48,7 @@ function setup() {
       rightPaddle.update();
 //////////////// FIXED: missing {
 //////////////// FIXED: ball.isOffTheScreen should have been ball.isOffScreen
-      if (ball.isOffTheScreen()){
+      if (ball.isOffScreen()){
       reset();
     }
 
