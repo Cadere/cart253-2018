@@ -22,7 +22,8 @@ function Ball(x,y,vx,vy,size,speed) {
 // checks for bouncing on upper or lower edgs, checks for going
 // off left or right side.
 //////////////// FIXED: faction instead of function
-Ball.prototype.updated = function () {
+//////////////// FIXED: .updated changed to .update
+Ball.prototype.update = function () {
   // Update position with velocity
   this.x = this.vx;
   this.y += this.vy;
@@ -82,7 +83,7 @@ Ball.prototype.handleCollision = function(paddle) {
 //
 // Set position back to the middle of the screen
 //////////////// FIXED: .reset mispelled as .rest
-Ball.prototype.rest = function () {
+Ball.prototype.reset = function () {
   this.x = width/2;
   this.y = height/2;
 }
