@@ -51,7 +51,8 @@ function setup() {
 //////////////// FIXED: missing {
 //////////////// FIXED: ball.isOffTheScreen should have been ball.isOffScreen
       if (ball.isOffScreen()){
-      reset();
+        //////////////// FIXED: reset();  should have been ball.reset();
+      ball.reset();
     }
 
     ball.handleCollision(leftPaddle);
