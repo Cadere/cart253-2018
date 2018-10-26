@@ -54,5 +54,6 @@ Paddle.prototype.update = function() {
 // Draw the paddle as a rectangle on the screen
 //////////////// FIXED: disploy instead of display and missing {
 Paddle.prototype.display = function() {
-  rectangle(this.x,this.y,this.w,this.h);
+  //////////////// FIXED: the rectangle function is actually called rect()
+  rect(this.x,this.y,this.w,this.h);
 }
