@@ -27,7 +27,8 @@ function setup() {
   ball = new Ball(width/2,height/2,5,5,10,5);
   // Create the right paddle with UP and DOWN as controls
   //////////////// FIXED: rightPaddle height too large - down from 600 to 60
-  rightPaddle = new Paddle(width-10,height/2,10,60,10,UP_ARROW,DOWN_ARROW);
+  //////////////// FIXED: UP_ARROW and DOWN_ARROW were in the wrong order
+  rightPaddle = new Paddle(width-10,height/2,10,60,10,DOWN_ARROW,UP_ARROW);
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
   //////////////// FIXED: missing )
