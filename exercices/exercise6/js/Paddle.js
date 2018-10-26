@@ -2,11 +2,11 @@
 //
 // A class that defines how a paddle behaves, including the ability
 // to specify the input keys to move it up and down
-//////////////// FIXED
+//////////////// FIXED: next line was not commented
 //Paddle constructor
-//////////////// FIXED
+//////////////// FIXED: next line was not commented
 //Sets the properties with the provided arguments or defaults
-//////////////// FIXED
+//////////////// FIXED: paddle mispelled as pladdle
 function Paddle(x,y,w,h,speed,downKey,upKey) {
   this.x = x;
   this.y = y;
@@ -23,7 +23,7 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
 //
 // Check if the up or down keys are pressed and update velocity
 // appropriately
-//////////////// FIXED
+//////////////// FIXED: prototype misspelled
 Paddle.prototype.handleInput = function() {
   if (keyDown(upKey)) {
     this.vy = -this.speed;
@@ -44,7 +44,7 @@ Paddle.prototype.update = function() {
 // display()
 //
 // Draw the paddle as a rectangle on the screen
-//////////////// FIXED
+//////////////// FIXED: disploy instead of display and missing {
 Paddle.prototype.display = function() {
   rectangle(this.x,this.y,this.w,this.h);
 }
