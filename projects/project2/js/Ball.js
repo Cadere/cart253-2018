@@ -7,11 +7,11 @@
 // Ball constructor
 //
 // Sets the properties with the provided arguments
-function Ball(x,y,vx,vy,size,speed) {
+function Ball(x,y,size,speed) {
   this.x = x;
   this.y = y;
-  this.vx = vx;
-  this.vy = vy;
+  this.vx;
+  this.vy;
   this.size = size;
   this.speed = speed;
 }
@@ -24,7 +24,6 @@ Ball.prototype.setup = function(){
   this.vy = randomNegative(this.speed);
 }
 ////////// END NEW ////////
-
 // update()
 //
 // Moves according to velocity, constrains y to be on screen,
