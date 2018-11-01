@@ -26,6 +26,8 @@ function setup() {
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87);
+  //sets the starting velocity of the ball object we just created
+  ball.setup();
 }
 
 // draw()
@@ -52,4 +54,18 @@ function draw() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+}
+
+/////// NEW ///////
+//this spits a value or its negative at random
+function randomNegative(value) {
+  var r = random();
+  var result;
+  if (r < 0.5){
+    result = value;
+  }
+  else {
+    result = -value;
+  }
+  return result;
 }

@@ -16,6 +16,15 @@ function Ball(x,y,vx,vy,size,speed) {
   this.speed = speed;
 }
 
+///////// NEW ////////
+//this function sets the initial velocity of the Ball to the speed or the negative of the speed, at random
+//I wanted to do this along with stating the arguments but it wasn't working
+Ball.prototype.setup = function(){
+  this.vx = randomNegative(this.speed);
+  this.vy = randomNegative(this.speed);
+}
+////////// END NEW ////////
+
 // update()
 //
 // Moves according to velocity, constrains y to be on screen,
