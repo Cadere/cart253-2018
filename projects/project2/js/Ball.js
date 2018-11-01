@@ -7,6 +7,10 @@
 // Ball constructor
 //
 // Sets the properties with the provided arguments
+///////// NEW //////////
+// removed vx and vy from arguments as they made speed redundant
+// this.vx and this.vy are no longer set from the start
+//they now use the ball.setup method to be set
 function Ball(x,y,size,speed) {
   this.x = x;
   this.y = y;
@@ -44,16 +48,21 @@ Ball.prototype.update = function () {
 }
 
 // isOffScreen()
-//
-// Checks if the ball has moved off the screen and, if so, returns true.
+/////////// NEW ///////////
+// Checks if the ball has moved off the screen
+// if it moved off screen on the left, returns "left"
+// if it moved off screen on the right, returns "right"
 // Otherwise it returns false.
 Ball.prototype.isOffScreen = function () {
   // Check for going off screen and reset if so
-  if (this.x + this.size < 0 || this.x > width) {
-    return true;
+  if (this.x + this.size < 0) {
+    return "left";
+  }
+  else if (this.x > width) {
+    return "right";
   }
   else {
-    return false;
+    return "false";
   }
 }
 

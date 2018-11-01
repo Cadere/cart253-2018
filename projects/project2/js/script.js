@@ -43,9 +43,16 @@ function draw() {
   ball.update();
   leftPaddle.update();
   rightPaddle.update();
-
-  if (ball.isOffScreen()) {
-    ball.reset();
+/////// NEW ////////
+// ball.isOffScreen now recognizes which side of the screen the ball went off to
+// The paddle's scores update accordingly
+  if (ball.isOffScreen() === "left") {
+    ball.reset()
+    leftPaddle.updateScore();
+  }
+  else if (ball.isOffScreen() === "right"){
+    ball.reset()
+    rightPaddle.updateScore();
   }
 
   ball.handleCollision(leftPaddle);
