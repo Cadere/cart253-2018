@@ -52,7 +52,19 @@ Paddle.prototype.display = function() {
 }
 
 ///////// NEW ////////
+//updateScore
+//
 // this method updates the paddle's score
 Paddle.prototype.updateScore = function() {
   this.score += 1;
 }
+///////// END NEW //////////
+
+////////// NEW /////////
+//resetScore
+//
+// this method resets the paddle's score to 0
+Paddle.prototype.resetScore = function () {
+  this.score = 0
+}
+//////// END NEW ////////

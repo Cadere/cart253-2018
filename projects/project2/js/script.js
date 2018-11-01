@@ -14,6 +14,10 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+/////// NEW //////
+// this variable contains the score needed for the game to be over
+var finishScore = 2;
+
 ///// NEW /////
 // Taken from the spacelove game
 // Tracking the current state of the program (title screen to begin)
@@ -142,6 +146,8 @@ function displayGameOver() {
     // ... if it was, change the state to "TITLE" so the switch statement in draw()
     // will display the title instead
     state = "TITLE";
+    leftPaddle.resetScore();
+    rightPaddle.resetScore();
   }
 }
 
@@ -167,7 +173,7 @@ function randomNegative(value) {
 //
 // this function checks if the game has been lost by one of the players
 function gameOver() {
-  if (leftPaddle.score === 11 || rightPaddle.score === 11){
+  if (leftPaddle.score === finishScore || rightPaddle.score === finishScore){
     return true;
   }
   else {
