@@ -16,6 +16,7 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
   this.speed = speed;
   this.downKey = downKey;
   this.upKey = upKey;
+  this.score = 0;
 }
 
 // handleInput()
@@ -48,4 +49,10 @@ Paddle.prototype.update = function() {
 Paddle.prototype.display = function() {
   fill(255);
   rect(this.x,this.y,this.w,this.h);
+}
+
+///////// NEW ////////
+// this method updates the paddle's score
+Paddle.prototype.updateScore = function() {
+  this.score += 1;
 }
