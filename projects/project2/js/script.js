@@ -14,6 +14,12 @@ var ball;
 var leftPaddle;
 var rightPaddle;
 
+///// NEW /////
+// Taken from the spacelove game
+// Tracking the current state of the program (title screen to begin)
+var state = "TITLE";
+/////// END NEW //////
+
 // setup()
 //
 // Creates the ball and paddles
@@ -37,6 +43,26 @@ function setup() {
 function draw() {
   background(0);
 
+  ////// NEW //////////
+  // the switch statement checks the state of the game
+  // and displays the proper screen
+  switch (state) {
+  case "TITLE":
+  displayTitle();
+  break;
+
+  case "GAME":
+  displayGame();
+  break;
+
+  case "GAME OVER":
+  displayGameOver();
+  break;
+}
+}
+
+/////// NEW ///////
+function displayGame() {
   leftPaddle.handleInput();
   rightPaddle.handleInput();
 
@@ -62,7 +88,6 @@ function draw() {
   leftPaddle.display();
   rightPaddle.display();
 }
-
 /////// NEW ///////
 //this spits a value or its negative at random
 function randomNegative(value) {
