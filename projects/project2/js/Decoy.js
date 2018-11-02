@@ -11,8 +11,11 @@ function Decoy(x,y,angle,angleSpeed,sinValue,sinMod) {
   this.y = y;
   this.angle = angle;
   this.angleSpeed = angleSpeed;
+  //The sinValue is the initial value that will be imputed to a modifier for the origin point
   this.sinValue = sinValue;
+  //The sinMod is the speed at which the sinValue will be modified in the update method
   this.sinMod = sinMod;
+  //the oModifier (originModifier) is added to the origin translation to make the center of rotation more erratic
   this.oModifier = sin(sinValue)*10
 }
 

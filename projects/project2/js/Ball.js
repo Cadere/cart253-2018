@@ -18,14 +18,15 @@ function Ball(x,y,size,speed) {
   this.vy;
   this.size = size;
   this.speed = speed;
+  this.angle;
 }
 
 ///////// NEW ////////
-//this function sets the initial velocity of the Ball to the speed or the negative of the speed, at random
-//I wanted to do this along with stating the arguments but it wasn't working
+//replaced the cartesian speed by polar coordinates for a more unpredictable ball
 Ball.prototype.setup = function(){
-  this.vx = randomNegative(this.speed);
-  this.vy = randomNegative(this.speed);
+  this.angle = random(TWO_PI);
+  this.vx = this.speed*cos(this.angle);
+  this.vy = this.speed*sin(this.angle);
 }
 ////////// END NEW ////////
 // update()
@@ -108,5 +109,6 @@ Ball.prototype.reset = function () {
   this.vx = -this.vx;
   //this resets the vy to a random direction
   //this way the scoring paddle cannot know if the ball will go up or down
-  this.vy = randomNegative(this.speed);
+  this.angle = random(TWO_PI);
+  this.vy = this.speed*sin(this.angle);
 }
