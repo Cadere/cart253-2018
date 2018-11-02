@@ -52,7 +52,7 @@ function setup() {
   // this variable is used for the position of the rightScoreboard's left corner
   var rightCorner = width - (edge + scoreboardSize);
   // create right Scoreboard
-  rightScoreboard = new Scoreboard (rightCorner,rightCorner,scoreboardSize,100, "RIGHT", rightPaddle);
+  rightScoreboard = new Scoreboard (rightCorner,edge,scoreboardSize,100, "RIGHT", rightPaddle);
   //this sets the initial velocity for the ball
   ball.setup();
   ///////// END NEW ///////////
@@ -148,6 +148,7 @@ function displayGame() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+  console.log(rightScoreboard.x, rightScoreboard.y)
   /////// NEW //////
   // if either player reaches 11 points they lose
   // this means the game is over - this checks if the game is over
