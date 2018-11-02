@@ -6,10 +6,11 @@
 // they serve to confuse the players
 //
 //Decoy constructor
-function Decoy(x,y,angle) {
+function Decoy(x,y,angle,andleSpeed) {
   this.x = x;
   this.y = y;
   this.angle = angle;
+  this.angleSpeed = angleSpeed;
 }
 
 //display
@@ -21,7 +22,7 @@ Decoy.prototype.display = function(){
   fill(255);
   noStroke();
   ellipse(this.x,this.y,10);
-  this.angle+=0.01
+  this.angle += this.angleSpeed;
   pop();
 }
 
