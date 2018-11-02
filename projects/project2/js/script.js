@@ -16,7 +16,7 @@ var rightPaddle;
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
-var finishScore = 2;
+var finishScore = 3;
 
 ///// NEW /////
 // Taken from the spacelove game
@@ -73,15 +73,16 @@ function displayTitle() {
   // Set up all the styling elements
   push();
   textAlign(CENTER,CENTER);
+  textFont("Agency FB");
   textSize(32);
   fill(255);
   stroke(255);
   // Display the text
-  text("SPACELOVE!",width/2,height/2);
+  text("HERDER PONG",width/2,height/2);
   // Font size goes down
   textSize(16);
   // Display the instructions
-  text("Press SPACE to play\nUse WASD+CONTROL and ARROWS+SHIFT",width/2,3*height/4);
+  text("Press SPACE to play\nUse WS and UP AND DOWN ARROWS",width/2,3*height/4);
   pop();
 
   // Check whether the spacebar was pressed to start the game...
@@ -136,10 +137,19 @@ function displayGame() {
 function displayGameOver() {
   push();
   textAlign(CENTER,CENTER);
+  textFont("Agency FB");
   textSize(32);
   fill(255);
   stroke(255);
-  text("LOVE IS OVER AND YOU DEAD",width/2,height/2);
+  // this text indicates which player lost
+  if (leftPaddle.score > rightPaddle.score){
+    text("LEFT PLAYER LOST",width/2,height/2);
+  }
+  else {
+    text("RIGHT PLAYER LOST", width/2, height/2);
+  }
+  textSize(24);
+  text("PRESS SPACE TO RETURN TO TITLE", width/2, height*0.7);
   pop();
   // Check whether the spacebar was pressed to restart the game
   if (keyIsPressed && key === ' ') {
