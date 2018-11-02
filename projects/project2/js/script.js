@@ -39,7 +39,7 @@ function setup() {
   //sets the starting velocity of the ball object we just created
   //////////// NEW ////////////
   //create left Scoreboard
-  leftScoreboard = new Scoreboard (15,15,50,50,100,"LEFT");
+  leftScoreboard = new Scoreboard (15,15,75,50,100,"LEFT",leftPaddle);
   ball.setup();
 }
 
@@ -107,6 +107,8 @@ function displayGame() {
   leftPaddle.update();
   rightPaddle.update();
   /////// NEW ////////
+  // scoreboard updates its score
+  leftScoreboard.update();
   // ball.isOffScreen now recognizes which side of the screen the ball went off to
   // The paddle's scores update accordingly
   if (ball.isOffScreen() === "left") {
