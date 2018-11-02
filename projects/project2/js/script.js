@@ -124,7 +124,7 @@ function displayGame() {
   /////// NEW ////////
   // scoreboard updates its score
   leftScoreboard.update();
-  rightScoreboard.display();
+  rightScoreboard.update();
   // ball.isOffScreen now recognizes which side of the screen the ball went off to
   // The paddle's scores update accordingly
   if (ball.isOffScreen() === "left") {
@@ -148,7 +148,6 @@ function displayGame() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
-  console.log(rightScoreboard.x, rightScoreboard.y)
   /////// NEW //////
   // if either player reaches 11 points they lose
   // this means the game is over - this checks if the game is over
