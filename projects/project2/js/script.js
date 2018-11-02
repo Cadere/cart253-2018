@@ -20,6 +20,7 @@ var rightScoreboard;
 //variables to contain the Decoys
 // var decoy;
 var decoys = [];
+var decoyNumber = 20;
 ///////// END NEW ////////
 
 /////// NEW //////
@@ -57,11 +58,11 @@ function setup() {
   // create right Scoreboard
   rightScoreboard = new Scoreboard (rightCorner,edge,scoreboardSize,100, "RIGHT", rightPaddle);
   // create multiple Decoys
-  for (var i = 0; i < 10; i++){
-    decoys.push(new Decoy(random(-50,50), random(-50.50), 0, random(0.01,0.2)));
+  for (var i = 0; i < decoyNumber; i++){
+    decoys.push(new Decoy(random(-70,70), random(-70.70), 0, random(0.01,0.2)));
   }
   // // setup the multiple Decoys
-  for (var i = 0; i < 10; i++){
+  for (var i = 0; i < decoyNumber; i++){
     decoys[i].setup();
   }
   //this sets the initial velocity for the ball
@@ -137,7 +138,7 @@ function displayGame() {
   leftScoreboard.update();
   rightScoreboard.update();
   //decoys update their angles
-  for (var i = 0; i < 10; i++){
+  for (var i = 0; i < decoyNumber; i++){
     decoys[i].update();
   }
   // decoy.update();
@@ -161,7 +162,7 @@ function displayGame() {
   leftScoreboard.display();
   rightScoreboard.display();
   //display decoys
-  for (var i = 0; i < 10; i++){
+  for (var i = 0; i < decoyNumber; i++){
     decoys[i].display();
   }
   // decoy.display();
