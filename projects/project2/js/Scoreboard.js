@@ -20,7 +20,7 @@ function Scoreboard (x,y,width,height,fill,name){
 //display
 //
 //this method displays the Scoreboard
-Scoreboard.prototype.display(){
+Scoreboard.prototype.display = function() {
   push();
   fill(this.fill);
   noStroke();

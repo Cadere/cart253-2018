@@ -37,6 +37,9 @@ function setup() {
   // Keycodes 83 and 87 are W and S respectively
   leftPaddle = new Paddle(0,height/2,10,60,10,83,87);
   //sets the starting velocity of the ball object we just created
+  //////////// NEW ////////////
+  //create left Scoreboard
+  leftScoreboard = new Scoreboard (15,15,50,50,100,"LEFT");
   ball.setup();
 }
 
@@ -119,6 +122,10 @@ function displayGame() {
   ball.handleCollision(leftPaddle);
   ball.handleCollision(rightPaddle);
 
+  ///////// NEW ////////
+  //display scoreboards
+  leftScoreboard.display();
+  //////// END NEW ////////
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
