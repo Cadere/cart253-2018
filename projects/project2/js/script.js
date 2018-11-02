@@ -13,10 +13,19 @@
 var ball;
 var leftPaddle;
 var rightPaddle;
+///////// NEW ////////
+//variables to contain the scoreboards
+var leftScoreboard;
+var rightScoreboard;
+///////// END NEW ////////
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
 var finishScore = 3;
+
+// these variables are used for the appearance of the scoreboards
+var edge = 15;
+var scoreboardSize = 75;
 
 ///// NEW /////
 // Taken from the spacelove game
@@ -39,8 +48,14 @@ function setup() {
   //sets the starting velocity of the ball object we just created
   //////////// NEW ////////////
   //create left Scoreboard
-  leftScoreboard = new Scoreboard (15,15,75,100,"LEFT",leftPaddle);
+  leftScoreboard = new Scoreboard (edge,edge,scoreboardSize,100,"LEFT",leftPaddle);
+  // this variable is used for the position of the rightScoreboard's left corner
+  var rightCorner = width - (edge + scoreboardSize);
+  // create right Scoreboard
+  rightScoreboard = new Scoreboard (rightCorner,rightCorner,scoreboardSize,100, "RIGHT", rightPaddle);
+  //this sets the initial velocity for the ball
   ball.setup();
+  ///////// END NEW ///////////
 }
 
 // draw()
@@ -109,6 +124,7 @@ function displayGame() {
   /////// NEW ////////
   // scoreboard updates its score
   leftScoreboard.update();
+  rightScoreboard.display();
   // ball.isOffScreen now recognizes which side of the screen the ball went off to
   // The paddle's scores update accordingly
   if (ball.isOffScreen() === "left") {
@@ -127,6 +143,7 @@ function displayGame() {
   ///////// NEW ////////
   //display scoreboards
   leftScoreboard.display();
+  rightScoreboard.display();
   //////// END NEW ////////
   ball.display();
   leftPaddle.display();
