@@ -6,16 +6,15 @@
 // Scoreboard constructor
 //
 // Sets the properties with the provided arguments
-function Scoreboard (x,y,width,height,fill,name,paddle){
+function Scoreboard (x,y,size,fill,name,paddle){
   this.x = x;
   this.y = y;
-  this.width = width;
-  this.height = height;
+  this.size = size;
   this.fill = fill;
   this.name = name;
   this.paddle = paddle;
   this.score;
-  this.xCenter = this.x + this.width/2;
+  this.xCenter = this.x + this.size/2;
 }
 
 //display
@@ -25,13 +24,20 @@ Scoreboard.prototype.display = function() {
   push();
   fill(this.fill);
   noStroke();
-  rect(this.x,this.y,this.width,this.height);
+  rect(this.x,this.y,this.size,this.size);
   fill(255);
   textFont("Agency FB");
-  textSize("36");
+  textSize(14);
   textAlign (CENTER, CENTER);
-  text(this.name, this.xCenter, this.y + this.height*0.8);
-  text(this.score, this.x + this.width*0.8, this.y + this.height*0.6);
+  //this displays the player name at the bottom of the scoreboard
+  text(this.name, this.xCenter, this.y + this.size*0.85);
+  // this displays "have escaped from" right above the player's name
+  text("escaped from", this.xCenter, this.y + this.size*0.6);
+  //
+  textSize(24);
+  // this displays the score at the top right of the scoreboard
+  text(this.score, this.x + this.size*0.3, this.y + this.size*0.3);
+  pop();
 }
 
 //update

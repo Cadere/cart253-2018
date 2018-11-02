@@ -39,7 +39,7 @@ function setup() {
   //sets the starting velocity of the ball object we just created
   //////////// NEW ////////////
   //create left Scoreboard
-  leftScoreboard = new Scoreboard (15,15,75,50,100,"LEFT",leftPaddle);
+  leftScoreboard = new Scoreboard (15,15,75,100,"LEFT",leftPaddle);
   ball.setup();
 }
 
