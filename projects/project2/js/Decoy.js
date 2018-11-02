@@ -6,18 +6,21 @@
 // they serve to confuse the players
 //
 //Decoy constructor
-function Decoy(x,y,angle,angleSpeed) {
+function Decoy(x,y,angle,angleSpeed,sinValue,sinMod) {
   this.x = x;
   this.y = y;
   this.angle = angle;
   this.angleSpeed = angleSpeed;
+  this.sinValue = sinValue;
+  this.sinMod = sinMod;
+  this.oModifier = sin(sinValue)*10
 }
 
 //display
 // this method displays and updates the position of the Decoy
 Decoy.prototype.display = function(){
   push();
-  translate(width/2, height/2);
+  translate(width/2+this.oModifier, height/2+this.oModifier);
   rotate(this.angle);
   fill(255);
   noStroke();
@@ -30,6 +33,7 @@ Decoy.prototype.display = function(){
 //this method updates the angle of the decoy
 Decoy.prototype.update = function(){
   this.angle += this.angleSpeed;
+  this.sinValue += this.sinMod;
 }
 
 //setup
