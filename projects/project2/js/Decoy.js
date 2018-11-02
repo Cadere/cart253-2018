@@ -22,8 +22,14 @@ Decoy.prototype.display = function(){
   fill(255);
   noStroke();
   ellipse(this.x,this.y,10);
-  this.angle += this.angleSpeed;
+  console.log(leftScoreboard.x)
   pop();
+}
+
+//update
+//this method updates the angle of the decoy
+Decoy.prototype.display = function(){
+  this.angle += this.angleSpeed;
 }
 
 //setup

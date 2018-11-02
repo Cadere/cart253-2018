@@ -56,11 +56,13 @@ function setup() {
   // create right Scoreboard
   rightScoreboard = new Scoreboard (rightCorner,edge,scoreboardSize,100, "RIGHT", rightPaddle);
   // create multiple Decoys
-  for (var i = 0, i < 10, i++){
-    balls.push (new Ball(random(-50,50), random (-50,50), random(TWO_PI), random(0.01, 1)));
+  for (var i = 0; i < 10; i++){
+    decoys.push (new Ball(random(-50,50), random (-50,50), random(TWO_PI), random(0.01, 1)));
   }
-  //decoy = new Decoy(30,30,0);
-  //decoy.setup();
+  // setup the multiple Decoys
+  for (var i = 0; i < 10; i++){
+    decoys[i].setup();
+  }
   //this sets the initial velocity for the ball
   ball.setup();
   ///////// END NEW ///////////
@@ -133,6 +135,11 @@ function displayGame() {
   // scoreboard updates its score
   leftScoreboard.update();
   rightScoreboard.update();
+  //decoys update their angles
+  for (var i = 0; i < 10; i++){
+    decoys[i].update();
+    console.log("Decoy update is happening")
+  }
   // ball.isOffScreen now recognizes which side of the screen the ball went off to
   // The paddle's scores update accordingly
   if (ball.isOffScreen() === "left") {
@@ -153,7 +160,10 @@ function displayGame() {
   leftScoreboard.display();
   rightScoreboard.display();
   //display decoys
-  decoy.display();
+  for (var i = 0; i < 10; i++){
+    decoys[i].display();
+    console.log("I'm happening")
+  }
   //////// END NEW ////////
   ball.display();
   leftPaddle.display();
