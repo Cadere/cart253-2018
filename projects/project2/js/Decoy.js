@@ -6,7 +6,7 @@
 // they serve to confuse the players
 //
 //Decoy constructor
-function Decoy(x,y,angle,andleSpeed) {
+function Decoy(x,y,angle,angleSpeed) {
   this.x = x;
   this.y = y;
   this.angle = angle;
@@ -28,7 +28,7 @@ Decoy.prototype.display = function(){
 
 //update
 //this method updates the angle of the decoy
-Decoy.prototype.display = function(){
+Decoy.prototype.update = function(){
   this.angle += this.angleSpeed;
 }
 
