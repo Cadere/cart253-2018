@@ -58,7 +58,7 @@ function setup() {
   rightScoreboard = new Scoreboard (rightCorner,edge,scoreboardSize,100, "RIGHT", rightPaddle);
   // create multiple Decoys
   for (var i = 0; i < 10; i++){
-    decoys.push(new Decoy(10, 10, 0, 0.2));
+    decoys.push(new Decoy(random(-50,50), random(-50.50), 0, random(0.01,0.2)));
   }
   // // setup the multiple Decoys
   for (var i = 0; i < 10; i++){
@@ -139,7 +139,6 @@ function displayGame() {
   //decoys update their angles
   for (var i = 0; i < 10; i++){
     decoys[i].update();
-    console.log("Decoy update is happening")
   }
   // decoy.update();
   // ball.isOffScreen now recognizes which side of the screen the ball went off to
@@ -164,7 +163,6 @@ function displayGame() {
   //display decoys
   for (var i = 0; i < 10; i++){
     decoys[i].display();
-    console.log("I'm happening")
   }
   // decoy.display();
   //////// END NEW ////////
