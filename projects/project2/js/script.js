@@ -23,6 +23,9 @@ var decoys = [];
 var decoyNumber = 40;
 //variables to contain the enclosures
 var enclosure;
+//variables for the menu
+var stateArray;
+var menu;
 ///////// END NEW ////////
 
 /////// NEW //////
@@ -69,6 +72,15 @@ function setup() {
   }
   //setup the enclosure
   enclosure = new Enclosure(width/2, height-edge/2, 200, edge, 200);
+  //create the main menu
+  menu = new Menu(3);
+  //create an array of menu states for the main menu
+  stateArray = [
+    new MenuState(0,undefined,"TITLE"),
+    new MenuState(1,menu.edge+menu.size/menu.choiceNumber,"GAME 1"),
+    new MenuState(2,menu.edge+menu.size/menu.choiceNumber*2,"GAME 2"),
+    new MenuState(3,menu.edge+menu.size/menu.choiceNumber*3, "GAME 3")
+  ]
   //this sets the initial velocity for the ball
   ball.setup();
   ///////// END NEW ///////////
@@ -104,6 +116,8 @@ function draw() {
 //
 //This function displays the intro title and controls
 function displayTitle() {
+  //handle imput for the menu to respond
+  menu.handleInput();
   // Set up all the styling elements
   push();
   textAlign(CENTER,CENTER);
@@ -112,13 +126,15 @@ function displayTitle() {
   fill(255);
   stroke(255);
   // Display the text
-  text("HERDER PONG",width/2,height/2);
+  text("HERDER PONG",width/2,height/5);
   // Font size goes down
   textSize(16);
   // Display the instructions
-  text("Press SPACE to play\nUse WS and UP AND DOWN ARROWS",width/2,3*height/4);
+  text("Press SPACE to play\nUse WS and UP AND DOWN ARROWS",width/2,0.9*height);
   pop();
 
+  //display menu
+  menu.display();
   // Check whether the spacebar was pressed to start the game...
   if (keyIsPressed && key === ' ') {
     // ... if it was, change the state to "GAME" so the switch statement in draw()
