@@ -12,3 +12,30 @@ function Enclosure(x,y,width,height,fill){
   this.height = height;
   this.fill = fill;
 }
+
+// display()
+//
+// Draw the Enclosure as a rectangle on the screen
+Enclosure.prototype.display = function() {
+  push();
+  fill(this.fill);
+  rectMode(CENTER);
+  noStroke();
+  rect(this.x,this.y,this.width,this.height);
+  pop();
+}
+//updateScore
+//
+// this method updates the enclosure's score
+Enclosure.prototype.updateScore = function() {
+  this.score += 1;
+}
+///////// END NEW //////////
+
+////////// NEW /////////
+//resetScore
+//
+// this method resets the enclosure's score to 0
+Enclosure.prototype.resetScore = function () {
+  this.score = 0
+}
