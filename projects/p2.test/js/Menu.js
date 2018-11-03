@@ -29,9 +29,7 @@ Menu.prototype.display = function(){
 
 // this method handles keyboard imput in order to change the menu's state
 Menu.prototype.handleInput= function(){
- if (keyIsPressed && key === UP_ARROW){
-   // upOrDown = "up";
-   // return upOrDown;
+ if (keyIsDown(UP_ARROW)){
    if(this.state === this.choiceNumber){
      this.state = 1;
      console.log("down is happening")
@@ -41,8 +39,6 @@ Menu.prototype.handleInput= function(){
    }
  }
  else if (keyIsDown(DOWN_ARROW)){
-   // upOrDown = "down";
-   // return upOrDown;
    if(this.state === 0 || this.state === 1){
      this.state = this.choiceNumber;
    }
@@ -50,29 +46,4 @@ Menu.prototype.handleInput= function(){
      this.state -= 1;
    }
  }
- // else {
- //   upOrDown = "none"
- //   return upOrDown;
- // }
 }
-
-// // this method updates the menu's state
-// Menu.prototype.update = function(){
-//   if(upOrDown = "down"){
-//     if(this.state === this.choiceNumber){
-//       this.state = 1;
-//       console.log("down is happening")
-//     }
-//     else{
-//       this.state += 1;
-//     }
-//   }
-//   if(upOrDown = "up"){
-//     if(this.state === 0 || this.state === 1){
-//       this.state = this.choiceNumber;
-//     }
-//     else{
-//       this.state -= 1;
-//     }
-//   }
-// }

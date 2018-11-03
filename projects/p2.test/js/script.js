@@ -10,6 +10,7 @@ author, and this description to match your project!
 var stateArray;
 var menu;
 var upOrDown = "none";
+var state;
 
 function setup() {
 createCanvas(640,480);
@@ -42,4 +43,11 @@ function draw() {
   pop();
   menu.display();
   console.log(menu.state);
+
+  if (keyIsPressed && key === ' ') {
+    // ... if it was, change the state to "TITLE" so the switch statement in draw()
+    // will display the title instead
+    state = stateArray[menu.state].gameState;
+    console.log(state);
+  }
 }
