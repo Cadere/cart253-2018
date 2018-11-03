@@ -24,7 +24,7 @@ function Ball(x,y,size,speed) {
 ///////// NEW ////////
 //replaced the cartesian speed by polar coordinates for a more unpredictable ball
 Ball.prototype.setup = function(){
-  this.angle = random(TWO_PI);
+  this.angle = randomNegative(random(PI*0.2,PI*0.4));
   this.vx = this.speed*cos(this.angle);
   this.vy = this.speed*sin(this.angle);
 }
@@ -109,6 +109,6 @@ Ball.prototype.reset = function () {
   this.vx = -this.vx;
   //this resets the vy to a random direction
   //this way the scoring paddle cannot know if the ball will go up or down
-  this.angle = random(TWO_PI);
+  this.angle = randomNegative(random(PI*0.2,PI*0.4));
   this.vy = this.speed*sin(this.angle);
 }
