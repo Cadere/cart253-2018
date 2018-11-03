@@ -137,9 +137,9 @@ function displayTitle() {
   menu.display();
   // Check whether the spacebar was pressed to start the game...
   if (keyIsPressed && key === ' ') {
-    // ... if it was, change the state to "GAME" so the switch statement in draw()
-    // will display the game instead
-    state = "GAME";
+    // if it was, change the state to the appropriate item in the menu
+    state = stateArray[menu.state].gameState;
+    console.log(state);
   }
 }
 
