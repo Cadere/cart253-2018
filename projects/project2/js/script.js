@@ -20,7 +20,7 @@ var rightScoreboard;
 //variables to contain the Decoys
 // var decoy;
 var decoys = [];
-var decoyNumber = 15;
+var decoyNumber = 40;
 ///////// END NEW ////////
 
 /////// NEW //////
@@ -59,7 +59,7 @@ function setup() {
   rightScoreboard = new Scoreboard (rightCorner,edge,scoreboardSize,100, "RIGHT", rightPaddle);
   // create multiple Decoys
   for (var i = 0; i < decoyNumber; i++){
-    decoys.push(new Decoy(random(-70,70), random(-70.70), 0, random(0.01,0.2), random(-1,1), random(0.05,0.5)));
+    decoys.push(new Decoy(random(-150,150), random(-150.150), 0, random(-1,1), random(0.05,0.5)));
   }
   // // setup the multiple Decoys
   for (var i = 0; i < decoyNumber; i++){

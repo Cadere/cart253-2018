@@ -6,11 +6,11 @@
 // they serve to confuse the players
 //
 //Decoy constructor
-function Decoy(x,y,angle,angleSpeed,sinValue,sinMod) {
+function Decoy(x,y,angle,sinValue,sinMod) {
   this.x = x;
   this.y = y;
   this.angle = angle;
-  this.angleSpeed = angleSpeed;
+  this.angleSpeed = constrain(1/this.x, -0.2,0.2);
   //The sinValue is the initial value that will be imputed to a modifier for the origin point
   this.sinValue = sinValue;
   //The sinMod is the speed at which the sinValue will be modified in the update method
