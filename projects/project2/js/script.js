@@ -68,7 +68,7 @@ function setup() {
     decoys[i].setup();
   }
   //setup the enclosure
-  enclosure = new Enclosure(width/2, height, 50, edge, 200);
+  enclosure = new Enclosure(width/2, height-edge/2, 200, edge, 200);
   //this sets the initial velocity for the ball
   ball.setup();
   ///////// END NEW ///////////
@@ -176,8 +176,8 @@ function displayGame() {
     decoys[i].display();
   }
   //display enclosure
-  enclosure.diplay();
-  
+  enclosure.display();
+
   //////// END NEW ////////
   ball.display();
   leftPaddle.display();
