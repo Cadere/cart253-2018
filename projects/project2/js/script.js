@@ -20,7 +20,7 @@ var rightScoreboard;
 //variables to contain the Decoys
 // var decoy;
 var decoys = [];
-var decoyNumber = 40;
+var decoyNumber = 25;
 //variables to contain the enclosures
 var enclosure;
 //variables for the menu
@@ -30,7 +30,7 @@ var menu;
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
-var finishScore = 3;
+var finishScore = 10;
 
 // these variables are used for the appearance of the scoreboards
 var edge = 15;
@@ -76,6 +76,9 @@ function setup() {
   menu = new Menu(3);
   //create an array of menu states for the main menu
   stateArray = [
+    //state 0 has undefined as a second argument so no rectangle appears
+    // it has title as a 3rd argument so if the spacebar is clicked and no
+    //menu option is selected, the state remains title
     new MenuState(0,undefined,"TITLE"),
     new MenuState(1,menu.edge+menu.size/menu.choiceNumber,"GAME 1"),
     new MenuState(2,menu.edge+menu.size/menu.choiceNumber*2,"GAME 2"),
@@ -101,8 +104,12 @@ function draw() {
     displayTitle();
     break;
 
-    case "GAME":
-    displayGame();
+    case "GAME 1":
+    displayGame1();
+    break;
+
+    case "GAME 2":
+    displayGame2();
     break;
 
     case "GAME OVER":
@@ -143,10 +150,10 @@ function displayTitle() {
   }
 }
 
-// displayGame()
+// displayGame1()
 //
 // This function displays the actual game
-function displayGame() {
+function displayGame1() {
   leftPaddle.handleInput();
   rightPaddle.handleInput();
 
@@ -173,6 +180,60 @@ function displayGame() {
     rightPaddle.updateScore();
   }
 
+  /////// END NEW ////////
+
+  ball.handleCollision(leftPaddle);
+  ball.handleCollision(rightPaddle);
+
+  ///////// NEW ////////
+  //display scoreboards
+  leftScoreboard.display();
+  rightScoreboard.display();
+  //display decoys
+  for (var i = 0; i < decoyNumber; i++){
+    decoys[i].display();
+  }
+
+
+  //////// END NEW ////////
+  ball.display();
+  leftPaddle.display();
+  rightPaddle.display();
+  /////// NEW //////
+  // if either player reaches 11 points they lose
+  // this means the game is over - this checks if the game is over
+  // and changes the state accordingly
+  if (gameOver()) {
+    state = "GAME OVER";
+  }
+}
+
+// displayGame2()
+//
+// This function displays the actual game
+function displayGame2() {
+  leftPaddle.handleInput();
+  rightPaddle.handleInput();
+
+  ball.update();
+  leftPaddle.update();
+  rightPaddle.update();
+  /////// NEW ////////
+  // scoreboard updates its score
+  leftScoreboard.update();
+  rightScoreboard.update();
+
+  // ball.isOffScreen now recognizes which side of the screen the ball went off to
+  // The paddle's scores update accordingly
+  if (ball.isOffScreen() === "left") {
+    ball.reset()
+    leftPaddle.updateScore();
+  }
+  else if (ball.isOffScreen() === "right"){
+    ball.reset()
+    rightPaddle.updateScore();
+  }
+
   // handleCollision with the enclosure
   if (ball.enclosureCollision(enclosure)){
     ball.reset();
@@ -187,10 +248,7 @@ function displayGame() {
   //display scoreboards
   leftScoreboard.display();
   rightScoreboard.display();
-  //display decoys
-  for (var i = 0; i < decoyNumber; i++){
-    decoys[i].display();
-  }
+
   //display enclosure
   enclosure.display();
 
@@ -198,6 +256,7 @@ function displayGame() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
+  console.log(enclosure.score)
   /////// NEW //////
   // if either player reaches 11 points they lose
   // this means the game is over - this checks if the game is over
@@ -225,10 +284,10 @@ function displayGameOver() {
     text("RIGHT PLAYER LOST", width/2, height/2);
   }
   textSize(24);
-  text("PRESS SPACE TO RETURN TO TITLE", width/2, height*0.7);
+  text("PRESS ENTER TO RETURN TO TITLE", width/2, height*0.7);
   pop();
   // Check whether the spacebar was pressed to restart the game
-  if (keyIsPressed && key === ' ') {
+  if (keyIsDown(ENTER)) {
     // ... if it was, change the state to "TITLE" so the switch statement in draw()
     // will display the title instead
     state = "TITLE";

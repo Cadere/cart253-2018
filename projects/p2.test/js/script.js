@@ -9,7 +9,6 @@ author, and this description to match your project!
 ******************/
 var stateArray;
 var menu;
-var upOrDown = "none";
 var state;
 
 function setup() {
