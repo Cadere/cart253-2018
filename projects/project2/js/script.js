@@ -21,6 +21,8 @@ var rightScoreboard;
 // var decoy;
 var decoys = [];
 var decoyNumber = 40;
+//variables to contain the enclosures
+var enclosure;
 ///////// END NEW ////////
 
 /////// NEW //////
@@ -65,6 +67,8 @@ function setup() {
   for (var i = 0; i < decoyNumber; i++){
     decoys[i].setup();
   }
+  //setup the enclosure
+  enclosure = new Enclosure(width/2, height, 50, edge, 200);
   //this sets the initial velocity for the ball
   ball.setup();
   ///////// END NEW ///////////
@@ -152,6 +156,12 @@ function displayGame() {
     ball.reset()
     rightPaddle.updateScore();
   }
+
+  // handleCollision with the enclosure
+  if (ball.enclosureCollision(enclosure)){
+    ball.reset();
+    enclosure.updateScore();
+  }
   /////// END NEW ////////
 
   ball.handleCollision(leftPaddle);
@@ -165,7 +175,9 @@ function displayGame() {
   for (var i = 0; i < decoyNumber; i++){
     decoys[i].display();
   }
-  // decoy.display();
+  //display enclosure
+  enclosure.diplay();
+  
   //////// END NEW ////////
   ball.display();
   leftPaddle.display();
