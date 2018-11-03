@@ -256,7 +256,6 @@ function displayGame2() {
   ball.display();
   leftPaddle.display();
   rightPaddle.display();
-  console.log(enclosure.score)
   /////// NEW //////
   // if either player reaches 11 points they lose
   // this means the game is over - this checks if the game is over
