@@ -95,6 +95,23 @@ Ball.prototype.handleCollision = function(paddle) {
     }
   }
 }
+//////////NEW /////////
+// handleCollison(enclosure)
+//
+//check if this ball overlaps the enclosure
+//and if so reset ball add to enclosure score
+Ball.prototype.handleCollision = function(enclosure) {
+  //check if the ball overlaps with the enclosure on x axis
+  if(this.x+this.size > enclosure.x && this.x < enclosure.x + enclosure.width){
+    //Check if the ball overlaps the enclosure on y axis
+    if(this.y+this.size > enclosure.y && this.y < enclosure.y + enclosure.height) {
+      // If so, reset ball
+      this.reset();
+      // and add to enclosure score
+      enclosure.updateScore();
+    }
+  }
+}
 
 // reset()
 //

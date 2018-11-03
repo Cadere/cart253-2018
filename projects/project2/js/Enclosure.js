@@ -11,6 +11,7 @@ function Enclosure(x,y,width,height,fill){
   this.width = width;
   this.height = height;
   this.fill = fill;
+  this.score = 0;
 }
 
 // display()
