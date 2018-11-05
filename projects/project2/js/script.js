@@ -128,7 +128,7 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-  background(0);
+  background(173, 93, 43);
 
   ////// NEW //////////
   // the switch statement checks the state of the game

@@ -45,7 +45,8 @@ Scoreboard.prototype.display = function() {
   // this displays the score at the top right of the scoreboard
   text(this.score, this.x + this.size*0.3, this.y + this.size*0.25);
   // this displays a ball next to the score
-  ellipse(this.x + this.size*0.7, this.y + this.size*0.25, 10);
+  imageMode(CENTER);
+  image(sheep,this.x+this.size*0.7, this.y+this.size*0.25, ball.size, ball.size)
   pop();
 }
 
