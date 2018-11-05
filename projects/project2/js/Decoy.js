@@ -25,9 +25,7 @@ Decoy.prototype.display = function(){
   push();
   translate(width/2+this.oModifier, height/2+this.oModifier);
   rotate(this.angle);
-  fill(255);
-  noStroke();
-  ellipse(this.x,this.y,10);
+  image(sheep,this.x,this.y,ball.size,ball.size);
   console.log(leftScoreboard.x)
   pop();
 }
