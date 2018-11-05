@@ -1,11 +1,12 @@
-// Basic OO Pong
-// by Pippin Barr
+// HERDER PONG
+// by Eugene Fournier
 //
-// A primitive implementation of Pong with no scoring system
-// just the ability to play the game with the keyboard.
+// A reskin of Pong with paddles as "dogs" and the ball as a "sheep"
 //
 // Arrow keys control the right hand paddle, W and S control
 // the left hand paddle.
+// with 2 game modes, a title page with menu, a game over page,
+// as well as a character select screen
 //
 // Written with JavaScript OOP.
 
@@ -26,6 +27,21 @@ var enclosure;
 //variables for the menu
 var stateArray;
 var menu;
+
+//variables for the images used in the game
+//this one is for the Ball and Decoys
+var sheep;
+//these are for the paddle characters
+var left1;
+var left2;
+var left3;
+var left4;
+var left5;
+var right1;
+var right2;
+var right3;
+var right4;
+var right5;
 ///////// END NEW ////////
 
 /////// NEW //////
@@ -41,6 +57,24 @@ var scoreboardSize = 75;
 // Tracking the current state of the program (title screen to begin)
 var state = "TITLE";
 /////// END NEW //////
+
+//////// NEW ///////////
+//preload()
+//
+//loads the images before the game starts
+function preload(){
+  sheep = loadImage("assets/images/sheep.png");
+  left1 = loadImage("assets/images/left1.png");
+  left2 = loadImage("assets/images/left2.png");
+  left3 = loadImage("assets/images/left3.png");
+  left4 = loadImage("assets/images/left4.png");
+  left5 = loadImage("assets/images/left5.png");
+  right1 = loadImage("assets/images/right1.png");
+  right2 = loadImage("assets/images/right2.png");
+  right3 = loadImage("assets/images/right3.png");
+  right4 = loadImage("assets/images/right4.png");
+  right5 = loadImage("assets/images/right5.png");
+}
 
 // setup()
 //
