@@ -37,6 +37,13 @@ HorizontalMenu.prototype.display = function(){
   textSize(24);
   fill(255);
   text(this.commands,width/2, this.centerHeight+100);
+  //this diplays the images
+  imageMode(CENTER);
+  image(this.menuState[1].image,this.menuState[1].y,this.centerHeight,10,60);
+  image(this.menuState[2].image,this.menuState[2].y,this.centerHeight,10,60);
+  image(this.menuState[3].image,this.menuState[3].y,this.centerHeight,10,60);
+  image(this.menuState[4].image,this.menuState[4].y,this.centerHeight,10,60);
+  image(this.menuState[5].image,this.menuState[5].y,this.centerHeight,10,60);
   pop();
 }
 
