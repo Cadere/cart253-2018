@@ -28,6 +28,10 @@ var enclosure;
 var stateArray;
 var menu;
 
+//variables for the right character select menu
+var rightCharacterSelect;
+var rightMenuState;
+
 //variables for the images used in the game
 //this one is for the Ball and Decoys
 var sheep;
@@ -108,6 +112,8 @@ function setup() {
   enclosure = new Enclosure(width/2, height-edge/2, 200, edge, 200);
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
+  //creates the right paddle character select menu
+  rightCharacterSelect = new HorizontalMenu(5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,rightMenuState,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears
@@ -117,6 +123,14 @@ function setup() {
     new MenuState(1,menu.edge+menu.size/menu.choiceNumber,"GAME 1"),
     new MenuState(2,menu.edge+menu.size/menu.choiceNumber*2,"GAME 2"),
     new MenuState(3,menu.edge+menu.size/menu.choiceNumber*3, "GAME 3")
+  ]
+  // create an array of meny states for the right character select menu
+  rightMenuState = [
+    new MenuState(1,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber, "game", right1),
+    new MenuState(2,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*2, "game", right2),
+    new MenuState(3,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*3, "game", right3),
+    new MenuState(4,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*4, "game", right4),
+    new MenuState(5,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*5, "game", right5)
   ]
   //this sets the initial velocity for the ball
   ball.setup();
@@ -144,6 +158,10 @@ function draw() {
 
     case "GAME 2":
     displayGame2();
+    break;
+
+    case "GAME 3":
+    displayCharacterSelect();
     break;
 
     case "GAME OVER":
@@ -297,6 +315,15 @@ function displayGame2() {
   if (gameOver()) {
     state = "GAME OVER";
   }
+}
+
+///////// NEW /////////
+//displayCharacterSelect()
+//
+//displays a menu in which players can pick their characters
+function displayCharacterSelect() {
+  rightCharacterSelect.handleInput();
+  rightCharacterSelect.display();
 }
 
 // displayGameOver()

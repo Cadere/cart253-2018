@@ -11,7 +11,7 @@ function HorizontalMenu(centerHeight,choiceNumber,leftKey,rightKey,confirmKey,me
   this.edge = width/5;
   this.size = width*.6;
   // this is the state of the menu i.e. what is selected
-  this.state = 0;
+  this.state = 1;
   //these are the keys to move in the menu
   this.leftKey = leftKey;
   this.rightKey = rightKey;
@@ -39,11 +39,11 @@ HorizontalMenu.prototype.display = function(){
   text(this.commands,width/2, this.centerHeight+100);
   //this diplays the images
   imageMode(CENTER);
+  image(this.menuState[0].image,this.menuState[0].y,this.centerHeight,10,60);
   image(this.menuState[1].image,this.menuState[1].y,this.centerHeight,10,60);
   image(this.menuState[2].image,this.menuState[2].y,this.centerHeight,10,60);
   image(this.menuState[3].image,this.menuState[3].y,this.centerHeight,10,60);
   image(this.menuState[4].image,this.menuState[4].y,this.centerHeight,10,60);
-  image(this.menuState[5].image,this.menuState[5].y,this.centerHeight,10,60);
   pop();
 }
 
