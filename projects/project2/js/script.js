@@ -107,7 +107,7 @@ function setup() {
   //setup the enclosure
   enclosure = new Enclosure(width/2, height-edge/2, 200, edge, 200);
   //create the main menu
-  menu = new Menu(3);
+  menu = new Menu(3,UP_ARROW,DOWN_ARROW);
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears

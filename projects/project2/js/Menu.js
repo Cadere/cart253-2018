@@ -3,7 +3,7 @@
 //This is a class for building a menu in which you scroll with arrows
 //
 //Menu constructor
-function Menu(choiceNumber){
+function Menu(choiceNumber,upKey,downKey){
   //this is the number of choices in the menu
   this.choiceNumber = choiceNumber;
   //this is the menu's distance from the edge of the canvas
@@ -11,6 +11,8 @@ function Menu(choiceNumber){
   this.size = height/2.5;
   // this is the state of the menu i.e. what is selected
   this.state = 0;
+  this.upKey = upKey;
+  this.downKey = downKey;
 }
 
 //display()
@@ -38,7 +40,7 @@ Menu.prototype.display = function(){
 
 // this method handles keyboard imput in order to change the menu's state
 Menu.prototype.handleInput= function(){
- if (keyIsDown(UP_ARROW)){
+ if (keyIsDown(this.upKey)){
    //if the state of the menu is at the maximum, it resets to state 1
    //otherwise the state of the menu goes up by one
    if(this.state === this.choiceNumber){
@@ -50,7 +52,7 @@ Menu.prototype.handleInput= function(){
  }
  //if the state of the menu is at 0 or 1, it goes to state 3
  //it is impossible to go back to state 0 once UP_ARROW or DOWN_ARROW has been pressed
- else if (keyIsDown(DOWN_ARROW)){
+ else if (keyIsDown(this.downKey)){
    if(this.state === 0 || this.state === 1){
      this.state = this.choiceNumber;
    }
