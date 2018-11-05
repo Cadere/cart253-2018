@@ -105,9 +105,9 @@ Ball.prototype.handleCollision = function(paddle) {
 //and if so reset ball add to enclosure score
 Ball.prototype.enclosureCollision = function(enclosure) {
   //check if the ball overlaps with the enclosure on x axis
-  if(this.x+this.size > enclosure.x && this.x < enclosure.x + enclosure.width){
+  if(this.x+this.size > enclosure.x - enclosure.width/2 && this.x < enclosure.x + enclosure.width/2){
     //Check if the ball overlaps the enclosure on y axis
-    if(this.y+this.size > enclosure.y && this.y < enclosure.y + enclosure.height) {
+    if(this.y+this.size > enclosure.y - enclosure.height/2 && this.y < enclosure.y + enclosure.height/2) {
       return true;
     }
     else{
