@@ -69,12 +69,15 @@ Ball.prototype.isOffScreen = function () {
 
 // display()
 //
-// Draw the ball as a rectangle on the screen
+// Draw the ball as a sheep on the screen
 Ball.prototype.display = function () {
   push();
-  fill(255);
-  noStroke();
-  ellipse(this.x,this.y,this.size,this.size);
+  translate(this.x,this.y);
+  rotate(this.angle);
+  //the image displays slightly larger than the object size because the "sheep"
+  //is not perfectly round - it has a beak and little hands and a tail sticking out
+  // and i did not want these to be the point at which a collision was considered to be happening
+  image(sheep,0,0,this.size*1.2,this.size*1.2);
   pop();
 }
 
