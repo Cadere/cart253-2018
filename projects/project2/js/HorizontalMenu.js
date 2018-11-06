@@ -44,7 +44,7 @@ HorizontalMenu.prototype.display = function(){
   textFont("Agency FB");
   textSize(24);
   fill(255);
-  text(this.commands,width/2, this.centerHeight+100);
+  text(this.instructions,width/2, this.centerHeight+100);
   //this diplays the images
   imageMode(CENTER);
   for (var i = 0; i < this.choiceNumber; i++){

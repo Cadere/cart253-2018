@@ -122,9 +122,9 @@ function setup() {
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
   //creates the left paddle character select menu
-  leftCharacterSelect = new HorizontalMenu(140,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
+  leftCharacterSelect = new HorizontalMenu(140,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Use A and D to move, confirm choice with W");
   //creates the right paddle character select menu
-  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
+  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Use ← and → to move, confirm choice with ↑");
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears
