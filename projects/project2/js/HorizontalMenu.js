@@ -47,7 +47,7 @@ HorizontalMenu.prototype.display = function(){
   text(this.commands,width/2, this.centerHeight+100);
   //this diplays the images
   imageMode(CENTER);
-  for (var i = 0; i < 5; i++){
+  for (var i = 0; i < this.choiceNumber; i++){
     image(this.menuState[i].image,this.menuState[i].y, this.centerHeight, paddleWidth*2, paddleHeight*2);
   }
   pop();

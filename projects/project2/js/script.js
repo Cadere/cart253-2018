@@ -32,8 +32,10 @@ var stateArray;
 var menu;
 
 //variables for the right character select menu
+var leftCharacterSelect;
 var rightCharacterSelect;
-var rightMenuState;
+var rightMenuState = [];
+var leftMenuState = [];
 
 //variables for the images used in the game
 //this one is for the Ball and Decoys
@@ -71,16 +73,20 @@ var state = "TITLE";
 //loads the images before the game starts
 function preload(){
   sheep = loadImage("assets/images/sheep.png");
-  left1 = loadImage("assets/images/left1.png");
-  left2 = loadImage("assets/images/left2.png");
-  left3 = loadImage("assets/images/left3.png");
-  left4 = loadImage("assets/images/left4.png");
-  left5 = loadImage("assets/images/left5.png");
-  right1 = loadImage("assets/images/right1.png");
-  right2 = loadImage("assets/images/right2.png");
-  right3 = loadImage("assets/images/right3.png");
-  right4 = loadImage("assets/images/right4.png");
-  right5 = loadImage("assets/images/right5.png");
+  leftImage = [
+    loadImage("assets/images/left1.png"),
+    loadImage("assets/images/left2.png"),
+    loadImage("assets/images/left3.png"),
+    loadImage("assets/images/left4.png"),
+    loadImage("assets/images/left5.png")
+  ]
+  rightImage = [
+    loadImage("assets/images/right1.png"),
+    loadImage("assets/images/right2.png"),
+    loadImage("assets/images/right3.png"),
+    loadImage("assets/images/right4.png"),
+    loadImage("assets/images/right5.png")
+  ]
 }
 
 // setup()
@@ -115,8 +121,10 @@ function setup() {
   enclosure = new Enclosure(width/2, height-edge/2, 200, edge, 200);
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
+  //creates the left paddle character select menu
+  leftCharacterSelect = new HorizontalMenu(140,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
   //creates the right paddle character select menu
-  rightCharacterSelect = new HorizontalMenu(150,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
+  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears
@@ -127,19 +135,23 @@ function setup() {
     new MenuState(2,menu.edge+menu.size/menu.choiceNumber*2,"GAME 2"),
     new MenuState(3,menu.edge+menu.size/menu.choiceNumber*3, "GAME 3")
   ]
+  //abbreviate some numbers used by the next array with ugly variable names
+  var lcse = leftCharacterSelect.edge;
+  var lcs = leftCharacterSelect.size/(leftCharacterSelect.choiceNumber-1);
+  //create an array of menu states for the left character select menu
+  for (var i = 0; i < leftCharacterSelect.choiceNumber; i++){
+    leftMenuState.push(new MenuState(i+1,lcse+lcs*i,"game",leftImage[i]));
+  }
   // create an array of meny states for the right character select menu
    var rcse = rightCharacterSelect.edge;
    var rcs = rightCharacterSelect.size/(rightCharacterSelect.choiceNumber-1);
-  rightMenuState = [
-    new MenuState(1,rcse, "game", right1),
-    new MenuState(2,rcse+rcs, "game", right2),
-    new MenuState(3,rcse+rcs*2, "game", right3),
-    new MenuState(4,rcse+rcs*3, "game", right4),
-    new MenuState(5,rcse+rcs*4, "game", right5)
-  ]
+   for (var i = 0; i < rightCharacterSelect.choiceNumber; i++){
+     rightMenuState.push(new MenuState(i+1,rcse+rcs*i,"game",rightImage[i]));
+   }
   //this sets the initial velocity for the ball
   ball.setup();
   //this tell the HorizontalMenu object which array to take its information from
+  leftCharacterSelect.setup(leftMenuState);
   rightCharacterSelect.setup(rightMenuState);
   ///////// END NEW ///////////
 }
@@ -149,7 +161,7 @@ function setup() {
 // Handles input, updates all the elements, checks for collisions
 // and displays everything.
 function draw() {
-  background(173, 93, 43);
+  background(158, 136, 104);
 
   ////// NEW //////////
   // the switch statement checks the state of the game
@@ -329,6 +341,8 @@ function displayGame2() {
 //
 //displays a menu in which players can pick their characters
 function displayCharacterSelect() {
+  leftCharacterSelect.handleInput();
+  leftCharacterSelect.display();
   rightCharacterSelect.handleInput();
   rightCharacterSelect.display();
 }
