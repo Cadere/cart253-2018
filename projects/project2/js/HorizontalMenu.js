@@ -35,9 +35,10 @@ HorizontalMenu.prototype.display = function(){
   push();
   //this diplsyas a rectangle under the selected option
   rectMode(CENTER);
-  fill(150);
+  noStroke();
+  fill(100);
   //the rectangle moves because it uses information in stateArray to define its position
-  rect(this.menuState[this.state].y, this.centerHeight, this.size/this.choiceNumber, 100);
+  rect(this.menuState[this.state].y, this.centerHeight, this.size/this.choiceNumber, 150);
   //this displays the title text
   textAlign(CENTER,CENTER);
   textFont("Agency FB");
@@ -46,11 +47,9 @@ HorizontalMenu.prototype.display = function(){
   text(this.commands,width/2, this.centerHeight+100);
   //this diplays the images
   imageMode(CENTER);
-  image(this.menuState[0].image,this.menuState[0].y,this.centerHeight,10,60);
-  image(this.menuState[1].image,this.menuState[1].y,this.centerHeight,10,60);
-  image(this.menuState[2].image,this.menuState[2].y,this.centerHeight,10,60);
-  image(this.menuState[3].image,this.menuState[3].y,this.centerHeight,10,60);
-  image(this.menuState[4].image,this.menuState[4].y,this.centerHeight,10,60);
+  for (var i = 0; i < 5; i++){
+    image(this.menuState[i].image,this.menuState[i].y, this.centerHeight, paddleWidth*2, paddleHeight*2);
+  }
   pop();
 }
 
