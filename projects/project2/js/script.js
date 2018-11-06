@@ -113,7 +113,7 @@ function setup() {
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
   //creates the right paddle character select menu
-  rightCharacterSelect = new HorizontalMenu(5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,rightMenuState,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
+  rightCharacterSelect = new HorizontalMenu(150,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"USE LEFT AND RIGHT ARROWS TO MOVE, CONFIRM CHOICE WITH UP ARROW");
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears
@@ -125,15 +125,19 @@ function setup() {
     new MenuState(3,menu.edge+menu.size/menu.choiceNumber*3, "GAME 3")
   ]
   // create an array of meny states for the right character select menu
+   var rcse = rightCharacterSelect.edge;
+   var rcs = rightCharacterSelect.size/(rightCharacterSelect.choiceNumber-1);
   rightMenuState = [
-    new MenuState(1,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber, "game", right1),
-    new MenuState(2,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*2, "game", right2),
-    new MenuState(3,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*3, "game", right3),
-    new MenuState(4,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*4, "game", right4),
-    new MenuState(5,rightCharacterSelect.edge+rightCharacterSelect.size/rightCharacterSelect.choiceNumber*5, "game", right5)
+    new MenuState(1,rcse, "game", right1),
+    new MenuState(2,rcse+rcs, "game", right2),
+    new MenuState(3,rcse+rcs*2, "game", right3),
+    new MenuState(4,rcse+rcs*3, "game", right4),
+    new MenuState(5,rcse+rcs*4, "game", right5)
   ]
   //this sets the initial velocity for the ball
   ball.setup();
+  //this tell the HorizontalMenu object which array to take its information from
+  rightCharacterSelect.setup(rightMenuState);
   ///////// END NEW ///////////
 }
 

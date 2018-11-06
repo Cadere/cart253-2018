@@ -3,13 +3,13 @@
 //This is a class for building a menu in which you scroll with arrows from side to side
 //
 //Menu constructor
-function HorizontalMenu(centerHeight,choiceNumber,leftKey,rightKey,confirmKey,menuState,commands){
+function HorizontalMenu(centerHeight,choiceNumber,leftKey,rightKey,confirmKey,instructions){
   this.centerHeight = centerHeight;
   //this is the number of choices in the menu
   this.choiceNumber = choiceNumber;
   //this is the menu's distance from the edge of the canvas
   this.edge = width/5;
-  this.size = width*.6;
+  this.size = width*0.6;
   // this is the state of the menu i.e. what is selected
   this.state = 1;
   //these are the keys to move in the menu
@@ -18,9 +18,16 @@ function HorizontalMenu(centerHeight,choiceNumber,leftKey,rightKey,confirmKey,me
   //this is the key to confirm a choice
   this.confirmKey = confirmKey;
   //this is the commands text
-  this.commands = commands;
+  this.instructions = instructions;
+  this.menuState;
 }
 
+//setup()
+//
+//This method tells the menu which array to take it's information from
+HorizontalMenu.prototype.setup = function(menuState){
+  this.menuState = menuState;
+}
 //display()
 //
 //this method displays the menu
