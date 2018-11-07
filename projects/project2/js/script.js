@@ -40,17 +40,6 @@ var leftMenuState = [];
 //variables for the images used in the game
 //this one is for the Ball and Decoys
 var sheep;
-//these are for the paddle characters
-var left1;
-var left2;
-var left3;
-var left4;
-var left5;
-var right1;
-var right2;
-var right3;
-var right4;
-var right5;
 ///////// END NEW ////////
 
 /////// NEW //////
@@ -122,7 +111,7 @@ function setup() {
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
   //creates the left paddle character select menu
-  leftCharacterSelect = new HorizontalMenu(140,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Use A and D to move, confirm choice with W");
+  leftCharacterSelect = new HorizontalMenu(140,5,65,68,87,"Use A and D to move, confirm choice with W");
   //creates the right paddle character select menu
   rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Use ← and → to move, confirm choice with ↑");
   //create an array of menu states for the main menu
