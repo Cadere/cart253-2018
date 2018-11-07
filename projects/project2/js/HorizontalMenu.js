@@ -33,7 +33,7 @@ HorizontalMenu.prototype.setup = function(menuInfo){
 //this method displays the menu
 HorizontalMenu.prototype.display = function(){
   push();
-  //this diplsyas a rectangle under the selected option
+  //this displayss a rectangle under the selected option
   rectMode(CENTER);
   noStroke();
   fill("#6f9351");
@@ -42,9 +42,9 @@ HorizontalMenu.prototype.display = function(){
   //this displays the title text
   textAlign(CENTER,CENTER);
   textFont("Agency FB");
-  textSize(24);
+  textSize(16);
   fill(255);
-  text(this.instructions,width/2, this.centerHeight+100);
+  text(this.instructions,this.edge+this.size, this.centerHeight);
   //this diplays the images
   imageMode(CENTER);
   for (var i = 0; i < this.choiceNumber; i++){

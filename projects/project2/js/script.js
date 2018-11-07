@@ -129,13 +129,13 @@ function setup() {
     decoys[i].setup();
   }
   //setup the enclosure
-  enclosure = new Enclosure(width/2, height-edge/2, 200, edge, 200);
+  enclosure = new Enclosure(width/2, height-edge/2, 200, edge, "#6f9351");
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
   //creates the left paddle character select menu
-  leftCharacterSelect = new HorizontalMenu(140,5,65,68,87,"Use A and D to move, confirm choice with W");
+  leftCharacterSelect = new HorizontalMenu(160,5,65,68,87,"Move with\nA and D,\n use W to select");
   //creates the right paddle character select menu
-  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Use ← and → to move, confirm choice with ↑");
+  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Move with\n← and →,\n use ↑ to select");
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears
@@ -148,14 +148,14 @@ function setup() {
   ]
   //abbreviate some numbers used by the next array with ugly variable names
   var lcse = leftCharacterSelect.edge;
-  var lcs = leftCharacterSelect.size/(leftCharacterSelect.choiceNumber-1);
+  var lcs = leftCharacterSelect.size/(leftCharacterSelect.choiceNumber);
   //create an array of menu states for the left character select menu
   for (var i = 0; i < leftCharacterSelect.choiceNumber; i++){
     leftMenuInfo.push(new MenuInfo(i+1,lcse+lcs*i,"game",leftImage[i]));
   }
   // create an array of meny states for the right character select menu
    var rcse = rightCharacterSelect.edge;
-   var rcs = rightCharacterSelect.size/(rightCharacterSelect.choiceNumber-1);
+   var rcs = rightCharacterSelect.size/(rightCharacterSelect.choiceNumber);
    for (var i = 0; i < rightCharacterSelect.choiceNumber; i++){
      rightMenuInfo.push(new MenuInfo(i+1,rcse+rcs*i,"game",rightImage[i]));
   }
@@ -222,13 +222,13 @@ function displayTitle() {
   textFont("Agency FB");
   textSize(32);
   fill(255);
-  stroke(255);
+  noStroke();
   // Display the text
   text("HERDER PONG",width/2,height/5);
   // Font size goes down
   textSize(16);
   // Display the instructions
-  text("Press SPACE to play\nUse WS and UP AND DOWN ARROWS",width/2,0.9*height);
+  text("Press SPACE to play\nLeft player use W S and Right player use ↑ ↓",width/2,0.9*height);
   pop();
 
   //display menu
@@ -361,6 +361,19 @@ function displayGame2() {
 //
 //displays a menu in which players can pick their characters
 function displayCharacterSelect() {
+  // Set up all the styling elements
+  push();
+  textAlign(CENTER,CENTER);
+  textFont("Agency FB");
+  textSize(32);
+  fill(255);
+  noStroke();
+  // Display the text
+  text("CHARACTER SELECTION",width/2,height/10);
+  textSize(16);
+  // Display the instructions
+  text("Press ENTER to return to title screen",width/2,0.92*height);
+  pop();
   leftCharacterSelect.handleInput();
   leftCharacterSelect.display();
   rightCharacterSelect.handleInput();
