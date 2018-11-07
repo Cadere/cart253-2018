@@ -91,14 +91,14 @@ function preload(){
 function setup() {
   createCanvas(640,480);
   //variable for the character colors
-  var rightColor = [
+  var leftColor = [
     color("#0F6939"),
     color("#a7ae38"),
     color("#55ba48"),
     color("#8fc987"),
     color("#eac319")
   ]
-  var leftColor = [
+  var rightColor = [
     color("#218464"),
     color("#696c35"),
     color("#55ba48"),
