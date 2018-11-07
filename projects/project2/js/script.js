@@ -197,8 +197,8 @@ function setup() {
      rightMenuInfo.push(new MenuInfo(i+1,rcse+rcs*i,"game",rightImage[i]));
   }
   //create the character objects
-  rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor,rightLost);
-  leftCharacter = new Character(leftCharacterSelect,leftImage,leftColor,leftLost);
+  rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor,rightLost,rightWon);
+  leftCharacter = new Character(leftCharacterSelect,leftImage,leftColor,leftLost,leftWon);
   //this sets the initial velocity for the ball
   ball.setup();
   //this tell the HorizontalMenu object which array to take its information from
@@ -240,8 +240,12 @@ function draw() {
     displayCharacterSelect();
     break;
 
-    case "GAME OVER":
-    displayGameOver();
+    case "GAME LOST":
+    displayGameLost();
+    break;
+
+    case "GAME WON":
+    displayGameWon();
     break;
   }
 }
@@ -288,6 +292,8 @@ function displayTitle() {
 //
 // This function displays the actual game
 function displayGame1() {
+  leftScoreboard.setText("escaped from");
+  rightScoreboard.setText("escaped from");
   leftPaddle.handleInput();
   rightPaddle.handleInput();
 
@@ -338,7 +344,7 @@ function displayGame1() {
   // this means the game is over - this checks if the game is over
   // and changes the state accordingly
   if (gameOver()) {
-    state = "GAME OVER";
+    state = "GAME LOST";
   }
 }
 
@@ -346,6 +352,8 @@ function displayGame1() {
 //
 // This function displays the actual game
 function displayGame2() {
+  leftScoreboard.setText("penned by");
+  rightScoreboard.setText("penned by");
   leftPaddle.handleInput();
   rightPaddle.handleInput();
 
@@ -395,7 +403,7 @@ function displayGame2() {
   // this means the game is over - this checks if the game is over
   // and changes the state accordingly
   if (gameOver()) {
-    state = "GAME OVER";
+    state = "GAME WON";
   }
 }
 
@@ -437,10 +445,10 @@ function displayCharacterSelect() {
   }
 }
 
-// displayGameOver()
+// displayGameLost()
 //
 // Displays game over text
-function displayGameOver() {
+function displayGameLost() {
   push();
   imageMode(CENTER);
   textAlign(CENTER,CENTER);
@@ -480,6 +488,48 @@ function displayGameOver() {
   }
 }
 
+// displayGameWon()
+//
+// Displays game over text
+function displayGameWon() {
+  push();
+  imageMode(CENTER);
+  textAlign(CENTER,CENTER);
+  textFont("Agency FB");
+  textSize(36);
+  fill(255);
+  stroke(255);
+  // this text indicates which player lost
+  if (leftPaddle.score > rightPaddle.score){
+    text("LEFT PLAYER WON!",width*0.4,height*0.35);
+    push();
+    translate(width/2,height/2);
+    scale(0.75,0.75);
+    image(leftCharacter.won,0,0);
+    pop();
+    textSize(24);
+    text("PRESS ENTER TO RETURN TO TITLE", width*0.65, height*0.9);
+  }
+  else {
+    text("RIGHT PLAYER WON!", width*0.6, height*0.35);
+    push();
+    translate(width/2,height/2);
+    scale(0.75,0.75);
+    image(rightCharacter.won,0,0);
+    pop();
+    textSize(24);
+    text("PRESS ENTER TO RETURN TO TITLE", width*0.35, height*0.9);
+  }
+  pop();
+  // Check whether the spacebar was pressed to restart the game
+  if (keyIsDown(ENTER)) {
+    // ... if it was, change the state to "TITLE" so the switch statement in draw()
+    // will display the title instead
+    state = "TITLE";
+    leftPaddle.resetScore();
+    rightPaddle.resetScore();
+  }
+}
 /////// END NEW //////
 
 /////// NEW ///////

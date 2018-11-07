@@ -15,6 +15,7 @@ function Scoreboard (x,y,size,name,paddle){
   this.score;
   this.xCenter = this.x + this.size/2;
   this.character;
+  this.text;
 }
 
 //setup
@@ -22,6 +23,12 @@ function Scoreboard (x,y,size,name,paddle){
 //this tells the scoreboard which character to get information from
 Scoreboard.prototype.setup = function(character){
   this.character = character;
+}
+
+//setText
+//this sets the Scoreboard text to be appropriate for the game currently played
+Scoreboard.prototype.setText = function(text){
+  this.text = text;
 }
 
 //display
@@ -39,7 +46,7 @@ Scoreboard.prototype.display = function() {
   //this displays the player name at the bottom of the scoreboard
   text(this.name, this.xCenter, this.y + this.size*0.85);
   // this displays "have escaped from" right above the player's name
-  text("escaped from", this.xCenter, this.y + this.size*0.6);
+  text(this.text, this.xCenter, this.y + this.size*0.6);
   //
   textSize(24);
   // this displays a darker box behind the score
