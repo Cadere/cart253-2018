@@ -36,7 +36,7 @@ HorizontalMenu.prototype.display = function(){
   //this diplsyas a rectangle under the selected option
   rectMode(CENTER);
   noStroke();
-  fill(100);
+  fill("#6f9351");
   //the rectangle moves because it uses information in stateArray to define its position
   rect(this.menuInfo[this.state].y, this.centerHeight, this.size/this.choiceNumber, 150);
   //this displays the title text

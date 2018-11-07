@@ -22,7 +22,8 @@ Menu.prototype.display = function(){
   push();
   //this diplsyas a rectangle under the selected option
   rectMode(CENTER);
-  fill(150);
+  noStroke();
+  fill("#6f9351");
   //the rectangle moves because it uses information in stateArray to define its position
   rect(width/2, stateArray[this.state].y, 250, this.size/this.choiceNumber);
   //this displays the text of the different options

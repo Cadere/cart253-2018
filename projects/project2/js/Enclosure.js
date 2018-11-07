@@ -27,7 +27,7 @@ Enclosure.prototype.display = function() {
   textSize(24)
   textAlign(CENTER, CENTER)
   fill(255);
-  text (this.score + "sheep penned", this.x, this.y-edge)
+  text (this.score + " sheep penned", this.x, this.y-edge*2)
   pop();
 }
 //updateScore
