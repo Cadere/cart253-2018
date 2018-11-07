@@ -6,11 +6,10 @@
 // Scoreboard constructor
 //
 // Sets the properties with the provided arguments
-function Scoreboard (x,y,size,fill,name,paddle){
+function Scoreboard (x,y,size,name,paddle){
   this.x = x;
   this.y = y;
   this.size = size;
-  this.fill = fill;
   this.name = name;
   this.paddle = paddle;
   this.score;
@@ -30,7 +29,7 @@ Scoreboard.prototype.setup = function(character){
 //this method displays the Scoreboard
 Scoreboard.prototype.display = function() {
   push();
-  fill(this.fill);
+  fill(this.character.color);
   noStroke();
   rect(this.x,this.y,this.size,this.size);
   fill(255);

@@ -115,11 +115,11 @@ function setup() {
   //sets the starting velocity of the ball object we just created
   //////////// NEW ////////////
   //create left Scoreboard
-  leftScoreboard = new Scoreboard (edge,edge,scoreboardSize,100,"LEFT",leftPaddle);
+  leftScoreboard = new Scoreboard (edge,edge,scoreboardSize,"LEFT",leftPaddle);
   // this variable is used for the position of the rightScoreboard's left corner
   var rightCorner = width - (edge + scoreboardSize);
   // create right Scoreboard
-  rightScoreboard = new Scoreboard (rightCorner,edge,scoreboardSize,100, "RIGHT", rightPaddle);
+  rightScoreboard = new Scoreboard (rightCorner,edge,scoreboardSize, "RIGHT", rightPaddle);
   // create multiple Decoys
   for (var i = 0; i < decoyNumber; i++){
     decoys.push(new Decoy(random(-150,150), random(-150.150), 0, random(-1,1), random(0.05,0.5)));
