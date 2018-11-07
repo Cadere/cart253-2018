@@ -57,11 +57,11 @@ HorizontalMenu.prototype.display = function(){
 
 // this method handles keyboard imput in order to change the menu's state
 HorizontalMenu.prototype.handleInput= function(){
- if (keyIsDown(this.upKey)){
+ if (keyIsDown(this.rightKey)){
    //if the state of the menu is at the maximum, it resets to state 1
    //otherwise the state of the menu goes up by one
-   if(this.state === this.choiceNumber){
-     this.state = 1;
+   if(this.state === this.choiceNumber-1){
+     this.state = 0;
    }
    else{
      this.state += 1;
@@ -69,9 +69,9 @@ HorizontalMenu.prototype.handleInput= function(){
  }
  //if the state of the menu is at 0 or 1, it goes to state 3
  //it is impossible to go back to state 0 once UP_ARROW or DOWN_ARROW has been pressed
- else if (keyIsDown(this.downKey)){
-   if(this.state === 0 || this.state === 1){
-     this.state = this.choiceNumber;
+ else if (keyIsDown(this.leftKey)){
+   if(this.state === 0){
+     this.state = this.choiceNumber-1;
    }
    else{
      this.state -= 1;
