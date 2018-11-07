@@ -181,7 +181,7 @@ function setup() {
     new MenuInfo(0,undefined,"TITLE"),
     new MenuInfo(1,menu.edge+menu.size/menu.choiceNumber,"GAME 1"),
     new MenuInfo(2,menu.edge+menu.size/menu.choiceNumber*2,"GAME 2"),
-    new MenuInfo(3,menu.edge+menu.size/menu.choiceNumber*3, "GAME 3")
+    new MenuInfo(3,menu.edge+menu.size/menu.choiceNumber*3, "CHARACTER SELECT")
   ]
   //abbreviate some numbers used by the next array with ugly variable names
   var lcse = leftCharacterSelect.edge;
@@ -236,7 +236,7 @@ function draw() {
     displayGame2();
     break;
 
-    case "GAME 3":
+    case "CHARACTER SELECT":
     displayCharacterSelect();
     break;
 
@@ -260,8 +260,14 @@ function displayTitle() {
   textSize(32);
   fill(255);
   noStroke();
-  // Display the text
-  text("HERDER PONG",width/2,height/5);
+  // // Display the text
+  // text("HERDER PONG",width/2,height/5);
+  push()
+  translate(width/2,height*0.25);
+  scale(0.75,0.75);
+  imageMode(CENTER);
+  image(logo,50,0);
+  pop();
   // Font size goes down
   textSize(16);
   // Display the instructions

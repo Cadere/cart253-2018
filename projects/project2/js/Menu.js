@@ -7,7 +7,7 @@ function Menu(choiceNumber,upKey,downKey){
   //this is the number of choices in the menu
   this.choiceNumber = choiceNumber;
   //this is the menu's distance from the edge of the canvas
-  this.edge = height/4;
+  this.edge = height/3;
   this.size = height/2.5;
   // this is the state of the menu i.e. what is selected
   this.state = 0;
