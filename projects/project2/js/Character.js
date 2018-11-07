@@ -3,16 +3,18 @@
 //A class that stores information for the paddle character
 //
 //Character constructor
-function Character(number,imageArray,colorArray,endImage){
-  this.number = number;
+function Character(menu,imageArray,colorArray,endImage){
+  this.menu = menu;
   this.imageArray = imageArray;
   this.colorArray = colorArray;
   this.endImage = endImage;
-  this.image;
-  this.color;
-  this.state;
+  this.state = 0;
+  this.image = this.imageArray[0];
+  this.color = this.colorArray[0];
 }
 
-Character.prototype.handleInput = function(){
-  
+Character.prototype.characterPicked = function(){
+  this.state = this.menu.state;
+  this.image = this.imageArray[this.menu.state];
+  this.color = this.colorArray[this.menu.state];
 }
