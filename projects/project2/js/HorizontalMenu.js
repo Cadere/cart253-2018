@@ -11,7 +11,7 @@ function HorizontalMenu(centerHeight,choiceNumber,leftKey,rightKey,confirmKey,in
   this.edge = width/5;
   this.size = width*0.6;
   // this is the state of the menu i.e. what is selected
-  this.state = 1;
+  this.state = 0;
   //these are the keys to move in the menu
   this.leftKey = leftKey;
   this.rightKey = rightKey;

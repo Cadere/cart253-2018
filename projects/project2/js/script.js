@@ -161,7 +161,7 @@ function setup() {
   }
   //create the character objects
   rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor);
-  rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor);
+  leftCharacter = new Character(leftCharacterSelect,leftImage,leftColor);
   //this sets the initial velocity for the ball
   ball.setup();
   //this tell the HorizontalMenu object which array to take its information from
@@ -359,9 +359,20 @@ function displayCharacterSelect() {
   leftCharacterSelect.display();
   rightCharacterSelect.handleInput();
   rightCharacterSelect.display();
-  // if(keyIsDown(leftCharacterSelect.confirmKey)){
-  //
-  // }
+  if(keyIsDown(leftCharacterSelect.confirmKey)){
+  leftCharacter.characterPicked();
+  }
+  if(keyIsDown(rightCharacterSelect.confirmKey)){
+  rightCharacter.characterPicked();
+  }
+  console.log(rightCharacter.state)
+  if (keyIsDown(ENTER)) {
+    // ... if it was, change the state to "TITLE" so the switch statement in draw()
+    // will display the title instead
+    state = "TITLE";
+    leftPaddle.resetScore();
+    rightPaddle.resetScore();
+  }
 }
 
 // displayGameOver()
