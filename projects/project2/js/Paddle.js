@@ -17,7 +17,17 @@ function Paddle(x,y,w,h,speed,downKey,upKey) {
   this.downKey = downKey;
   this.upKey = upKey;
   this.score = 0;
+  this.character;
 }
+
+
+////////////// NEW ////////////
+//setup()
+//tells paddle which character object to get information from
+Paddle.prototype.setup = function(character) {
+  this.character = character;
+}
+//////// END NEW ////////
 
 // handleInput()
 //

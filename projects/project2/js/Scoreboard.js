@@ -15,6 +15,14 @@ function Scoreboard (x,y,size,fill,name,paddle){
   this.paddle = paddle;
   this.score;
   this.xCenter = this.x + this.size/2;
+  this.character;
+}
+
+//setup
+//
+//this tells the scoreboard which character to get information from
+Scoreboard.prototype.setup = function(character){
+  this.character = character;
 }
 
 //display

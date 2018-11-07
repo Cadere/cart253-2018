@@ -167,6 +167,12 @@ function setup() {
   //this tell the HorizontalMenu object which array to take its information from
   leftCharacterSelect.setup(leftMenuInfo);
   rightCharacterSelect.setup(rightMenuInfo);
+  //this tells the paddle which character to get information from
+  rightPaddle.setup(rightCharacter);
+  leftPaddle.setup(leftCharacter);
+  //this tells the scoreboards which character to get information from
+  rightScoreboard.setup(rightCharacter);
+  leftScoreboard.setup(leftCharacter);
   ///////// END NEW ///////////
 }
 
