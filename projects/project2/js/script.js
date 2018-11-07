@@ -43,6 +43,9 @@ var sheep;
 //these are for the paddles
 var leftImage;
 var rightImage;
+//these are for the characters
+var leftCharacter;
+var rightCharacter;
 
 ///////// END NEW ////////
 
@@ -155,7 +158,10 @@ function setup() {
    var rcs = rightCharacterSelect.size/(rightCharacterSelect.choiceNumber-1);
    for (var i = 0; i < rightCharacterSelect.choiceNumber; i++){
      rightMenuInfo.push(new MenuInfo(i+1,rcse+rcs*i,"game",rightImage[i]));
-   }
+  }
+  //create the character objects
+  rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor);
+  rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor);
   //this sets the initial velocity for the ball
   ball.setup();
   //this tell the HorizontalMenu object which array to take its information from
