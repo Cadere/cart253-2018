@@ -57,8 +57,7 @@ Paddle.prototype.update = function() {
 //
 // Draw the paddle as a rectangle on the screen
 Paddle.prototype.display = function() {
-  fill(255);
-  rect(this.x,this.y,this.w,this.h);
+  image(this.character.image,this.x,this.y,this.w,this.h);
 }
 
 ///////// NEW ////////
