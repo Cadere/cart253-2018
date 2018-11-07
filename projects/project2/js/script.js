@@ -40,6 +40,25 @@ var leftMenuState = [];
 //variables for the images used in the game
 //this one is for the Ball and Decoys
 var sheep;
+//these are for the paddles
+var leftImage;
+var rightImage;
+
+//variable for the character colors
+var rightColor = [
+  color("#0F6939"),
+  color("#a7ae38"),
+  color("#55ba48"),
+  color("#8fc987"),
+  color("#eac319")
+]
+var leftColor = [
+  color("#218464"),
+  color("#696c35"),
+  color("#55ba48"),
+  color("#94cf9a"),
+  color("#c1c930")
+]
 ///////// END NEW ////////
 
 /////// NEW //////

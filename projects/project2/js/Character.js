@@ -8,4 +8,11 @@ function Character(number,imageArray,colorArray,endImage){
   this.imageArray = imageArray;
   this.colorArray = colorArray;
   this.endImage = endImage;
+  this.image;
+  this.color;
+  this.state;
+}
+
+Character.prototype.handleInput = function(){
+  
 }
