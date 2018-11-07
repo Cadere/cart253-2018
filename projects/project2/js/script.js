@@ -52,6 +52,8 @@ var rightLost;
 // these are for the second version of the gameOver screen
 var leftWon;
 var rightWon;
+// this is for the logo on the title screen
+var logo;
 
 ///////// END NEW ////////
 
@@ -75,6 +77,7 @@ var state = "TITLE";
 //loads the images before the game starts
 function preload(){
   sheep = loadImage("assets/images/sheep.png");
+  logo = loadImage("assets/images/logo.png");
   leftImage = [
     loadImage("assets/images/left1.png"),
     loadImage("assets/images/left2.png"),
@@ -102,6 +105,20 @@ function preload(){
     loadImage("assets/images/rightlost3.png"),
     loadImage("assets/images/rightlost4.png"),
     loadImage("assets/images/rightlost5.png")
+  ]
+  leftWon = [
+    loadImage("assets/images/leftwon1.png"),
+    loadImage("assets/images/leftwon2.png"),
+    loadImage("assets/images/leftwon3.png"),
+    loadImage("assets/images/leftwon4.png"),
+    loadImage("assets/images/leftwon5.png")
+  ]
+  rightWon = [
+    loadImage("assets/images/rightwon1.png"),
+    loadImage("assets/images/rightwon2.png"),
+    loadImage("assets/images/rightwon3.png"),
+    loadImage("assets/images/rightwon4.png"),
+    loadImage("assets/images/rightwon5.png")
   ]
 }
 
