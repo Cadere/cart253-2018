@@ -31,7 +31,7 @@ var enclosure;
 var stateArray;
 var menu;
 
-//variables for the right character select menu
+//variables for the character select menu
 var leftCharacterSelect;
 var rightCharacterSelect;
 var rightMenuInfo = [];
