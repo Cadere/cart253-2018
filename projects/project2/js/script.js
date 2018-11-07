@@ -46,12 +46,18 @@ var rightImage;
 //these are for the characters
 var leftCharacter;
 var rightCharacter;
+// these are for the gameover screen
+var leftLost;
+var rightLost;
+// these are for the second version of the gameOver screen
+var leftWon;
+var rightWon;
 
 ///////// END NEW ////////
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
-var finishScore = 3;
+var finishScore = 1;
 
 // these variables are used for the appearance of the scoreboards
 var edge = 15;
@@ -82,6 +88,20 @@ function preload(){
     loadImage("assets/images/right3.png"),
     loadImage("assets/images/right4.png"),
     loadImage("assets/images/right5.png")
+  ]
+  leftLost = [
+    loadImage("assets/images/leftlost1.png"),
+    loadImage("assets/images/leftlost2.png"),
+    loadImage("assets/images/leftlost3.png"),
+    loadImage("assets/images/leftlost4.png"),
+    loadImage("assets/images/leftlost5.png")
+  ]
+  rightLost = [
+    loadImage("assets/images/rightlost1.png"),
+    loadImage("assets/images/rightlost2.png"),
+    loadImage("assets/images/rightlost3.png"),
+    loadImage("assets/images/rightlost4.png"),
+    loadImage("assets/images/rightlost5.png")
   ]
 }
 
@@ -160,8 +180,8 @@ function setup() {
      rightMenuInfo.push(new MenuInfo(i+1,rcse+rcs*i,"game",rightImage[i]));
   }
   //create the character objects
-  rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor);
-  leftCharacter = new Character(leftCharacterSelect,leftImage,leftColor);
+  rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor,rightLost);
+  leftCharacter = new Character(leftCharacterSelect,leftImage,leftColor,leftLost);
   //this sets the initial velocity for the ball
   ball.setup();
   //this tell the HorizontalMenu object which array to take its information from
@@ -399,20 +419,33 @@ function displayCharacterSelect() {
 // Displays game over text
 function displayGameOver() {
   push();
+  imageMode(CENTER);
   textAlign(CENTER,CENTER);
   textFont("Agency FB");
-  textSize(32);
+  textSize(36);
   fill(255);
   stroke(255);
   // this text indicates which player lost
   if (leftPaddle.score > rightPaddle.score){
-    text("LEFT PLAYER LOST",width/2,height/2);
+    text("LEFT PLAYER LOST",width*0.25,height*0.7);
+    push();
+    translate(width/2,height/2);
+    scale(0.75,0.75);
+    image(leftCharacter.lost,0,0);
+    pop();
+    textSize(24);
+    text("PRESS ENTER TO RETURN TO TITLE", width*0.65, height*0.85);
   }
   else {
-    text("RIGHT PLAYER LOST", width/2, height/2);
+    text("RIGHT PLAYER LOST", width*0.75, height*0.7);
+    push();
+    translate(width/2,height/2);
+    scale(0.75,0.75);
+    image(rightCharacter.lost,0,0);
+    pop();
+    textSize(24);
+    text("PRESS ENTER TO RETURN TO TITLE", width*0.35, height*0.85);
   }
-  textSize(24);
-  text("PRESS ENTER TO RETURN TO TITLE", width/2, height*0.7);
   pop();
   // Check whether the spacebar was pressed to restart the game
   if (keyIsDown(ENTER)) {

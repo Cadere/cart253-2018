@@ -11,10 +11,12 @@ function Character(menu,imageArray,colorArray,endImage){
   this.state = 0;
   this.image = this.imageArray[0];
   this.color = this.colorArray[0];
+  this.lost = this.endImage[0];
 }
 
 Character.prototype.characterPicked = function(){
   this.state = this.menu.state;
   this.image = this.imageArray[this.menu.state];
   this.color = this.colorArray[this.menu.state];
+  this.lost = this.endImage[this.menu.state];
 }
