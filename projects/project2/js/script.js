@@ -34,8 +34,8 @@ var menu;
 //variables for the right character select menu
 var leftCharacterSelect;
 var rightCharacterSelect;
-var rightMenuState = [];
-var leftMenuState = [];
+var rightMenuInfo = [];
+var leftMenuInfo = [];
 
 //variables for the images used in the game
 //this one is for the Ball and Decoys
@@ -44,26 +44,11 @@ var sheep;
 var leftImage;
 var rightImage;
 
-//variable for the character colors
-var rightColor = [
-  color("#0F6939"),
-  color("#a7ae38"),
-  color("#55ba48"),
-  color("#8fc987"),
-  color("#eac319")
-]
-var leftColor = [
-  color("#218464"),
-  color("#696c35"),
-  color("#55ba48"),
-  color("#94cf9a"),
-  color("#c1c930")
-]
 ///////// END NEW ////////
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
-var finishScore = 10;
+var finishScore = 3;
 
 // these variables are used for the appearance of the scoreboards
 var edge = 15;
@@ -102,6 +87,21 @@ function preload(){
 // Creates the ball and paddles
 function setup() {
   createCanvas(640,480);
+  //variable for the character colors
+  var rightColor = [
+    color("#0F6939"),
+    color("#a7ae38"),
+    color("#55ba48"),
+    color("#8fc987"),
+    color("#eac319")
+  ]
+  var leftColor = [
+    color("#218464"),
+    color("#696c35"),
+    color("#55ba48"),
+    color("#94cf9a"),
+    color("#c1c930")
+  ]
   // Create a ball
   ball = new Ball(width/2,height/2,20,8);
   // Create the right paddle with UP and DOWN as controls
@@ -138,29 +138,29 @@ function setup() {
     //state 0 has undefined as a second argument so no rectangle appears
     // it has title as a 3rd argument so if the spacebar is clicked and no
     //menu option is selected, the state remains title
-    new MenuState(0,undefined,"TITLE"),
-    new MenuState(1,menu.edge+menu.size/menu.choiceNumber,"GAME 1"),
-    new MenuState(2,menu.edge+menu.size/menu.choiceNumber*2,"GAME 2"),
-    new MenuState(3,menu.edge+menu.size/menu.choiceNumber*3, "GAME 3")
+    new MenuInfo(0,undefined,"TITLE"),
+    new MenuInfo(1,menu.edge+menu.size/menu.choiceNumber,"GAME 1"),
+    new MenuInfo(2,menu.edge+menu.size/menu.choiceNumber*2,"GAME 2"),
+    new MenuInfo(3,menu.edge+menu.size/menu.choiceNumber*3, "GAME 3")
   ]
   //abbreviate some numbers used by the next array with ugly variable names
   var lcse = leftCharacterSelect.edge;
   var lcs = leftCharacterSelect.size/(leftCharacterSelect.choiceNumber-1);
   //create an array of menu states for the left character select menu
   for (var i = 0; i < leftCharacterSelect.choiceNumber; i++){
-    leftMenuState.push(new MenuState(i+1,lcse+lcs*i,"game",leftImage[i]));
+    leftMenuInfo.push(new MenuInfo(i+1,lcse+lcs*i,"game",leftImage[i]));
   }
   // create an array of meny states for the right character select menu
    var rcse = rightCharacterSelect.edge;
    var rcs = rightCharacterSelect.size/(rightCharacterSelect.choiceNumber-1);
    for (var i = 0; i < rightCharacterSelect.choiceNumber; i++){
-     rightMenuState.push(new MenuState(i+1,rcse+rcs*i,"game",rightImage[i]));
+     rightMenuInfo.push(new MenuInfo(i+1,rcse+rcs*i,"game",rightImage[i]));
    }
   //this sets the initial velocity for the ball
   ball.setup();
   //this tell the HorizontalMenu object which array to take its information from
-  leftCharacterSelect.setup(leftMenuState);
-  rightCharacterSelect.setup(rightMenuState);
+  leftCharacterSelect.setup(leftMenuInfo);
+  rightCharacterSelect.setup(rightMenuInfo);
   ///////// END NEW ///////////
 }
 
@@ -353,6 +353,9 @@ function displayCharacterSelect() {
   leftCharacterSelect.display();
   rightCharacterSelect.handleInput();
   rightCharacterSelect.display();
+  // if(keyIsDown(leftCharacterSelect.confirmKey)){
+  //
+  // }
 }
 
 // displayGameOver()

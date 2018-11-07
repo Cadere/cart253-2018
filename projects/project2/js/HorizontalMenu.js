@@ -19,14 +19,14 @@ function HorizontalMenu(centerHeight,choiceNumber,leftKey,rightKey,confirmKey,in
   this.confirmKey = confirmKey;
   //this is the commands text
   this.instructions = instructions;
-  this.menuState;
+  this.menuInfo;
 }
 
 //setup()
 //
 //This method tells the menu which array to take it's information from
-HorizontalMenu.prototype.setup = function(menuState){
-  this.menuState = menuState;
+HorizontalMenu.prototype.setup = function(menuInfo){
+  this.menuInfo = menuInfo;
 }
 //display()
 //
@@ -38,7 +38,7 @@ HorizontalMenu.prototype.display = function(){
   noStroke();
   fill(100);
   //the rectangle moves because it uses information in stateArray to define its position
-  rect(this.menuState[this.state].y, this.centerHeight, this.size/this.choiceNumber, 150);
+  rect(this.menuInfo[this.state].y, this.centerHeight, this.size/this.choiceNumber, 150);
   //this displays the title text
   textAlign(CENTER,CENTER);
   textFont("Agency FB");
@@ -48,7 +48,7 @@ HorizontalMenu.prototype.display = function(){
   //this diplays the images
   imageMode(CENTER);
   for (var i = 0; i < this.choiceNumber; i++){
-    image(this.menuState[i].image,this.menuState[i].y, this.centerHeight, paddleWidth*2, paddleHeight*2);
+    image(this.menuInfo[i].image,this.menuInfo[i].y, this.centerHeight, paddleWidth*2, paddleHeight*2);
   }
   pop();
 }
@@ -77,4 +77,13 @@ HorizontalMenu.prototype.handleInput= function(){
      this.state -= 1;
    }
  }
+}
+
+//handleConfirm
+//
+//this method handles keyboard input in order to determine if the confirm key has been pressed
+HorizontalMenu.prototype.handleConfirm = function(horizontalMenu){
+  if (keyIsDown(this.confirmKey)){
+    return true;
+  }
 }
