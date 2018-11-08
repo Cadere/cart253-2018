@@ -25,7 +25,7 @@ function Ball2(x,y,size,speed) {
 ///////// NEW ////////
 //replaced the cartesian speed by polar coordinates for a more unpredictable ball
 Ball2.prototype.setup = function(){
-  this.angle = randomDouble(random(PI*0.15,PI*0.35));
+  this.angle = randomDouble(random(PI*0.15,PI*0.4));
 }
 ////////// END NEW ////////
 // update()
@@ -46,7 +46,7 @@ Ball2.prototype.update = function () {
 
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
-    this.vy = -this.vy;
+    this.angle = -this.angle;
   }
   // Check if the ball has gone off screen and make it wrap if it did
   if (this.x < 0) {
@@ -86,7 +86,7 @@ Ball2.prototype.handleCollision = function(paddle) {
       this.x -= this.vx;
       this.y -= this.vy;
       // Reverse x velocity to bounce
-      this.vx = -this.vx;
+      this.angle += PI;
       // change lastPaddle to the paddle that was called in the function
       this.lastPaddle = paddle;
     }
@@ -120,5 +120,5 @@ Ball2.prototype.enclosureCollision = function(enclosure) {
 Ball2.prototype.reset = function () {
   this.x = width/2;
   this.y = 0;
-  this.angle = randomDouble(random(PI*0.15,PI*0.35));
+  this.angle = randomDouble(random(PI*0.15,PI*0.4));
 }

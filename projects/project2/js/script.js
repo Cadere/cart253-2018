@@ -176,9 +176,9 @@ function setup() {
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
   //creates the left paddle character select menu
-  leftCharacterSelect = new HorizontalMenu(160,5,65,68,87,"Move with\nA and D,\n use W to select");
+  leftCharacterSelect = new HorizontalMenu(160,5,65,68,87,"Move with\nA and D,\nuse W to select");
   //creates the right paddle character select menu
-  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Move with\n← and →,\n use ↑ to select");
+  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Move with\nLEFT and RIGHT,\nuse UP to select");
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears
@@ -282,7 +282,7 @@ function displayTitle() {
   // Font size goes down
   textSize(16);
   // Display the instructions
-  text("Press SPACE to play\nLeft player use W S and Right player use ↑ ↓",width/2,0.9*height);
+  text("Press SPACE to play\nLeft player use WASD and Right player use ARROWS",width/2,0.9*height);
   pop();
 
   //display menu

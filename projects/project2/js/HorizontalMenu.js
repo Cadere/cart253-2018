@@ -40,7 +40,7 @@ HorizontalMenu.prototype.display = function(){
   //the rectangle moves because it uses information in stateArray to define its position
   rect(this.menuInfo[this.state].y, this.centerHeight, this.size/this.choiceNumber, 150);
   //this displays the title text
-  textAlign(CENTER,CENTER);
+  textAlign(LEFT,CENTER);
   textFont(agencyFB);
   textSize(16);
   fill(255);
