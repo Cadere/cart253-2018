@@ -366,6 +366,15 @@ function displayGame2() {
   leftPaddle.handleBark();
   rightPaddle.handleBark();
 
+  /////// NEW ////////
+  if(checkBark(leftPaddle)){
+    ball2.barkedAt(leftPaddle);
+  }
+  if(checkBark(rightPaddle)){
+    ball2.barkedAt(rightPaddle);
+  }
+  console.log("ball2angle",ball2.angle);
+
   ball2.update();
   leftPaddle.update();
   rightPaddle.update();
@@ -569,7 +578,7 @@ function randomDouble(value) {
   return result;
 }
 
-//gameOVer
+//gameOVer()
 //
 // this function checks if the game has been lost by one of the players
 function gameOver() {
@@ -581,8 +590,28 @@ function gameOver() {
   }
 }
 
+//keyPressed()
+//
+// this function calls the menu methods to check if a key was pressed
 function keyPressed(){
     menu.keyPressed();
     leftCharacterSelect.keyPressed();
     rightCharacterSelect.keyPressed();
+}
+
+//checkBark()
+//
+// this function checks if a paddle barked 
+function checkBark(paddle){
+  if(paddle.barkFill === 255){
+    if(paddle.barkStatus === "clockwise" || paddle.barkStatus === "counter"){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  else{
+    return false;
+  }
 }

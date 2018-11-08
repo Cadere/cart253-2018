@@ -84,6 +84,8 @@ Paddle.prototype.display = function() {
 
 ///////// NEW ////////
 //displayBark
+//
+//this methods displays a bark text next to the paddle and updates the bark opacity (barkFill)
 Paddle.prototype.displayBark = function(edge){
   push();
   textFont(agencyFB);
@@ -98,6 +100,17 @@ Paddle.prototype.displayBark = function(edge){
   }
   this.barkFill -= 5;
 }
+
+//updateBark
+//
+//this method updates the barkStatus when the barkFill reaches 0
+Paddle.prototype.updateBark = function() {
+  if(this.barkFill === 0){
+    this.barkStatus = "none";
+    return this.barkStatus;
+  }
+}
+
 //updateScore
 //
 // this method updates the paddle's score

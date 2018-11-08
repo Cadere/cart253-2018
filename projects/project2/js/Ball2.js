@@ -113,6 +113,7 @@ Ball2.prototype.enclosureCollision = function(enclosure) {
     return false;
   }
 }
+//////// END NEW ///////
 
 // reset()
 //
@@ -121,4 +122,17 @@ Ball2.prototype.reset = function () {
   this.x = width/2;
   this.y = 0;
   this.angle = randomDouble(random(PI*0.15,PI*0.4));
+}
+
+//BarkedAt()
+// this modifies the ball angle accordingly to being barked at
+Ball2.prototype.barkedAt = function(paddle) {
+  if (paddle.barkStatus === "clockwise"){
+    this.angle += PI/8;
+  }
+  if (paddle.barkStatus === "counter"){
+    text("B0RK",this.x+edge, this.y+random(-60,0));
+    this.angle -= PI/8;
+  }
+  console.log("ball2 is being barkedAt");
 }
