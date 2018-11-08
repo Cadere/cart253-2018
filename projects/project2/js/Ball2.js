@@ -1,7 +1,7 @@
-// Ball
+// Ball2
 //
 // A class to define how a ball behaves. Including bouncing on the top
-// and bottom edges of the canvas, going off the left and right sides,
+// and bottom edges of the canvas, wrapping off the left and right sides,
 // and bouncing off paddles.
 
 // Ball constructor

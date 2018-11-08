@@ -369,24 +369,29 @@ function displayGame2() {
   // The paddle's scores update accordingly
   if (ball.isOffScreen() === "left") {
     ball.reset()
-    leftPaddle.updateScore();
   }
   else if (ball.isOffScreen() === "right"){
     ball.reset()
-    rightPaddle.updateScore();
   }
 
-  // handleCollision with the enclosure
-  if (ball.enclosureCollision(enclosure)){
-    ball.reset();
-    enclosure.updateScore();
-  }
   /////// END NEW ////////
 
   ball.handleCollision(leftPaddle);
   ball.handleCollision(rightPaddle);
 
   ///////// NEW ////////
+
+  // handleCollision with the enclosure
+  if (ball.enclosureCollision(enclosure)){
+    ball.reset();
+    if(ball.lastPaddle === leftPaddle){
+      leftPaddle.updateScore();
+    }
+    if(ball.lastPaddle === rightPaddle){
+      rightPaddle.updateScore();
+    }
+    enclosure.updateScore();
+  }
   //display scoreboards
   leftScoreboard.display();
   rightScoreboard.display();
