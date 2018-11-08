@@ -59,7 +59,7 @@ var logo;
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
-var finishScore = 1;
+var finishScore = 3;
 
 // these variables are used for the appearance of the scoreboards
 var edge = 15;
@@ -143,7 +143,7 @@ function setup() {
     color("#c1c930")
   ]
   // Create a ball
-  ball = new Ball(width/2,height/2,20,8);
+  ball = new Ball(width/2,height/2,20,5);
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-10,height/2,paddleWidth,paddleHeight,10,DOWN_ARROW,UP_ARROW);
   // Create the left paddle with W and S as controls
@@ -558,4 +558,10 @@ function gameOver() {
   else {
     return false;
   }
+}
+
+function keyPressed(){
+    menu.keyPressed();
+    leftCharacterSelect.keyPressed();
+    rightCharacterSelect.keyPressed();
 }

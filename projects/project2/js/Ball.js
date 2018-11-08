@@ -72,6 +72,7 @@ Ball.prototype.isOffScreen = function () {
 // Draw the ball as a sheep on the screen
 Ball.prototype.display = function () {
   push();
+  imageMode(CENTER);
   translate(this.x,this.y);
   rotate(this.angle);
   //the image displays slightly larger than the object size because the "sheep"
