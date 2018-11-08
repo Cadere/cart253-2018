@@ -117,6 +117,14 @@ Paddle.prototype.updateBark = function() {
 Paddle.prototype.updateScore = function() {
   this.score += 1;
 }
+
+//updateScore2
+//
+// this method docks a point from the paddle score
+Paddle.prototype.updateScore2 = function() {
+  this.score -= 1;
+  constrain(this.score, -3, finishScore);
+}
 ///////// END NEW //////////
 
 ////////// NEW /////////

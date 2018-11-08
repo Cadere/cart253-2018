@@ -1,7 +1,7 @@
 // Ball2
 //
 // A class to define how a ball behaves. Including bouncing on the top
-// and bottom edges of the canvas, wrapping off the left and right sides,
+// and bottom edges of the canvas, checking if it went off screen,
 // and bouncing off paddles.
 
 // Ball2 constructor
@@ -48,15 +48,20 @@ Ball2.prototype.update = function () {
   if (this.y === 0 || this.y + this.size === height) {
     this.angle = -this.angle;
   }
-  // Check if the ball has gone off screen and make it wrap if it did
-  if (this.x < 0) {
-    this.x += width;
-  }
-  else if (this.x > width) {
-    this.x -= width;
-  }
 }
 
+Ball2.prototype.isOffScreen = function () {
+  // Check for going off screen and reset if so
+  if (this.x + this.size < 0) {
+    return "left";
+  }
+  else if (this.x > width) {
+    return "right";
+  }
+  else {
+    return "false";
+  }
+}
 
 // display()
 //
@@ -128,11 +133,11 @@ Ball2.prototype.reset = function () {
 // this modifies the ball angle accordingly to being barked at
 Ball2.prototype.barkedAt = function(paddle) {
   if (paddle.barkStatus === "clockwise"){
-    this.angle += PI/8;
+    this.angle += PI/16;
   }
   if (paddle.barkStatus === "counter"){
     text("B0RK",this.x+edge, this.y+random(-60,0));
-    this.angle -= PI/8;
+    this.angle -= PI/16;
   }
   console.log("ball2 is being barkedAt");
 }

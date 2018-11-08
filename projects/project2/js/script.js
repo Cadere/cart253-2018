@@ -62,7 +62,7 @@ var agencyFB;
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
-var finishScore = 3;
+var finishScore = 10;
 
 // these variables are used for the appearance of the scoreboards
 var edge = 15;
@@ -383,6 +383,17 @@ function displayGame2() {
   leftScoreboard.update();
   rightScoreboard.update();
 
+  // ball.isOffScreen now recognizes which side of the screen the ball went off to
+  // The paddle's scores update accordingly - in this game paddles are docked a point
+  if (ball2.isOffScreen() === "left") {
+    ball2.reset()
+    leftPaddle.updateScore2();
+  }
+  else if (ball2.isOffScreen() === "right"){
+    ball2.reset()
+    rightPaddle.updateScore2();
+  }
+
   /////// END NEW ////////
 
   ball2.handleCollision(leftPaddle);
@@ -401,6 +412,9 @@ function displayGame2() {
     }
     enclosure.updateScore();
   }
+  //display instructions for this less obvious version of Pong
+  displayInstructions();
+
   //display scoreboards
   leftScoreboard.display();
   rightScoreboard.display();
@@ -601,7 +615,7 @@ function keyPressed(){
 
 //checkBark()
 //
-// this function checks if a paddle barked 
+// this function checks if a paddle barked
 function checkBark(paddle){
   if(paddle.barkFill === 255){
     if(paddle.barkStatus === "clockwise" || paddle.barkStatus === "counter"){
@@ -614,4 +628,17 @@ function checkBark(paddle){
   else{
     return false;
   }
+}
+
+//displayInstructions
+//
+//this function dsplays instruction for game 2
+function displayInstructions(){
+  push();
+  textFont(agencyFB);
+  textSize(16);
+  textAlign(CENTER,CENTER);
+  fill(255);
+  text("BARK AT THE SHEEP\nUse A or LEFT and make it flee clockwise\nUse D or RIGHT to make if flee counter clockwise\n\nBounce the sheep to get credit\nlost sheep dock points",width/2,height/2);
+  pop();
 }
