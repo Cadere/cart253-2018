@@ -151,10 +151,10 @@ function setup() {
   // create ball2
   ball2 = new Ball2(width/2, 0, 20, 5);
   // Create the right paddle with UP and DOWN as controls
-  rightPaddle = new Paddle(width-10,height/2,paddleWidth,paddleHeight,10,DOWN_ARROW,UP_ARROW);
+  rightPaddle = new Paddle(width-10,height/2,paddleWidth,paddleHeight,10,DOWN_ARROW,UP_ARROW,LEFT_ARROW,RIGHT_ARROW);
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
-  leftPaddle = new Paddle(0,height/2,paddleWidth,paddleHeight,10,83,87);
+  leftPaddle = new Paddle(0,height/2,paddleWidth,paddleHeight,10,83,87,65,68);
   //sets the starting velocity of the ball object we just created
   //////////// NEW ////////////
   //create left Scoreboard
@@ -363,6 +363,8 @@ function displayGame2() {
   rightScoreboard.setText("penned by");
   leftPaddle.handleInput();
   rightPaddle.handleInput();
+  leftPaddle.handleBark();
+  rightPaddle.handleBark();
 
   ball2.update();
   leftPaddle.update();
@@ -402,6 +404,9 @@ function displayGame2() {
   leftPaddle.display();
   rightPaddle.display();
   /////// NEW //////
+  // this displays the bark text
+  leftPaddle.displayBark(20);
+  rightPaddle.displayBark(-20);
   // if either player reaches 11 points they lose
   // this means the game is over - this checks if the game is over
   // and changes the state accordingly

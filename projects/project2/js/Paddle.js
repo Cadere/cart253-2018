@@ -16,8 +16,12 @@ function Paddle(x,y,w,h,speed,downKey,upKey,leftKey,rightKey) {
   this.speed = speed;
   this.downKey = downKey;
   this.upKey = upKey;
+  this.leftKey = leftKey;
+  this.rightKey = rightKey;
   this.score = 0;
   this.character;
+  this.barkFill = 0;
+  this.barkStatus = "none";
 }
 
 
@@ -45,6 +49,24 @@ Paddle.prototype.handleInput = function() {
   }
 }
 
+//////// NEW /////////
+//handleBark()
+//
+// handles imput from the right and left key to handle barking
+Paddle.prototype.handleBark = function() {
+  if (keyIsDown(this.rightKey)) {
+    this.barkFill = 255;
+    this.barkStatus = "clockwise";
+    return this.barkStatus;
+  }
+  else if (keyIsDown(this.leftKey)) {
+    this.barkFill = 255;
+    this.barkStatus = "counter";
+    return this.barkStatus;
+    console.log("handleBark")
+  }
+}
+
 // update()
 // Update y position based on velocity
 // Constrain the resulting position to be within the canvas
@@ -55,12 +77,27 @@ Paddle.prototype.update = function() {
 
 // display()
 //
-// Draw the paddle as a rectangle on the screen
+// Draw the paddle as a "dog" on the screen
 Paddle.prototype.display = function() {
   image(this.character.image,this.x,this.y,this.w,this.h);
 }
 
 ///////// NEW ////////
+//displayBark
+Paddle.prototype.displayBark = function(edge){
+  push();
+  textFont(agencyFB);
+  textSize(16);
+  textAlign(CENTER,CENTER);
+  fill(255,this.barkFill);
+  if (this.barkStatus === "clockwise"){
+    text("BARK",this.x+edge, this.y+random(0,60));
+  }
+  if (this.barkStatus === "counter"){
+    text("B0RK",this.x+edge, this.y+random(-60,0));
+  }
+  this.barkFill -= 5;
+}
 //updateScore
 //
 // this method updates the paddle's score
