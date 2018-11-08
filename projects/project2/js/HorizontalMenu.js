@@ -41,7 +41,7 @@ HorizontalMenu.prototype.display = function(){
   rect(this.menuInfo[this.state].y, this.centerHeight, this.size/this.choiceNumber, 150);
   //this displays the title text
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(16);
   fill(255);
   text(this.instructions,this.edge+this.size, this.centerHeight);

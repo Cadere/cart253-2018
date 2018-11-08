@@ -12,6 +12,7 @@
 
 // Variable to contain the objects representing our ball and paddles
 var ball;
+var ball2;
 var leftPaddle;
 var rightPaddle;
 ///////// NEW ////////
@@ -54,6 +55,8 @@ var leftWon;
 var rightWon;
 // this is for the logo on the title screen
 var logo;
+// a variable for the font I am using, since Macs do not have it by default
+var agencyFB;
 
 ///////// END NEW ////////
 
@@ -76,6 +79,7 @@ var state = "TITLE";
 //
 //loads the images before the game starts
 function preload(){
+  agencyFB = loadFont("assets/fonts/Agency_FB.ttf");
   sheep = loadImage("assets/images/sheep.png");
   logo = loadImage("assets/images/logo.png");
   leftImage = [
@@ -144,6 +148,8 @@ function setup() {
   ]
   // Create a ball
   ball = new Ball(width/2,height/2,20,5);
+  // create ball2
+  ball2 = new Ball2(width/2, 0, 20, 5);
   // Create the right paddle with UP and DOWN as controls
   rightPaddle = new Paddle(width-10,height/2,paddleWidth,paddleHeight,10,DOWN_ARROW,UP_ARROW);
   // Create the left paddle with W and S as controls
@@ -199,8 +205,9 @@ function setup() {
   //create the character objects
   rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor,rightLost,rightWon);
   leftCharacter = new Character(leftCharacterSelect,leftImage,leftColor,leftLost,leftWon);
-  //this sets the initial velocity for the ball
+  //this sets the initial velocity for the balls
   ball.setup();
+  ball2.setup();
   //this tell the HorizontalMenu object which array to take its information from
   leftCharacterSelect.setup(leftMenuInfo);
   rightCharacterSelect.setup(rightMenuInfo);
@@ -260,7 +267,7 @@ function displayTitle() {
   // Set up all the styling elements
   push();
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(32);
   fill(255);
   noStroke();
@@ -357,7 +364,7 @@ function displayGame2() {
   leftPaddle.handleInput();
   rightPaddle.handleInput();
 
-  ball.update();
+  ball2.update();
   leftPaddle.update();
   rightPaddle.update();
   /////// NEW ////////
@@ -365,29 +372,20 @@ function displayGame2() {
   leftScoreboard.update();
   rightScoreboard.update();
 
-  // ball.isOffScreen now recognizes which side of the screen the ball went off to
-  // The paddle's scores update accordingly
-  if (ball.isOffScreen() === "left") {
-    ball.reset()
-  }
-  else if (ball.isOffScreen() === "right"){
-    ball.reset()
-  }
-
   /////// END NEW ////////
 
-  ball.handleCollision(leftPaddle);
-  ball.handleCollision(rightPaddle);
+  ball2.handleCollision(leftPaddle);
+  ball2.handleCollision(rightPaddle);
 
   ///////// NEW ////////
 
   // handleCollision with the enclosure
-  if (ball.enclosureCollision(enclosure)){
-    ball.reset();
-    if(ball.lastPaddle === leftPaddle){
+  if (ball2.enclosureCollision(enclosure)){
+    ball2.reset();
+    if(ball2.lastPaddle === leftPaddle){
       leftPaddle.updateScore();
     }
-    if(ball.lastPaddle === rightPaddle){
+    if(ball2.lastPaddle === rightPaddle){
       rightPaddle.updateScore();
     }
     enclosure.updateScore();
@@ -400,7 +398,7 @@ function displayGame2() {
   enclosure.display();
 
   //////// END NEW ////////
-  ball.display();
+  ball2.display();
   leftPaddle.display();
   rightPaddle.display();
   /////// NEW //////
@@ -420,7 +418,7 @@ function displayCharacterSelect() {
   // Set up all the styling elements
   push();
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(32);
   fill(255);
   noStroke();
@@ -457,7 +455,7 @@ function displayGameLost() {
   push();
   imageMode(CENTER);
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(36);
   fill(255);
   stroke(255);
@@ -500,7 +498,7 @@ function displayGameWon() {
   push();
   imageMode(CENTER);
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(36);
   fill(255);
   stroke(255);
@@ -549,6 +547,19 @@ function randomNegative(value) {
   }
   else {
     result = -value;
+  }
+  return result;
+}
+
+// this spits a value or its double at random
+function randomDouble(value) {
+  var r = random();
+  var result;
+  if (r < 0.5){
+    result = value;
+  }
+  else {
+    result = 2*value;
   }
   return result;
 }

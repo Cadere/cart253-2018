@@ -28,7 +28,7 @@ Menu.prototype.display = function(){
   rect(width/2, stateArray[this.state].y, 250, this.size/this.choiceNumber);
   //this displays the text of the different options
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(24);
   fill(255);
   text("RUNNING HERD",width/2,stateArray[1].y);
