@@ -40,7 +40,7 @@ Scoreboard.prototype.display = function() {
   noStroke();
   rect(this.x,this.y,this.size,this.size);
   fill(255);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(14);
   textAlign (CENTER, CENTER);
   //this displays the player name at the bottom of the scoreboard

@@ -1,17 +1,17 @@
-// Ball
+// Ball2
 //
 // A class to define how a ball behaves. Including bouncing on the top
-// and bottom edges of the canvas, going off the left and right sides,
+// and bottom edges of the canvas, checking if it went off screen,
 // and bouncing off paddles.
 
-// Ball constructor
+// Ball2 constructor
 //
 // Sets the properties with the provided arguments
 ///////// NEW //////////
 // removed vx and vy from arguments as they made speed redundant
 // this.vx and this.vy are no longer set from the start
 //they now use the ball.setup method to be set
-function Ball(x,y,size,speed) {
+function Ball2(x,y,size,speed) {
   this.x = x;
   this.y = y;
   this.vx;
@@ -24,10 +24,8 @@ function Ball(x,y,size,speed) {
 
 ///////// NEW ////////
 //replaced the cartesian speed by polar coordinates for a more unpredictable ball
-Ball.prototype.setup = function(){
-  this.angle = randomNegative(random(PI*0.2,PI*0.4));
-  this.vx = this.speed*cos(this.angle);
-  this.vy = this.speed*sin(this.angle);
+Ball2.prototype.setup = function(){
+  this.angle = randomDouble(random(PI*0.15,PI*0.4));
 }
 ////////// END NEW ////////
 // update()
@@ -35,7 +33,10 @@ Ball.prototype.setup = function(){
 // Moves according to velocity, constrains y to be on screen,
 // checks for bouncing on upper or lower edgs, checks for going
 // off left or right side.
-Ball.prototype.update = function () {
+Ball2.prototype.update = function () {
+  //calculate velocity
+  this.vx = this.speed*cos(this.angle);
+  this.vy = this.speed*sin(this.angle);
   // Update position with velocity
   this.x += this.vx;
   this.y += this.vy;
@@ -45,17 +46,11 @@ Ball.prototype.update = function () {
 
   // Check for touching upper or lower edge and reverse velocity if so
   if (this.y === 0 || this.y + this.size === height) {
-    this.vy = -this.vy;
+    this.angle = -this.angle;
   }
 }
 
-// isOffScreen()
-/////////// NEW ///////////
-// Checks if the ball has moved off the screen
-// if it moved off screen on the left, returns "left"
-// if it moved off screen on the right, returns "right"
-// Otherwise it returns false.
-Ball.prototype.isOffScreen = function () {
+Ball2.prototype.isOffScreen = function () {
   // Check for going off screen and reset if so
   if (this.x + this.size < 0) {
     return "left";
@@ -71,7 +66,7 @@ Ball.prototype.isOffScreen = function () {
 // display()
 //
 // Draw the ball as a sheep on the screen
-Ball.prototype.display = function () {
+Ball2.prototype.display = function () {
   push();
   imageMode(CENTER);
   translate(this.x,this.y);
@@ -87,7 +82,7 @@ Ball.prototype.display = function () {
 //
 // Check if this ball overlaps the paddle passed as an argument
 // and if so reverse x velocity to bounce
-Ball.prototype.handleCollision = function(paddle) {
+Ball2.prototype.handleCollision = function(paddle) {
   // Check if the ball overlaps the paddle on x axis
   if (this.x + this.size > paddle.x && this.x < paddle.x + paddle.w) {
     // Check if the ball overlaps the paddle on y axis
@@ -96,7 +91,7 @@ Ball.prototype.handleCollision = function(paddle) {
       this.x -= this.vx;
       this.y -= this.vy;
       // Reverse x velocity to bounce
-      this.vx = -this.vx;
+      this.angle += PI;
       // change lastPaddle to the paddle that was called in the function
       this.lastPaddle = paddle;
     }
@@ -107,12 +102,13 @@ Ball.prototype.handleCollision = function(paddle) {
 //
 //check if this ball overlaps the enclosure
 //and if so reset ball add to enclosure score
-Ball.prototype.enclosureCollision = function(enclosure) {
+Ball2.prototype.enclosureCollision = function(enclosure) {
   //check if the ball overlaps with the enclosure on x axis
   if(this.x+this.size > enclosure.x - enclosure.width/2 && this.x < enclosure.x + enclosure.width/2){
     //Check if the ball overlaps the enclosure on y axis
     if(this.y+this.size > enclosure.y - enclosure.height/2 && this.y < enclosure.y + enclosure.height/2) {
       return true;
+      this.lastPaddle = none;
     }
     else{
       return false;
@@ -122,20 +118,26 @@ Ball.prototype.enclosureCollision = function(enclosure) {
     return false;
   }
 }
+//////// END NEW ///////
 
 // reset()
 //
-// Set position back to the middle of the screen
-Ball.prototype.reset = function () {
+// Set position back to top of the screen with a random angle
+Ball2.prototype.reset = function () {
   this.x = width/2;
-  this.y = height/2;
-  ///////// NEW /////////
-  //this makes it so the ball shoots back towards the opposite side
-  // ie if it went out left, it will shoot right
-  // this simply reverses the vx value
-  this.vx = -this.vx;
-  //this resets the vy to a random direction
-  //this way the scoring paddle cannot know if the ball will go up or down
-  this.angle = randomNegative(random(PI*0.2,PI*0.4));
-  this.vy = this.speed*sin(this.angle);
+  this.y = 0;
+  this.angle = randomDouble(random(PI*0.15,PI*0.4));
+}
+
+//BarkedAt()
+// this modifies the ball angle accordingly to being barked at
+Ball2.prototype.barkedAt = function(paddle) {
+  if (paddle.barkStatus === "clockwise"){
+    this.angle += PI/16;
+  }
+  if (paddle.barkStatus === "counter"){
+    text("B0RK",this.x+edge, this.y+random(-60,0));
+    this.angle -= PI/16;
+  }
+  console.log("ball2 is being barkedAt");
 }

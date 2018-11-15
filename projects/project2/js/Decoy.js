@@ -23,6 +23,7 @@ function Decoy(x,y,angle,sinValue,sinMod) {
 // this method displays and updates the position of the Decoy
 Decoy.prototype.display = function(){
   push();
+  imageMode(CENTER);
   translate(width/2+this.oModifier, height/2+this.oModifier);
   rotate(this.angle);
   image(sheep,this.x,this.y,ball.size*1.2,ball.size*1.2);

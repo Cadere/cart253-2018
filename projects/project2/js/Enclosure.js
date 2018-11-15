@@ -23,7 +23,7 @@ Enclosure.prototype.display = function() {
   rectMode(CENTER);
   noStroke();
   rect(this.x,this.y,this.width,this.height);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(24)
   textAlign(CENTER, CENTER)
   fill(255);

@@ -40,8 +40,8 @@ HorizontalMenu.prototype.display = function(){
   //the rectangle moves because it uses information in stateArray to define its position
   rect(this.menuInfo[this.state].y, this.centerHeight, this.size/this.choiceNumber, 150);
   //this displays the title text
-  textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textAlign(LEFT,CENTER);
+  textFont(agencyFB);
   textSize(16);
   fill(255);
   text(this.instructions,this.edge+this.size, this.centerHeight);
@@ -57,26 +57,30 @@ HorizontalMenu.prototype.display = function(){
 
 // this method handles keyboard imput in order to change the menu's state
 HorizontalMenu.prototype.handleInput= function(){
- if (keyIsDown(this.rightKey)){
-   //if the state of the menu is at the maximum, it resets to state 1
-   //otherwise the state of the menu goes up by one
-   if(this.state === this.choiceNumber-1){
-     this.state = 0;
-   }
-   else{
-     this.state += 1;
-   }
- }
- //if the state of the menu is at 0 or 1, it goes to state 3
- //it is impossible to go back to state 0 once UP_ARROW or DOWN_ARROW has been pressed
- else if (keyIsDown(this.leftKey)){
-   if(this.state === 0){
-     this.state = this.choiceNumber-1;
-   }
-   else{
-     this.state -= 1;
-   }
- }
+
+}
+
+HorizontalMenu.prototype.keyPressed = function (){
+  if (keyIsDown(this.rightKey)){
+    //if the state of the menu is at the maximum, it resets to state 1
+    //otherwise the state of the menu goes up by one
+    if(this.state === this.choiceNumber-1){
+      this.state = 0;
+    }
+    else{
+      this.state += 1;
+    }
+  }
+  //if the state of the menu is at 0 or 1, it goes to state 3
+  //it is impossible to go back to state 0 once UP_ARROW or DOWN_ARROW has been pressed
+  else if (keyIsDown(this.leftKey)){
+    if(this.state === 0){
+      this.state = this.choiceNumber-1;
+    }
+    else{
+      this.state -= 1;
+    }
+  }
 }
 
 //handleConfirm

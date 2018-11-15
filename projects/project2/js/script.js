@@ -12,6 +12,7 @@
 
 // Variable to contain the objects representing our ball and paddles
 var ball;
+var ball2;
 var leftPaddle;
 var rightPaddle;
 ///////// NEW ////////
@@ -54,12 +55,14 @@ var leftWon;
 var rightWon;
 // this is for the logo on the title screen
 var logo;
+// a variable for the font I am using, since Macs do not have it by default
+var agencyFB;
 
 ///////// END NEW ////////
 
 /////// NEW //////
 // this variable contains the score needed for the game to be over
-var finishScore = 1;
+var finishScore = 10;
 
 // these variables are used for the appearance of the scoreboards
 var edge = 15;
@@ -76,6 +79,7 @@ var state = "TITLE";
 //
 //loads the images before the game starts
 function preload(){
+  agencyFB = loadFont("assets/fonts/Agency_FB.ttf");
   sheep = loadImage("assets/images/sheep.png");
   logo = loadImage("assets/images/logo.png");
   leftImage = [
@@ -143,12 +147,14 @@ function setup() {
     color("#c1c930")
   ]
   // Create a ball
-  ball = new Ball(width/2,height/2,20,8);
+  ball = new Ball(width/2,height/2,20,5);
+  // create ball2
+  ball2 = new Ball2(width/2, 0, 20, 5);
   // Create the right paddle with UP and DOWN as controls
-  rightPaddle = new Paddle(width-10,height/2,paddleWidth,paddleHeight,10,DOWN_ARROW,UP_ARROW);
+  rightPaddle = new Paddle(width-10,height/2,paddleWidth,paddleHeight,10,DOWN_ARROW,UP_ARROW,LEFT_ARROW,RIGHT_ARROW);
   // Create the left paddle with W and S as controls
   // Keycodes 83 and 87 are W and S respectively
-  leftPaddle = new Paddle(0,height/2,paddleWidth,paddleHeight,10,83,87);
+  leftPaddle = new Paddle(0,height/2,paddleWidth,paddleHeight,10,83,87,65,68);
   //sets the starting velocity of the ball object we just created
   //////////// NEW ////////////
   //create left Scoreboard
@@ -170,9 +176,9 @@ function setup() {
   //create the main menu
   menu = new Menu(3,UP_ARROW,DOWN_ARROW);
   //creates the left paddle character select menu
-  leftCharacterSelect = new HorizontalMenu(160,5,65,68,87,"Move with\nA and D,\n use W to select");
+  leftCharacterSelect = new HorizontalMenu(160,5,65,68,87,"Move with\nA and D,\nuse W to select");
   //creates the right paddle character select menu
-  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Move with\n← and →,\n use ↑ to select");
+  rightCharacterSelect = new HorizontalMenu(340,5,LEFT_ARROW,RIGHT_ARROW,UP_ARROW,"Move with\nLEFT and RIGHT,\nuse UP to select");
   //create an array of menu states for the main menu
   stateArray = [
     //state 0 has undefined as a second argument so no rectangle appears
@@ -199,8 +205,9 @@ function setup() {
   //create the character objects
   rightCharacter = new Character(rightCharacterSelect,rightImage,rightColor,rightLost,rightWon);
   leftCharacter = new Character(leftCharacterSelect,leftImage,leftColor,leftLost,leftWon);
-  //this sets the initial velocity for the ball
+  //this sets the initial velocity for the balls
   ball.setup();
+  ball2.setup();
   //this tell the HorizontalMenu object which array to take its information from
   leftCharacterSelect.setup(leftMenuInfo);
   rightCharacterSelect.setup(rightMenuInfo);
@@ -260,7 +267,7 @@ function displayTitle() {
   // Set up all the styling elements
   push();
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(32);
   fill(255);
   noStroke();
@@ -275,7 +282,7 @@ function displayTitle() {
   // Font size goes down
   textSize(16);
   // Display the instructions
-  text("Press SPACE to play\nLeft player use W S and Right player use ↑ ↓",width/2,0.9*height);
+  text("Press SPACE to play\nLeft player use WASD and Right player use ARROWS",width/2,0.9*height);
   pop();
 
   //display menu
@@ -356,8 +363,19 @@ function displayGame2() {
   rightScoreboard.setText("penned by");
   leftPaddle.handleInput();
   rightPaddle.handleInput();
+  leftPaddle.handleBark();
+  rightPaddle.handleBark();
 
-  ball.update();
+  /////// NEW ////////
+  if(checkBark(leftPaddle)){
+    ball2.barkedAt(leftPaddle);
+  }
+  if(checkBark(rightPaddle)){
+    ball2.barkedAt(rightPaddle);
+  }
+  console.log("ball2angle",ball2.angle);
+
+  ball2.update();
   leftPaddle.update();
   rightPaddle.update();
   /////// NEW ////////
@@ -366,27 +384,37 @@ function displayGame2() {
   rightScoreboard.update();
 
   // ball.isOffScreen now recognizes which side of the screen the ball went off to
-  // The paddle's scores update accordingly
-  if (ball.isOffScreen() === "left") {
-    ball.reset()
-    leftPaddle.updateScore();
+  // The paddle's scores update accordingly - in this game paddles are docked a point
+  if (ball2.isOffScreen() === "left") {
+    ball2.reset()
+    leftPaddle.updateScore2();
   }
-  else if (ball.isOffScreen() === "right"){
-    ball.reset()
-    rightPaddle.updateScore();
+  else if (ball2.isOffScreen() === "right"){
+    ball2.reset()
+    rightPaddle.updateScore2();
   }
 
-  // handleCollision with the enclosure
-  if (ball.enclosureCollision(enclosure)){
-    ball.reset();
-    enclosure.updateScore();
-  }
   /////// END NEW ////////
 
-  ball.handleCollision(leftPaddle);
-  ball.handleCollision(rightPaddle);
+  ball2.handleCollision(leftPaddle);
+  ball2.handleCollision(rightPaddle);
 
   ///////// NEW ////////
+
+  // handleCollision with the enclosure
+  if (ball2.enclosureCollision(enclosure)){
+    ball2.reset();
+    if(ball2.lastPaddle === leftPaddle){
+      leftPaddle.updateScore();
+    }
+    if(ball2.lastPaddle === rightPaddle){
+      rightPaddle.updateScore();
+    }
+    enclosure.updateScore();
+  }
+  //display instructions for this less obvious version of Pong
+  displayInstructions();
+
   //display scoreboards
   leftScoreboard.display();
   rightScoreboard.display();
@@ -395,10 +423,13 @@ function displayGame2() {
   enclosure.display();
 
   //////// END NEW ////////
-  ball.display();
+  ball2.display();
   leftPaddle.display();
   rightPaddle.display();
   /////// NEW //////
+  // this displays the bark text
+  leftPaddle.displayBark(20);
+  rightPaddle.displayBark(-20);
   // if either player reaches 11 points they lose
   // this means the game is over - this checks if the game is over
   // and changes the state accordingly
@@ -415,7 +446,7 @@ function displayCharacterSelect() {
   // Set up all the styling elements
   push();
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(32);
   fill(255);
   noStroke();
@@ -452,7 +483,7 @@ function displayGameLost() {
   push();
   imageMode(CENTER);
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(36);
   fill(255);
   stroke(255);
@@ -495,7 +526,7 @@ function displayGameWon() {
   push();
   imageMode(CENTER);
   textAlign(CENTER,CENTER);
-  textFont("Agency FB");
+  textFont(agencyFB);
   textSize(36);
   fill(255);
   stroke(255);
@@ -548,7 +579,20 @@ function randomNegative(value) {
   return result;
 }
 
-//gameOVer
+// this spits a value or its double at random
+function randomDouble(value) {
+  var r = random();
+  var result;
+  if (r < 0.5){
+    result = value;
+  }
+  else {
+    result = 2*value;
+  }
+  return result;
+}
+
+//gameOVer()
 //
 // this function checks if the game has been lost by one of the players
 function gameOver() {
@@ -558,4 +602,43 @@ function gameOver() {
   else {
     return false;
   }
+}
+
+//keyPressed()
+//
+// this function calls the menu methods to check if a key was pressed
+function keyPressed(){
+    menu.keyPressed();
+    leftCharacterSelect.keyPressed();
+    rightCharacterSelect.keyPressed();
+}
+
+//checkBark()
+//
+// this function checks if a paddle barked
+function checkBark(paddle){
+  if(paddle.barkFill === 255){
+    if(paddle.barkStatus === "clockwise" || paddle.barkStatus === "counter"){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+  else{
+    return false;
+  }
+}
+
+//displayInstructions
+//
+//this function dsplays instruction for game 2
+function displayInstructions(){
+  push();
+  textFont(agencyFB);
+  textSize(16);
+  textAlign(CENTER,CENTER);
+  fill(255);
+  text("BARK AT THE SHEEP\nUse A or LEFT and make it flee clockwise\nUse D or RIGHT to make if flee counter clockwise\n\nBounce the sheep to get credit\nlost sheep dock points",width/2,height/2);
+  pop();
 }
