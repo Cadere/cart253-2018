@@ -3,7 +3,8 @@
 Prototype 1
 Eugene Fournier
 
-For now this is a very boring, non interactive program which just displays cards
+For now this is a very boring, non interactive program
+which just displays cards
 on a grid
 with each card at a different location on the grid everytime the program is loaded
 it will be used to create a memory card game
