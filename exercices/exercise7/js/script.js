@@ -6,12 +6,14 @@ Eugene Fournier
 For now this is a very boring, non interactive program which just displays cards
 on a grid
 with each card at a different location on the grid everytime the program is loaded
+it will be used to create a memory card game
 ******************/
 
 //variables for the card grid
 var column = 3;
-var line = 2;
-var cardNb = line*column;
+//rangee is the number of lines on the grid - had to resort to a french name since line is already a thing in p5
+var rangee = 2;
+var cardNb = rangee*column;
 //variable for the cards
 var card = [];
 //variables for the positions
@@ -38,7 +40,8 @@ function setup() {
   createCanvas(1000,800);
   //create positions
   //variables for the positions
-  pY = [height/3,height/3*2];
+  console.log(rangee+1);
+  pY = [height/(rangee+1),height/(rangee+1)*2];
   pX = [width/(column+1),width/(column+1)*2,width/(column+1)*3];
   //in a very uneficient manner
   position.push(new Position(pX[0],pY[0]));
