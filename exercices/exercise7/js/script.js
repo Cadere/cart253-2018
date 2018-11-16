@@ -35,18 +35,18 @@ function preload() {
 
 
 function setup() {
-  createCanvas(800,1000);
+  createCanvas(1000,800);
   //create positions
   //variables for the positions
-  pY = [height/(line+1),height/(line+1)*2];
+  pY = [height/3,height/3*2];
   pX = [width/(column+1),width/(column+1)*2,width/(column+1)*3];
   //in a very uneficient manner
-  position.push(new Position(pY[0],pX[0]));
-  position.push(new Position(pY[0],pX[1]));
-  position.push(new Position(pY[0],pX[2]));
-  position.push(new Position(pY[1],pX[0]));
-  position.push(new Position(pY[1],pX[1]));
-  position.push(new Position(pY[1],pX[2]));
+  position.push(new Position(pX[0],pY[0]));
+  position.push(new Position(pX[1],pY[0]));
+  position.push(new Position(pX[2],pY[0]));
+  position.push(new Position(pX[0],pY[1]));
+  position.push(new Position(pX[1],pY[1]));
+  position.push(new Position(pX[2],pY[1]));
 
   //this shuffles the order of the positions
   shuffledPosition = shuffle(position);
@@ -54,7 +54,9 @@ function setup() {
   for (var i = 0; i < cardNb; i++){
   card.push(new Card(cardFace[i],shuffledPosition[i]));
   }
+  console.log(card[0].position)
 }
+
 
 function draw() {
  background(0);
