@@ -23,7 +23,7 @@ CardValue.prototype.updateValue = function(){
 //compareValues();
 //
 //compares both values and returns true if they are equal
-cardValue.prototype.compareValues = function(){
+CardValue.prototype.compareValues = function(){
     if(this.secondValue === this.firstValue){
       return true;
   }
@@ -35,7 +35,7 @@ cardValue.prototype.compareValues = function(){
 //reset();
 //
 //resets both values to undefined and updates the number of attempts
-cardValue.prototype.reset = function(){
+CardValue.prototype.reset = function(){
   this.firstValue = undefined;
   this.secondValue = undefined;
   this.attemps +=1;

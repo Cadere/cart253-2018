@@ -29,6 +29,10 @@ var cardBack;
 var cardSize = 180;
 //a variable for the value of the last card clicked
 var lastCardValue;
+//a variable for the CardValue object
+var valueChecker;
+//a variable to hold if two cards were clicked
+var twoCardsClicked = false;
 
 
 function preload() {
@@ -77,19 +81,42 @@ function setup() {
       card.push(new Card(cardFace[i-(cardNb/2)],shuffledPosition[i],i-cardNb/2));
     }
   }
+  valueChecker = new CardValue();
 }
 
 
 function draw() {
- background("#61a08e");
- //handle clicking
- if(mouseIsPressed){
-   for (var i = 0; i < cardNb; i++){
+  background("#61a08e");
+  //handle clicking
+  if(mouseIsPressed){
+    for (var i = 0; i < cardNb; i++){
       card[i].turnCard();
     }
- }
- //display the cards
- for (var i = 0; i < cardNb; i++){
+    valueChecker.updateValue();
+  }
+  //check if two cards have been clicked
+  if(valueChecker.secondValue === undefined){
+    twoCardsClicked = false;
+  }
+  else{
+    twoCardsClicked = true;
+  }
+  //if two cards have been clicked, checks if they have the same value
+  //if yes, reset the valueChecker
+  //if no, reset both the cards and the valueChecker
+  if(twoCardsClicked){
+    if(valueChecker.compareValues()){
+      valueChecker.reset();
+    }
+    else{
+      valueChecker.reset();
+      for (var i = 0; i < cardNb; i++){
+        card[i].reset();
+      }
+    }
+  }
+  //display the cards
+  for (var i = 0; i < cardNb; i++){
     card[i].display();
   }
 }
