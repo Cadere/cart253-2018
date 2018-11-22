@@ -32,6 +32,7 @@ Card.prototype.turnCard = function(){
   if(mouseX > this.position.x-cardSize/2 && mouseX < this.position.x+cardSize/2){
     if(mouseY > this.position.y-cardSize/2 && mouseY < this.position.y+cardSize/2 ){
       this.turned = true;
+      lastCardValue = this.value;
     }
   }
 }

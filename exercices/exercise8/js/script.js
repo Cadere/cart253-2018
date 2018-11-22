@@ -27,6 +27,8 @@ var cardFace = [];
 var cardBack;
 //a variable for the card size
 var cardSize = 180;
+//a variable for the value of the last card clicked
+var lastCardValue;
 
 
 function preload() {
