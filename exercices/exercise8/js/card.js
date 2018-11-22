@@ -35,3 +35,10 @@ Card.prototype.turnCard = function(){
     }
   }
 }
+
+//resetCard();
+//
+//this method resets this.turned to false
+Card.prototype.turnCard = function(){
+  this.turned = false;
+}
