@@ -8,7 +8,7 @@ function Card(image,position,value){
   this.value = value;
   this.image = image;
   this.position = position;
-  this.unturned = true;
+  this.turned = false;
 }
 
 //display()
@@ -17,6 +17,21 @@ function Card(image,position,value){
 Card.prototype.display = function(){
   push();
   imageMode(CENTER);
-  image(this.image,this.position.x,this.position.y);
+  image(this.image,this.position.x,this.position.y,cardSize,cardSize);
+  //this displays the back image if the card hasn't been clicked
+  if(!this.turned){
+    image(cardBack,this.position.x,this.position.y,cardSize,cardSize);
+  }
   pop();
+}
+
+//turnCard();
+//
+//this method handles if the card has been clicked
+Card.prototype.turnCard = function(){
+  if(mouseX > this.position.x-cardSize/2 && mouseX < this.position.x+cardSize/2){
+    if(mouseY > this.position.y-cardSize/2 && mouseY < this.position.y+cardSize/2 ){
+      this.turned = true;
+    }
+  }
 }

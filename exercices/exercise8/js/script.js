@@ -25,6 +25,9 @@ var shuffledPosition;
 //variables for the images
 var cardFace = [];
 var cardBack;
+//a variable for the card size
+var cardSize = 180;
+
 
 function preload() {
   cardFace = [
@@ -77,6 +80,12 @@ function setup() {
 
 function draw() {
  background("#61a08e");
+ //handle clicking
+ if(mouseIsPressed){
+   for (var i = 0; i < cardNb; i++){
+      card[i].turnCard();
+    }
+ }
  //display the cards
  for (var i = 0; i < cardNb; i++){
     card[i].display();
