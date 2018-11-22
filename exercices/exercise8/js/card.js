@@ -8,6 +8,7 @@ function Card(image,position,value){
   this.value = value;
   this.image = image;
   this.position = position;
+  this.unturned = true;
 }
 
 //display()

@@ -24,6 +24,7 @@ var position = [];
 var shuffledPosition;
 //variables for the images
 var cardFace = [];
+var cardBack;
 
 function preload() {
   cardFace = [
@@ -34,6 +35,7 @@ function preload() {
     loadImage("assets/images/card5.png"),
     loadImage("assets/images/card6.png"),
   ]
+  cardBack = loadImage("assets/images/cardback.png");
 }
 
 
@@ -63,19 +65,18 @@ function setup() {
   //this allocates positions to cards
   for (var i = 0; i < cardNb; i++){
     if(i < cardNb/2){
-      card.push(new Card(cardFace[i],shuffledPosition[i]));
+      card.push(new Card(cardFace[i],shuffledPosition[i],i));
     }
     //this allocates the same images to positions again so that each image appears twice
     else{
-      card.push(new Card(cardFace[i-(cardNb/2)],shuffledPosition[i]));
+      card.push(new Card(cardFace[i-(cardNb/2)],shuffledPosition[i],i-cardNb/2));
     }
   }
-  console.log(card[0].position)
 }
 
 
 function draw() {
- background(0);
+ background("#61a08e");
  //display the cards
  for (var i = 0; i < cardNb; i++){
     card[i].display();
