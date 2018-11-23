@@ -90,6 +90,7 @@ function draw() {
   //handle clicking
   if(mouseIsPressed){
     for (var i = 0; i < cardNb; i++){
+      console.log("am happen");
       card[i].turnCard();
     }
     valueChecker.updateValue();

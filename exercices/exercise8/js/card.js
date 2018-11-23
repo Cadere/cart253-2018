@@ -29,6 +29,7 @@ Card.prototype.display = function(){
 //
 //this method handles if the card has been clicked
 Card.prototype.turnCard = function(){
+  console.log("turnCard");
   if(mouseX > this.position.x-cardSize/2 && mouseX < this.position.x+cardSize/2){
     if(mouseY > this.position.y-cardSize/2 && mouseY < this.position.y+cardSize/2 ){
       this.turned = true;
@@ -37,9 +38,9 @@ Card.prototype.turnCard = function(){
   }
 }
 
-//resetCard();
+//reset();
 //
 //this method resets this.turned to false
-Card.prototype.turnCard = function(){
+Card.prototype.reset = function(){
   this.turned = false;
 }
