@@ -93,7 +93,7 @@ function draw() {
   }
 }
 
-//handle clicking
+
 function mouseClicked(){
   for (var i = 0; i < cardNb; i++){
     card[i].turnCard();
@@ -108,19 +108,19 @@ function mouseClicked(){
   }
 
   if(valueChecker.clickedAgain){
-      if(valueChecker.compareValues()){
-        for (var i = 0; i < cardNb; i++){
-          if(card[i].turned){
-            card[i].foundStatus();
-          }
-          valueChecker.reset();
+    if(valueChecker.compareValues()){
+      for (var i = 0; i < cardNb; i++){
+        if(card[i].turned){
+          card[i].foundStatus();
         }
-      }
-      else{
         valueChecker.reset();
-        for (var i = 0; i < cardNb; i++){
-          card[i].reset();
-        }
+      }
+    }
+    else{
+      valueChecker.reset();
+      for (var i = 0; i < cardNb; i++){
+        card[i].reset();
       }
     }
   }
+}
