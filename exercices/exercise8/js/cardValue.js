@@ -5,6 +5,7 @@
 function CardValue(){
   this.firstValue = undefined;
   this.secondValue = undefined;
+  this.clickedAgain = false;
   this.attemps = 0;
 }
 
@@ -15,8 +16,11 @@ CardValue.prototype.updateValue = function(){
   if(this.firstValue === undefined){
     this.firstValue = lastCardValue;
   }
-  else{
+  else if(this.secondValue === undefined){
     this.secondValue = lastCardValue;
+  }
+  else{
+    this.clickedAgain = true;
   }
 }
 
@@ -36,7 +40,8 @@ CardValue.prototype.compareValues = function(){
 //
 //resets both values to undefined and updates the number of attempts
 CardValue.prototype.reset = function(){
-  this.firstValue = undefined;
+  this.firstValue = lastCardValue;
   this.secondValue = undefined;
+  this.clickedAgain = false;
   this.attemps +=1;
 }

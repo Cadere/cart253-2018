@@ -87,14 +87,18 @@ function setup() {
 
 function draw() {
   background("#61a08e");
-  //handle clicking
-  if(mouseIsPressed){
-    for (var i = 0; i < cardNb; i++){
-      console.log("am happen");
-      card[i].turnCard();
-    }
-    valueChecker.updateValue();
+  //display the cards
+  for (var i = 0; i < cardNb; i++){
+    card[i].display();
   }
+}
+
+//handle clicking
+function mouseClicked(){
+  for (var i = 0; i < cardNb; i++){
+    card[i].turnCard();
+  }
+  valueChecker.updateValue();
   //check if two cards have been clicked
   if(valueChecker.secondValue === undefined){
     twoCardsClicked = false;
@@ -102,22 +106,21 @@ function draw() {
   else{
     twoCardsClicked = true;
   }
-  //if two cards have been clicked, checks if they have the same value
-  //if yes, reset the valueChecker
-  //if no, reset both the cards and the valueChecker
-  if(twoCardsClicked){
-    if(valueChecker.compareValues()){
-      valueChecker.reset();
-    }
-    else{
-      valueChecker.reset();
-      for (var i = 0; i < cardNb; i++){
-        card[i].reset();
+
+  if(valueChecker.clickedAgain){
+      if(valueChecker.compareValues()){
+        for (var i = 0; i < cardNb; i++){
+          if(card[i].turned){
+            card[i].foundStatus();
+          }
+          valueChecker.reset();
+        }
+      }
+      else{
+        valueChecker.reset();
+        for (var i = 0; i < cardNb; i++){
+          card[i].reset();
+        }
       }
     }
   }
-  //display the cards
-  for (var i = 0; i < cardNb; i++){
-    card[i].display();
-  }
-}

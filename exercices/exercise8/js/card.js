@@ -9,6 +9,7 @@ function Card(image,position,value){
   this.image = image;
   this.position = position;
   this.turned = false;
+  this.found = false;
 }
 
 //display()
@@ -29,7 +30,6 @@ Card.prototype.display = function(){
 //
 //this method handles if the card has been clicked
 Card.prototype.turnCard = function(){
-  console.log("turnCard");
   if(mouseX > this.position.x-cardSize/2 && mouseX < this.position.x+cardSize/2){
     if(mouseY > this.position.y-cardSize/2 && mouseY < this.position.y+cardSize/2 ){
       this.turned = true;
@@ -38,9 +38,19 @@ Card.prototype.turnCard = function(){
   }
 }
 
+//foundStatus();
+//
+//changes this.found from false to true - this will prevent the card from getting flipped again
+// when other cards are reset
+Card.prototype.foundStatus = function(){
+  this.found = true;
+}
+
 //reset();
 //
-//this method resets this.turned to false
+//this method resets this.turned to false if the card hasn't been found
 Card.prototype.reset = function(){
-  this.turned = false;
+  if(!this.found){
+      this.turned = false;
+  }
 }
