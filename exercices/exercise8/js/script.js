@@ -95,26 +95,34 @@ function draw() {
 
 
 function mouseClicked(){
+  //sets lastCardValue to the value of the card clicked
   for (var i = 0; i < cardNb; i++){
-    card[i].turnCard();
-  }
-  valueChecker.updateValue();
-  //check if two cards have been clicked
-  if(valueChecker.secondValue === undefined){
-    twoCardsClicked = false;
-  }
-  else{
-    twoCardsClicked = true;
+    card[i].clickedValue();
   }
 
+  //updates the cardValue object valueChecker with the value of the last card clicked
+  valueChecker.updateValue();
+
+  //turns the card that has been clicked if .clickedAgain is not  true
+  if(!valueChecker.clickedAgain){
+    for (var i = 0; i < cardNb; i++){
+      card[i].turnCard();
+    }
+  }
+
+//if the player has clicked a third time
+//ie. selected 2 cards and wants to continue
+//this compares the values of the 2 cards
+//if the cards match, their found status becomes true
+//afterwards value checker is resetted and all unfound cards are flipped back
   if(valueChecker.clickedAgain){
     if(valueChecker.compareValues()){
       for (var i = 0; i < cardNb; i++){
         if(card[i].turned){
           card[i].foundStatus();
         }
-        valueChecker.reset();
       }
+      valueChecker.reset();
     }
     else{
       valueChecker.reset();

@@ -40,7 +40,7 @@ CardValue.prototype.compareValues = function(){
 //
 //resets both values to undefined and updates the number of attempts
 CardValue.prototype.reset = function(){
-  this.firstValue = lastCardValue;
+  this.firstValue = undefined;
   this.secondValue = undefined;
   this.clickedAgain = false;
   this.attemps +=1;
