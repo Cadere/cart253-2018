@@ -22,11 +22,14 @@ var pY = [];
 var pX = [];
 var position = [];
 var shuffledPosition;
+//variables for the space allocated to the sidebar and the space allocated to game
+var sidebarWitdh;
+var gameWitdh;
 //variables for the images
 var cardFace = [];
 var cardBack;
 //a variable for the card size
-var cardSize = 180;
+var cardSize;
 //a variable for the value of the last card clicked
 var lastCardValue;
 //a variable for the CardValue object
@@ -49,25 +52,29 @@ function preload() {
 
 
 function setup() {
-  createCanvas(1000,800);
+  createCanvas(windowWidth,windowHeight);
+  //give their values to sidebarWitdh and gameWitdh
+  sidebarWitdh = width*0.25
+  gameWitdh = width*0.75;
   //create positions
-  //variables for the positions
-  //////// NEW /////////
-  // replaced manually setting pY and pX contents with loops
+  //variables for the positions in x and y
   // so that the code adapts to changing the number of cards more easily
   for (var i = 0; i < rangee; i++){
     pY.push(height/(rangee+1)*(i+1));
   }
   for (var i = 0; i < column; i++){
-    pX.push(width/(column+1)*(i+1));
+    pX.push(sidebarWitdh+gameWitdh/(column+1)*(i+1));
   }
 
-  // Replaced manually pushing the positions with a loop
+  // push the x and y position values to an array of position objects
   for (var i = 0; i < rangee; i++){
     for (var j = 0; j < column; j++){
       position.push(new Position(pX[j],pY[i]));
     }
   }
+
+  //adjust card size to canvas size
+  cardSize = windowHeight/column*0.9;
 
   //this shuffles the order of the positions
   shuffledPosition = shuffle(position);
