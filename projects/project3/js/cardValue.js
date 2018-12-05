@@ -6,7 +6,6 @@ function CardValue(){
   this.firstValue = undefined;
   this.secondValue = undefined;
   this.clickedAgain = false;
-  this.attemps = 0;
 }
 
 //updateValue();
@@ -43,5 +42,4 @@ CardValue.prototype.reset = function(){
   this.firstValue = undefined;
   this.secondValue = undefined;
   this.clickedAgain = false;
-  this.attemps +=1;
 }
