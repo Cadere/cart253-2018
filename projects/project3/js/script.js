@@ -63,17 +63,9 @@ function preload() {
 function setup() {
   createCanvas(windowWidth,windowHeight);
   //give their values to sidebarWidth and gameWidth
-  sidebarWidth = width*0.25
-  gameWidth = width*0.75;
-  //create positions
-  //variables for the positions in x and y
-  // so that the code adapts to changing the number of cards more easily
-  for (var i = 0; i < rangee; i++){
-    pY.push(height/(rangee+1)*(i+1));
-  }
-  for (var i = 0; i < column; i++){
-    pX.push(sidebarWidth+gameWidth/(column+1)*(i+1));
-  }
+  screenRatio();
+  //gives values to an array of coordinates for x and for y
+  pXpY();
 
   // push the x and y position values to an array of position objects
   for (var i = 0; i < rangee; i++){
@@ -83,20 +75,9 @@ function setup() {
   }
 
   //adjust card size to canvas size
-  if (windowHeight/rangee < gameWidth/column){
-    cardSize = windowHeight/rangee*0.7;
-  }
-  else {
-    cardSize = gameWidth/column*0.7;
-  }
-
-
-  //this shuffles the order of the positions
-  shuffledPosition = shuffle(position);
-  //this shuffles the card faces
-  //the cardFace array produces different cards as the i first cards
-  //every time the game is reloaded
-  cardFace = shuffle(cardFaceOrdered);
+  setCardSize();
+  //this randomizes the position array and the card face array
+  randomizeCards();
   //this allocates positions to cards
   for (var i = 0; i < cardNb; i++){
     if(i < cardNb/2){
@@ -163,4 +144,79 @@ function mouseClicked(){
       }
     }
   }
+}
+
+//checks if the window has been resized and resizes the canvas accordingly
+function windowResized() {
+  resizeCanvas(windowWidth,windowHeight);
+  //adjusts the ratio of the sidebar and game space to the size of the screen
+  screenRatio();
+  //adjust cardSize to the window
+  setCardSize();
+  //recreate the pX and pY arrays to fit the new screen
+  pXpY();
+  // update the positions objects to fit the new screen
+  for (var i = 0; i < rangee*column; i++){
+    console.log("i")
+    for (var n = 0; n < rangee; n++){
+      console.log("n")
+      for (var m = 0; m < column; m++){
+        position[i].update(pX[m],pY[n]);
+        console.log(position[i])
+      }
+    }
+  }
+  console.log(card[6])
+}
+
+//pXpY()
+//
+// clears then fills the pX and pY arrays
+function pXpY(){
+  //create positions
+  //variables for the coordinates in x and y
+  // so that the code adapts to changing the number of cards more easily
+  //the arrays are first cleared so that when the function is used in windowResized()
+  //the number of values in each array remains the same
+  pY = [];
+  pX = [];
+  //then gives them values
+  for (var i = 0; i < rangee; i++){
+    pY.push(height/(rangee+1)*(i+1));
+  }
+  for (var i = 0; i < column; i++){
+    pX.push(sidebarWidth+gameWidth/(column+1)*(i+1));
+  }
+}
+
+//screenRatio()
+//
+// adjusts the ratio of the sidebar and game space to the size of the screen
+function screenRatio(){
+  sidebarWidth = width*0.25
+  gameWidth = width*0.75;
+}
+
+//setCardSize()
+//
+//adjusts the cardSize to match the window
+function setCardSize(){
+  if (windowHeight/rangee < gameWidth/column){
+    cardSize = windowHeight/rangee*0.7;
+  }
+  else {
+    cardSize = gameWidth/column*0.7;
+  }
+}
+
+//randomizeCards()
+//
+//shuffles the position and cardface arrays
+function randomizeCards(){
+  //this shuffles the order of the positions
+  shuffledPosition = shuffle(position);
+  //this shuffles the card faces
+  //the cardFace array produces different cards as the i first cards
+  //every time the game is reloaded
+  cardFace = shuffle(cardFaceOrdered);
 }
