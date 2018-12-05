@@ -26,7 +26,8 @@ var shuffledPosition;
 var sidebarWidth;
 var gameWidth;
 //variables for the images
-var cardFace = [];
+var cardFace;
+var cardFaceOrdered = [];
 var cardBack;
 //a variable for the card size
 var cardSize;
@@ -41,13 +42,19 @@ var attempts = 0;
 
 
 function preload() {
-  cardFace = [
+  cardFaceOrdered = [
     loadImage("assets/images/card1.png"),
     loadImage("assets/images/card2.png"),
     loadImage("assets/images/card3.png"),
     loadImage("assets/images/card4.png"),
     loadImage("assets/images/card5.png"),
     loadImage("assets/images/card6.png"),
+    loadImage("assets/images/card7.png"),
+    loadImage("assets/images/card8.png"),
+    loadImage("assets/images/card9.png"),
+    loadImage("assets/images/card10.png"),
+    loadImage("assets/images/card11.png"),
+    loadImage("assets/images/card12.png"),
   ]
   cardBack = loadImage("assets/images/cardback.png");
 }
@@ -86,6 +93,10 @@ function setup() {
 
   //this shuffles the order of the positions
   shuffledPosition = shuffle(position);
+  //this shuffles the card faces
+  //the cardFace array produces different cards as the i first cards
+  //every time the game is reloaded
+  cardFace = shuffle(cardFaceOrdered);
   //this allocates positions to cards
   for (var i = 0; i < cardNb; i++){
     if(i < cardNb/2){
