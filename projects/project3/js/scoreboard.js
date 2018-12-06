@@ -9,7 +9,7 @@ function Scoreboard(){
   this.width;
   this.height;
   this.textSize;
-  this.fill = "#f3b8ac";
+  this.fill = "#eeefc0";
 }
 
 //defineAttributes()
@@ -18,9 +18,16 @@ function Scoreboard(){
 Scoreboard.prototype.defineAttributes = function(){
   this.x = sidebarWidth/2;
   this.y = height/5;
-  this.width = sidebarWidth*0.75;
-  this.height = height/10;
-  this.textSize = sidebarWidth/9;
+  this.width = sidebarWidth*0.5;
+  this.height = height/8;
+  var widthRatio = sidebarWidth/10;
+  var heightRatio = this.height/3;
+  if(widthRatio < heightRatio){
+    this.textSize = widthRatio;
+  }
+  else {
+    this.textSize = heightRatio;
+  }
 }
 
 //display()
@@ -30,13 +37,13 @@ Scoreboard.prototype.display = function(){
   push();
   noStroke();
   fill(this.fill);
-  rectMode(CENTER);
-  rect(this.x,this.y,this.width,this.height);
-  fill(255);
+  ellipseMode(CENTER);
+  ellipse(this.x,this.y,this.width,this.height);
+  fill("#61a08e");
   textFont(ttLakes);
   textSize(this.textSize);
   textLeading(this.textSize*0.9);
-  textAlign(CENTER, CENTER);
+  textAlign(CENTER);
   text(attempts + "/" + nbAttempts + "\n attempts",this.x,this.y);
   pop();
 }
