@@ -16,7 +16,8 @@ var column = 4;
 var rangee = 3;
 var cardNb = rangee*column;
 //variable for the cards
-var card = [];
+var card;
+var preCard = [];
 //variables for the positions
 var pY = [];
 var pX = [];
@@ -39,6 +40,8 @@ var valueChecker;
 var twoCardsClicked = false;
 // a variable for the nb of attempts
 var attempts = 0;
+//a variable that indicates if there is a timer running at the moment
+var timerIsRunning = false;
 
 
 function preload() {
@@ -66,7 +69,6 @@ function setup() {
   screenRatio();
   //gives values to an array of coordinates for x and for y
   pXpY();
-
   // push the x and y position values to an array of position objects
   for (var i = 0; i < rangee; i++){
     for (var j = 0; j < column; j++){
@@ -76,18 +78,14 @@ function setup() {
 
   //adjust card size to canvas size
   setCardSize();
-  //this randomizes the position array and the card face array
-  randomizeCards();
-  //this allocates positions to cards
+  //creates the cards
+  createCards();
+
+
   for (var i = 0; i < cardNb; i++){
-    if(i < cardNb/2){
-      card.push(new Card(cardFace[i],shuffledPosition[i],i));
-    }
-    //this allocates the same images to positions again so that each image appears twice
-    else{
-      card.push(new Card(cardFace[i-(cardNb/2)],shuffledPosition[i],i-cardNb/2));
-    }
+    card[i].givePosition(position[i]);
   }
+
   valueChecker = new CardValue();
 }
 
@@ -108,39 +106,37 @@ function draw() {
 
 
 function mouseClicked(){
-  //sets lastCardValue to the value of the card clicked
-  for (var i = 0; i < cardNb; i++){
-    card[i].clickedValue();
-  }
+  if (!timerIsRunning){
+    //sets lastCardValue to the value of the card clicked
+    for (var i = 0; i < cardNb; i++){
+      card[i].clickedValue();
+    }
 
-  //updates the cardValue object valueChecker with the value of the last card clicked
-  valueChecker.updateValue();
+    //updates the cardValue object valueChecker with the value of the last card clicked
+    valueChecker.updateValue();
 
-  //turns the card that has been clicked if .clickedAgain is not  true
-  if(!valueChecker.clickedAgain){
+    //turns the card that has been clicked
     for (var i = 0; i < cardNb; i++){
       card[i].turnCard();
     }
-  }
 
-//if the player has clicked a third time
-//ie. selected 2 cards and wants to continue
-//this compares the values of the 2 cards
-//if the cards match, their found status becomes true
-//afterwards value checker is resetted and all unfound cards are flipped back
-  if(valueChecker.clickedAgain){
-    if(valueChecker.compareValues()){
-      for (var i = 0; i < cardNb; i++){
-        if(card[i].turned){
-          card[i].foundStatus();
+    //if the player has clicked a third time
+    //ie. selected 2 cards and wants to continue
+    //this compares the values of the 2 cards
+    //if the cards match, their found status becomes true
+    //afterwards value checker is resetted and all unfound cards are flipped back
+    if(valueChecker.clickedAgain){
+      if(valueChecker.compareValues()){
+        for (var i = 0; i < cardNb; i++){
+          if(card[i].turned){
+            card[i].foundStatus();
+          }
         }
+        valueChecker.reset();
       }
-      valueChecker.reset();
-    }
-    else{
-      valueChecker.reset();
-      for (var i = 0; i < cardNb; i++){
-        card[i].reset();
+      else{
+        timerIsRunning = true;
+        setTimeout(attemptReset, 1000);
       }
     }
   }
@@ -156,17 +152,10 @@ function windowResized() {
   //recreate the pX and pY arrays to fit the new screen
   pXpY();
   // update the positions objects to fit the new screen
-  for (var i = 0; i < rangee*column; i++){
-    console.log("i")
-    for (var n = 0; n < rangee; n++){
-      console.log("n")
-      for (var m = 0; m < column; m++){
-        position[i].update(pX[m],pY[n]);
-        console.log(position[i])
-      }
-    }
+  resizePosition();
+  for (var i = 0; i < cardNb; i++){
+    card[i].givePosition(position[i]);
   }
-  console.log(card[6])
 }
 
 //pXpY()
@@ -212,11 +201,42 @@ function setCardSize(){
 //randomizeCards()
 //
 //shuffles the position and cardface arrays
-function randomizeCards(){
-  //this shuffles the order of the positions
-  shuffledPosition = shuffle(position);
+function createCards(){
   //this shuffles the card faces
   //the cardFace array produces different cards as the i first cards
   //every time the game is reloaded
   cardFace = shuffle(cardFaceOrdered);
+  //creates the card objects
+  for (var i = 0; i < cardNb; i++){
+    if(i < cardNb/2){
+      preCard.push(new Card(cardFace[i],i));
+    }
+    //this allocates the same images and values so that each image appears twice
+    else{
+      preCard.push(new Card(cardFace[i-(cardNb/2)],i-cardNb/2));
+    }
+  }
+  //shuffles preCard so that the cards are distributed randomly
+  card = shuffle(preCard);
+}
+
+//resizePosition()
+//
+//updates the position array with the pX and pY arrays
+function resizePosition(){
+  i = 0;
+  for (var n = 0; n < rangee; n++){
+    for (var m = 0; m < column; m++){
+      position[i].update(pX[m],pY[n]);
+      i++;
+    }
+  }
+}
+
+function attemptReset(){
+  valueChecker.reset();
+  for (var i = 0; i < cardNb; i++){
+    card[i].reset();
+  }
+  timerIsRunning = false;
 }

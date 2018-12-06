@@ -3,13 +3,20 @@
 // a class that holds information for a card
 //
 //Card constructor
-function Card(image,position,value){
+function Card(image,value){
   //value will be used in a future version to match cards
   this.value = value;
   this.image = image;
-  this.position = position;
+  this.position;
   this.turned = false;
   this.found = false;
+}
+
+//givePosition()
+//
+// gives the Card it's position object
+Card.prototype.givePosition = function(position){
+  this.position = position;
 }
 
 //display()

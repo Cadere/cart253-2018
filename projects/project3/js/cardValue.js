@@ -17,10 +17,11 @@ CardValue.prototype.updateValue = function(){
   }
   else if(this.secondValue === undefined){
     this.secondValue = lastCardValue;
-  }
-  else{
     this.clickedAgain = true;
   }
+  // else{
+  //   this.clickedAgain = true;
+  // }
 }
 
 //compareValues();
