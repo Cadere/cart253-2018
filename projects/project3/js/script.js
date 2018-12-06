@@ -42,7 +42,7 @@ var twoCardsClicked = false;
 // a variable for the nb of attempts
 var attempts = 0;
 // a variable for the maximum number of attempts
-var nbAttempts = 10;
+var nbAttempts = 12;
 //a variable that indicates if there is a timer running at the moment
 var timerIsRunning = false;
 

@@ -35,10 +35,13 @@ Scoreboard.prototype.defineAttributes = function(){
 //displays the Scoreboard
 Scoreboard.prototype.display = function(){
   push();
-  noStroke();
+  stroke("#d5dd98");
+  strokeWeight(7);
   fill(this.fill);
   ellipseMode(CENTER);
   ellipse(this.x,this.y,this.width,this.height);
+  pop();
+  push();
   fill("#61a08e");
   textFont(ttLakes);
   textSize(this.textSize);
