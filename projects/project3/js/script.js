@@ -3,11 +3,9 @@
 Prototype 1
 Eugene Fournier
 
-For now this is a very boring, non interactive program
-which just displays cards
-on a grid
-with each card at a different location on the grid everytime the program is loaded
-it will be used to create a memory card game
+This is a memory card game
+
+THIS GAME SUPPORTS RESIZING THE WINDOW 
 ******************/
 
 //variables for the card grid
@@ -110,6 +108,7 @@ function draw() {
 
 function mouseClicked(){
   if (!timerIsRunning){
+    lastCardId = undefined;
     //sets lastCardValue to the value of the card clicked
     for (var i = 0; i < cardNb; i++){
       card[i].clickedValue();
@@ -117,32 +116,34 @@ function mouseClicked(){
         lastCardId = i;
       }
     }
+    if (lastCardId !== undefined && !card[lastCardId].turned){
+      //updates the cardValue object valueChecker with the value of the last card clicked
+      valueChecker.updateValue();
 
-    //updates the cardValue object valueChecker with the value of the last card clicked
-    valueChecker.updateValue();
-
-    //turns the card that has been clicked
-    card[lastCardId].turnCard();
+      //turns the card that has been clicked
+      card[lastCardId].turnCard();
 
 
-    //if the player has clicked a third time
-    //ie. selected 2 cards and wants to continue
-    //this compares the values of the 2 cards
-    //if the cards match, their found status becomes true
-    //afterwards value checker is resetted and all unfound cards are flipped back
-    if(valueChecker.clickedAgain){
-      if(valueChecker.compareValues()){
-        for (var i = 0; i < cardNb; i++){
-          if(card[i].turned){
-            card[i].foundStatus();
+      //if the player has clicked a third time
+      //ie. selected 2 cards and wants to continue
+      //this compares the values of the 2 cards
+      //if the cards match, their found status becomes true
+      //afterwards value checker is resetted and all unfound cards are flipped back
+      if(valueChecker.clickedAgain){
+        if(valueChecker.compareValues()){
+          for (var i = 0; i < cardNb; i++){
+            if(card[i].turned){
+              card[i].foundStatus();
+            }
           }
+          valueChecker.reset();
         }
-        valueChecker.reset();
+        else{
+          timerIsRunning = true;
+          setTimeout(attemptReset, 1000);
+        }
       }
-      else{
-        timerIsRunning = true;
-        setTimeout(attemptReset, 1000);
-      }
+
     }
   }
 }
