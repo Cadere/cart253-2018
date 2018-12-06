@@ -8,7 +8,8 @@ function Scoreboard(){
   this.y;
   this.width;
   this.height;
-  this.fill = 255;
+  this.textSize;
+  this.fill = "#f3b8ac";
 }
 
 //defineAttributes()
@@ -19,6 +20,7 @@ Scoreboard.prototype.defineAttributes = function(){
   this.y = height/5;
   this.width = sidebarWidth*0.75;
   this.height = height/10;
+  this.textSize = sidebarWidth/9;
 }
 
 //display()
@@ -28,10 +30,13 @@ Scoreboard.prototype.display = function(){
   push();
   noStroke();
   fill(this.fill);
-  ellipseMode(CENTER);
-  ellipse(this.x,this.y,this.width,this.height);
-  fill(55);
+  rectMode(CENTER);
+  rect(this.x,this.y,this.width,this.height);
+  fill(255);
+  textFont(ttLakes);
+  textSize(this.textSize);
+  textLeading(this.textSize*0.9);
   textAlign(CENTER, CENTER);
-  text(attempts + "/" + nbAttempts,this.x,this.y);
+  text(attempts + "/" + nbAttempts + "\n attempts",this.x,this.y);
   pop();
 }

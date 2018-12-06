@@ -49,6 +49,8 @@ var timerIsRunning = false;
 //variables for the sidebar
 //a variable to hold the scoreboard
 var scoreboard;
+//a variable for the font
+var ttLakes;
 
 
 function preload() {
@@ -67,6 +69,7 @@ function preload() {
     loadImage("assets/images/card12.png"),
   ]
   cardBack = loadImage("assets/images/cardback.png");
+  ttLakes =loadFont("assets/fonts/ttLakesMedium.ttf")
 }
 
 
