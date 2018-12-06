@@ -25,10 +25,13 @@ Card.prototype.givePosition = function(position){
 Card.prototype.display = function(){
   push();
   imageMode(CENTER);
-  image(this.image,this.position.x,this.position.y,cardSize,cardSize);
   //this displays the back image if the card hasn't been clicked
   if(!this.turned){
     image(cardBack,this.position.x,this.position.y,cardSize,cardSize);
+  }
+  //and the front image if the card  has been clicked
+  else{
+    image(this.image,this.position.x,this.position.y,cardSize,cardSize);
   }
   pop();
 }
