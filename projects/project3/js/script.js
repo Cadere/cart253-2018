@@ -34,6 +34,9 @@ var cardBack;
 var cardSize;
 //a variable for the value of the last card clicked
 var lastCardValue;
+//a variable for the id of the last card clicked
+//this will be used to prevent clicking a found card or double clicking a card being counted as a match
+var lastCardId;
 //a variable for the CardValue object
 var valueChecker;
 //a variable to hold if two cards were clicked
@@ -110,15 +113,17 @@ function mouseClicked(){
     //sets lastCardValue to the value of the card clicked
     for (var i = 0; i < cardNb; i++){
       card[i].clickedValue();
+      if(card[i].clickedValue()){
+        lastCardId = i;
+      }
     }
 
     //updates the cardValue object valueChecker with the value of the last card clicked
     valueChecker.updateValue();
 
     //turns the card that has been clicked
-    for (var i = 0; i < cardNb; i++){
-      card[i].turnCard();
-    }
+    card[lastCardId].turnCard();
+
 
     //if the player has clicked a third time
     //ie. selected 2 cards and wants to continue

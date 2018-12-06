@@ -37,11 +37,7 @@ Card.prototype.display = function(){
 //
 //this method turns the card that has been clicked
 Card.prototype.turnCard = function(){
-  if(mouseX > this.position.x-cardSize/2 && mouseX < this.position.x+cardSize/2){
-    if(mouseY > this.position.y-cardSize/2 && mouseY < this.position.y+cardSize/2 ){
-      this.turned = true;
-    }
-  }
+  this.turned = true;
 }
 
 //clickedValue();
@@ -51,8 +47,10 @@ Card.prototype.clickedValue = function(){
   if(mouseX > this.position.x-cardSize/2 && mouseX < this.position.x+cardSize/2){
     if(mouseY > this.position.y-cardSize/2 && mouseY < this.position.y+cardSize/2 ){
       lastCardValue = this.value;
+      return true;
     }
   }
+  return false;
 }
 
 //foundStatus();
