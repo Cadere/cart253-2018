@@ -5,7 +5,7 @@ Eugene Fournier
 
 This is a memory card game
 
-THIS GAME SUPPORTS RESIZING THE WINDOW 
+THIS GAME SUPPORTS RESIZING THE WINDOW
 ******************/
 
 //variables for the card grid
@@ -41,8 +41,14 @@ var valueChecker;
 var twoCardsClicked = false;
 // a variable for the nb of attempts
 var attempts = 0;
+// a variable for the maximum number of attempts
+var nbAttempts = 10;
 //a variable that indicates if there is a timer running at the moment
 var timerIsRunning = false;
+
+//variables for the sidebar
+//a variable to hold the scoreboard
+var scoreboard;
 
 
 function preload() {
@@ -88,6 +94,9 @@ function setup() {
   }
 
   valueChecker = new CardValue();
+  scoreboard = new Scoreboard();
+
+  scoreboard.defineAttributes();
 }
 
 
@@ -103,6 +112,7 @@ function draw() {
   for (var i = 0; i < cardNb; i++){
     card[i].display();
   }
+  scoreboard.display();
 }
 
 
@@ -130,6 +140,7 @@ function mouseClicked(){
       //if the cards match, their found status becomes true
       //afterwards value checker is resetted and all unfound cards are flipped back
       if(valueChecker.clickedAgain){
+        attempts++;
         if(valueChecker.compareValues()){
           for (var i = 0; i < cardNb; i++){
             if(card[i].turned){
@@ -162,6 +173,7 @@ function windowResized() {
   for (var i = 0; i < cardNb; i++){
     card[i].givePosition(position[i]);
   }
+  scoreboard.defineAttributes();
 }
 
 //pXpY()

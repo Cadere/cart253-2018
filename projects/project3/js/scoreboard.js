@@ -4,12 +4,11 @@
 //
 //scoreboard constructor
 function Scoreboard(){
-  this.attempts;
   this.x;
   this.y;
   this.width;
   this.height;
-  this.fill;
+  this.fill = 255;
 }
 
 //defineAttributes()
@@ -18,6 +17,21 @@ function Scoreboard(){
 Scoreboard.prototype.defineAttributes = function(){
   this.x = sidebarWidth/2;
   this.y = height/5;
-  this.width = sidebarWitdh*0.75;
-  this.y = height/10;
+  this.width = sidebarWidth*0.75;
+  this.height = height/10;
+}
+
+//display()
+//
+//displays the Scoreboard
+Scoreboard.prototype.display = function(){
+  push();
+  noStroke();
+  fill(this.fill);
+  ellipseMode(CENTER);
+  ellipse(this.x,this.y,this.width,this.height);
+  fill(55);
+  textAlign(CENTER, CENTER);
+  text(attempts + "/" + nbAttempts,this.x,this.y);
+  pop();
 }
