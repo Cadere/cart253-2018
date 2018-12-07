@@ -103,7 +103,7 @@ function setup() {
   valueChecker = new CardValue();
   scoreboard = new Scoreboard();
   menu = new Menu();
-  setupObject = [new SetupObject(4,2,6),new SetupObject(4,3,12),new SetupObject(4,4,18),new SetupObject(6,4,30)]
+  setupObject = [new SetupObject(4,2,7),new SetupObject(4,3,12),new SetupObject(4,4,18),new SetupObject(6,4,30)]
 
   scoreboard.defineAttributes();
   menu.defineAttributes();
@@ -288,6 +288,8 @@ function setupGame(object){
   createCards();
   createSuccessFountain();
   createFailFountain();
+  failFountain.Stop();
+  successFountain.Stop();
 }
 
 //displayTitle()
@@ -337,8 +339,6 @@ function displayGame(){
     }
   }
   if(gameOver()){
-    failFountain.Stop();
-    successFountain.Stop();
     state = "TITLE";
   }
 }
