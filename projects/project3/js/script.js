@@ -61,8 +61,9 @@ var runFail = false;
 var scoreboard;
 //a variable to hold the Menu
 var menu;
-//a variable for the font
+//a variable for the fonts
 var ttLakes;
+var ttLakesBold;
 
 
 function preload() {
@@ -82,6 +83,7 @@ function preload() {
   ]
   cardBack = loadImage("assets/images/cardback.png");
   ttLakes =loadFont("assets/fonts/ttLakesMedium.ttf")
+  ttLakesBold = loadFont("assets/fonts/ttLakesBold.ttf");
 }
 
 
