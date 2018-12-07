@@ -50,6 +50,7 @@ Card.prototype.clickedValue = function(){
   if(mouseX > this.position.x-cardSize/2 && mouseX < this.position.x+cardSize/2){
     if(mouseY > this.position.y-cardSize/2 && mouseY < this.position.y+cardSize/2 ){
       lastCardValue = this.value;
+      this.extractCoordinates();
       return true;
     }
   }
@@ -71,4 +72,11 @@ Card.prototype.reset = function(){
   if(!this.found){
       this.turned = false;
   }
+}
+
+//extractCoordinates();
+//
+//this extracts the card's x and y coordinates and creates a vector with them
+Card.prototype.extractCoordinates = function(){
+  coordinates.push(createVector(this.position.x,this.position.y))
 }

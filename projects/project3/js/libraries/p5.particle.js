@@ -244,3 +244,16 @@ Fountain.prototype.Stop = function() {
   this.n=0;
   this.particles = [];
 }
+
+/////////// NEW /////////
+//newCoordinates
+//
+//gives the fountain a new position vector
+Fountain.prototype.newCoordinates = function(vector) {
+  this.location = vector;
+}
+
+//reset
+//
+//this is litterally a copy paste of the constructor but with another name.
+//it fetches back the original info and sets the fountain back to these parameters

@@ -46,6 +46,11 @@ var nbAttempts = 12;
 //a variable that indicates if there is a timer running at the moment
 var timerIsRunning = false;
 
+//variables for the particle effects
+var successFountain;
+var runSuccess = false;
+var coordinates = [];
+
 //variables for the sidebar
 //a variable to hold the scoreboard
 var scoreboard;
@@ -100,6 +105,7 @@ function setup() {
   scoreboard = new Scoreboard();
 
   scoreboard.defineAttributes();
+  createSuccessFountain();
 }
 
 
@@ -116,6 +122,13 @@ function draw() {
     card[i].display();
   }
   scoreboard.display();
+  if(runSuccess){
+    for (var i = 0; i < coordinates.length; i++){
+      runSuccessFountain(coordinates[i]);
+      setTimeout(resetSuccessFountain,3000);
+      console.log("runSuccess");
+    }
+  }
 }
 
 
@@ -145,6 +158,7 @@ function mouseClicked(){
       if(valueChecker.clickedAgain){
         attempts++;
         if(valueChecker.compareValues()){
+          runSuccess = true;
           for (var i = 0; i < cardNb; i++){
             if(card[i].turned){
               card[i].foundStatus();
@@ -155,6 +169,8 @@ function mouseClicked(){
         else{
           timerIsRunning = true;
           setTimeout(attemptReset, 1000);
+          setTimeout(resetSuccessFountain,3000);
+          console.log("runSuccess");
         }
       }
 
@@ -260,4 +276,47 @@ function attemptReset(){
     card[i].reset();
   }
   timerIsRunning = false;
+}
+
+//createSuccessFountain()
+//
+//this function creates the particle object and the fountain that will use them
+function createSuccessFountain() {
+  var successParticle = {
+    size: [12,20],
+    sizePercent: [0.99],
+    angle: [0,360],
+    acceleration: [0],
+    speed: [2],
+    lifetime: [75],
+    color: ["#eeefc0","#d5dd98","#f6dcd5","#f3b8ac"],
+    rate: [300,150],
+    limit: [30],
+    dxy: [0,0],
+    x: [0.5],
+    y:[0.5]
+  };
+
+  successFountain = new Fountain(null, successParticle);
+}
+
+//runSuccessFountain()
+//
+//this displays the fountain
+function runSuccessFountain(vector){
+  push();
+  console.log("runSuccessFountain")
+  successFountain.newCoordinates(vector);
+  successFountain.Draw();
+  successFountain.Create();
+  successFountain.Step();
+  pop();
+}
+
+//resetSuccessFountain()
+//
+//this sets the variable runSuccess back to false
+function resetSuccessFountain(){
+  runSuccess = false;
+  coordinates = [];
 }
