@@ -80,3 +80,11 @@ Card.prototype.reset = function(){
 Card.prototype.extractCoordinates = function(){
   coordinates.push(createVector(this.position.x,this.position.y))
 }
+
+//newGame();
+//
+//resets the cards to unturned and unfound
+Card.prototype.newGame = function(){
+  this.found = false;
+  this.turned = false;
+}

@@ -69,6 +69,9 @@ var ttLakesBold;
 
 // a variable for the state of the game
 var state = "TITLE";
+//a variable for the title text
+var titleText = "WELCOME"
+var subtitleText = "Try to match some cards!"
 
 
 function preload() {
@@ -127,6 +130,7 @@ function draw() {
     case "GAME":
     displayGame();
     break;
+
   }
 }
 
@@ -135,7 +139,6 @@ function mouseClicked(){
   menu.handleInput();
   switch (state) {
     case "TITLE":
-    handleTitle();
     break;
 
     case "GAME":
@@ -213,6 +216,7 @@ function createCards(){
   //every time the game is reloaded
   cardFace = shuffle(cardFaceOrdered);
   //creates the card objects
+  preCard = [];
   for (var i = 0; i < cardNb; i++){
     if(i < cardNb/2){
       preCard.push(new Card(cardFace[i],i));
@@ -290,7 +294,20 @@ function setupGame(object){
 //
 //displays the title screen
 function displayTitle(){
-
+  push();
+  fill("#eeefc0");
+  textFont(ttLakesBold);
+  textSize(72);
+  textAlign(CENTER, CENTER);
+  text(titleText,sidebarWidth+gameWidth/2,height/3);
+  pop();
+  push();
+  fill("#eeefc0");
+  textFont(ttLakes);
+  textSize(50);
+  textAlign(CENTER, CENTER);
+  text(subtitleText,sidebarWidth+gameWidth/2,height*0.5);
+  pop();
 }
 
 //displayGame()
@@ -319,13 +336,11 @@ function displayGame(){
       }
     }
   }
-}
-
-//handleTitle()
-//
-//handles input from the title screen
-function handleTitle(){
-
+  if(gameOver()){
+    failFountain.Stop();
+    successFountain.Stop();
+    state = "TITLE";
+  }
 }
 
 //handleGame()
@@ -416,7 +431,6 @@ function createFailFountain() {
     x: [0.5],
     y: [0.5]
   };
-  console.log(failParticle)
   failFountain = new Fountain(null,failParticle);
 }
 
@@ -462,4 +476,52 @@ function resetFailFountain(){
   runFail = false;
   failFountain.reset(failParticle);
   coordinates = [];
+}
+
+//gameOver()
+//
+//checks if the game has been lost or won
+function gameOver(){
+  console.log("am happening")
+  if (gameLost() || gameWon()){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+//gameLost()
+//
+//checks if the number of attemps is higher than permitted
+function gameLost(){
+  if(attempts > nbAttempts){
+    titleText = "YOU LOST"
+    subtitleText = "Try to match some cards next time!"
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+
+//gameWon()
+//
+//checks if all the cards have been turned
+function gameWon(){
+  var allCardsFound;
+  for (var i = 0; i < cardNb; i++){
+    if(!card[i].found){
+      allCardsFound = false;
+      return allCardsFound;
+    }
+  }
+  if (allCardsFound !== false){
+    titleText = "CONGRATULATIONS"
+    subtitleText = "You won!"
+    return true;
+  }
+  else{
+    return false;
+  }
 }
