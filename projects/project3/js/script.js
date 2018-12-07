@@ -243,6 +243,19 @@ function resizePosition(){
   }
 }
 
+//createPosition()
+//
+//creates the array of positions
+function createPosition(){
+  position = [];
+  // push the x and y position values to an array of position objects
+  for (var i = 0; i < rangee; i++){
+    for (var j = 0; j < column; j++){
+      position.push(new Position(pX[j],pY[i]));
+    }
+  }
+}
+
 function attemptReset(){
   valueChecker.reset();
   for (var i = 0; i < cardNb; i++){
@@ -263,13 +276,8 @@ function setupGame(object){
   nbAttempts = object.nbAttempts;
   //gives values to an array of coordinates for x and for y
   pXpY();
-  // push the x and y position values to an array of position objects
-  for (var i = 0; i < rangee; i++){
-    for (var j = 0; j < column; j++){
-      position.push(new Position(pX[j],pY[i]));
-    }
-  }
-
+  //create the array of positions
+  createPosition();
   //adjust card size to canvas size
   setCardSize();
   //creates the cards
