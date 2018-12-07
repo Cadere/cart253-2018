@@ -3,13 +3,17 @@
 //A class that defines how the menu acts
 //
 //scoreboard constructor
-function Scoreboard(){
+function Menu(){
   this.x;
-  this.y;
+  this.topEdge;
+  this.body;
   this.width;
   this.height;
+  this.options = 4;
+  this.optionHeight;
   this.textSize;
-  this.fill = "#eeefc0";
+  this.fill = "#aed79d";
+  this.highlightFill = "#eeefc0";
 }
 
 //defineAttributes()
@@ -17,9 +21,10 @@ function Scoreboard(){
 //this function defines the position and size of the Scoreboard
 Menu.prototype.defineAttributes = function(){
   this.x = sidebarWidth/2;
-  this.y = height/5;
-  this.width = sidebarWidth*0.5;
-  this.height = height/8;
+  this.topEdge = height*0.35;
+  this.body = height*0.5;
+  this.width = sidebarWidth*0.75;
+  this.height = height*0.08;
   var widthRatio = sidebarWidth/10;
   var heightRatio = this.height/3;
   if(widthRatio < heightRatio){
@@ -28,6 +33,10 @@ Menu.prototype.defineAttributes = function(){
   else {
     this.textSize = heightRatio;
   }
+  this.optionHeight = [];
+  for (var i = 0; i < this.options; i++){
+    this.optionHeight.push(this.topEdge+this.body/(this.options+1)*(i+1));
+  }
 }
 
 //display()
@@ -35,18 +44,19 @@ Menu.prototype.defineAttributes = function(){
 //displays the Scoreboard
 Menu.prototype.display = function(){
   push();
-  stroke("#d5dd98");
-  strokeWeight(7);
+  noStroke();
   fill(this.fill);
-  ellipseMode(CENTER);
-  ellipse(this.x,this.y,this.width,this.height);
+  rectMode(CENTER);
+  for (var i = 0; i < this.options; i++){
+    rect(this.x, this.optionHeight[i],this.width,this.height);
+  }
   pop();
   push();
   fill("#61a08e");
   textFont(ttLakes);
   textSize(this.textSize);
   textLeading(this.textSize*0.9);
-  textAlign(CENTER);
-  text(attempts + "/" + nbAttempts + "\n attempts",this.x,this.y);
+  textAlign(CENTER, CENTER);
+  text("START A NEW GAME",this.x,this.topEdge);
   pop();
 }

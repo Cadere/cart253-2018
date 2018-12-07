@@ -59,6 +59,8 @@ var runFail = false;
 //variables for the sidebar
 //a variable to hold the scoreboard
 var scoreboard;
+//a variable to hold the Menu
+var menu;
 //a variable for the font
 var ttLakes;
 
@@ -108,8 +110,10 @@ function setup() {
 
   valueChecker = new CardValue();
   scoreboard = new Scoreboard();
+  menu = new Menu();
 
   scoreboard.defineAttributes();
+  menu.defineAttributes();
   createSuccessFountain();
   createFailFountain();
 }
@@ -127,7 +131,10 @@ function draw() {
   for (var i = 0; i < cardNb; i++){
     card[i].display();
   }
+  //display the scoreboard
   scoreboard.display();
+  //display the menu
+  menu.display();
   if(runSuccess){
     for (var i = 0; i < coordinates.length; i++){
       runSuccessFountain(coordinates[i]);
@@ -207,7 +214,10 @@ function windowResized() {
   for (var i = 0; i < cardNb; i++){
     card[i].givePosition(position[i]);
   }
+  //update the scoreboard's attributes
   scoreboard.defineAttributes();
+  //update the menu's attributes
+  menu.defineAttributes();
 }
 
 //pXpY()
