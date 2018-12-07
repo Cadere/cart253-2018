@@ -48,6 +48,7 @@ var timerIsRunning = false;
 
 //variables for the particle effects
 var successFountain;
+var successParticle;
 var runSuccess = false;
 var coordinates = [];
 
@@ -125,8 +126,9 @@ function draw() {
   if(runSuccess){
     for (var i = 0; i < coordinates.length; i++){
       runSuccessFountain(coordinates[i]);
-      setTimeout(resetSuccessFountain,3000);
-      console.log("runSuccess");
+      if(successFountain.done){
+        resetSuccessFountain();
+      }
     }
   }
 }
@@ -169,8 +171,7 @@ function mouseClicked(){
         else{
           timerIsRunning = true;
           setTimeout(attemptReset, 1000);
-          setTimeout(resetSuccessFountain,3000);
-          console.log("runSuccess");
+          resetSuccessFountain();
         }
       }
 
@@ -282,7 +283,7 @@ function attemptReset(){
 //
 //this function creates the particle object and the fountain that will use them
 function createSuccessFountain() {
-  var successParticle = {
+  successParticle = {
     size: [12,20],
     sizePercent: [0.99],
     angle: [0,360],
@@ -305,7 +306,6 @@ function createSuccessFountain() {
 //this displays the fountain
 function runSuccessFountain(vector){
   push();
-  console.log("runSuccessFountain")
   successFountain.newCoordinates(vector);
   successFountain.Draw();
   successFountain.Create();
@@ -318,5 +318,6 @@ function runSuccessFountain(vector){
 //this sets the variable runSuccess back to false
 function resetSuccessFountain(){
   runSuccess = false;
+  successFountain.reset(successParticle);
   coordinates = [];
 }

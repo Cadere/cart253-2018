@@ -170,11 +170,13 @@ Fountain.prototype.random = function (a,b) {
 }
 
 Fountain.prototype.Draw = function () {
+  push();
   imageMode(CENTER); angleMode(DEGREES); rectMode(CENTER); ellipseMode(CENTER);
   for (var x = this.particles.length-1; x >= 0 ; x--) {
     this.draw(this, this.particles[x]);
   }
   angleMode(RADIANS);
+  pop();
 }
 
 Fountain.prototype.CreateN = function(x, y, ang) {
@@ -257,3 +259,32 @@ Fountain.prototype.newCoordinates = function(vector) {
 //
 //this is litterally a copy paste of the constructor but with another name.
 //it fetches back the original info and sets the fountain back to these parameters
+Fountain.prototype.reset = function(nameOrF){
+  this.f = nameOrF;
+  if (this.f.dxy) this.dxy =
+    createVector(width*this.f.dxy[0], height*this.f.dxy[1]);
+  this.n = this.f.limit||99999999;
+  this.draw = fdisplay[this.f.shape||"ellipse"];
+  this.f.rotation = this.f.rotation || 0;
+  this.step = 0;
+  this.f.rate = this.f.rate||[0,1];
+  this.count = this.f.rate[0];
+  this.f.angle = this.f.angle||[0,0];
+  this.f.speed = this.f.speed||1;
+  this.f.speedx = this.f.speedx||0;
+  this.f.size = this.f.size||[2,2];
+  this.f.gravity = this.f.gravity||0.01;
+  this.f.sizePercent = this.f.sizePercent||1;
+  this.f.lifetime = this.f.lifetime||99999999;
+  if (this.f.acceleration) this.f.acceleration = createVector(this.f.acceleration[0], this.f.acceleration[1]);
+  if (this.f.file) {
+    if (!this.f.image) this.f.image = loadImage(this.f.file);
+    this.image = this.f.image;
+  }
+  if (!this.f.colors) {
+    this.f.colors = [];
+    for (var j=0; j<this.f.color.length; j++)
+      this.f.colors[j] = color(this.f.color[j]);
+  }
+  this.colors = this.f.colors; //for sharing across fountains
+}
