@@ -15,6 +15,7 @@ function Menu(){
   this.fill = "#aed79d";
   this.highlightFill = "#eeefc0";
   this.optionText = ["8 TILES", "12 TILES", "16 TILES", "24 TILES"]
+  this.optionFunctionCall = []
 }
 
 //defineAttributes()
@@ -92,6 +93,20 @@ Menu.prototype.detectHover = function(){
         rectMode(CENTER);
         rect(this.x, this.optionHeight[i],this.width,this.height);
         pop();
+      }
+    }
+  }
+}
+
+//handleInput
+//
+//handles clicking on the menu options
+Menu.prototype.handleInput = function(){
+  if(mouseX > this.x-this.width/2 && mouseX < this.x+this.width/2){
+    for (var i = 0; i < this.options; i++){
+      if(mouseY > this.optionHeight[i]-this.height/2 && mouseY < this.optionHeight[i]+this.height/2){
+        setupGame(setupObject[i]);
+        state = "GAME";
       }
     }
   }
