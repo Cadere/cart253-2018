@@ -9,10 +9,10 @@ THIS GAME SUPPORTS RESIZING THE WINDOW
 ******************/
 
 //variables for the card grid
-var column = 4;
+var column;
 //rangee is the number of lines on the grid - had to resort to a french name since line is already a thing in p5
-var rangee = 3;
-var cardNb = rangee*column;
+var rangee;
+var cardNb;
 //variable for the cards
 var card;
 var preCard = [];
@@ -42,7 +42,7 @@ var twoCardsClicked = false;
 // a variable for the nb of attempts
 var attempts = 0;
 // a variable for the maximum number of attempts
-var nbAttempts = 12;
+var nbAttempts;
 //a variable that indicates if there is a timer running at the moment
 var timerIsRunning = false;
 
@@ -61,9 +61,14 @@ var runFail = false;
 var scoreboard;
 //a variable to hold the Menu
 var menu;
+//a variable for the information-holding class setupObject
+var setupObject;
 //a variable for the fonts
 var ttLakes;
 var ttLakesBold;
+
+// a variable for the state of the game
+var state = "TITLE";
 
 
 function preload() {
@@ -91,33 +96,19 @@ function setup() {
   createCanvas(windowWidth,windowHeight);
   //give their values to sidebarWidth and gameWidth
   screenRatio();
-  //gives values to an array of coordinates for x and for y
-  pXpY();
-  // push the x and y position values to an array of position objects
-  for (var i = 0; i < rangee; i++){
-    for (var j = 0; j < column; j++){
-      position.push(new Position(pX[j],pY[i]));
-    }
-  }
-
-  //adjust card size to canvas size
-  setCardSize();
-  //creates the cards
-  createCards();
-
-
-  for (var i = 0; i < cardNb; i++){
-    card[i].givePosition(position[i]);
-  }
 
   valueChecker = new CardValue();
   scoreboard = new Scoreboard();
   menu = new Menu();
+  setupObject = [new SetupObject(4,2,6),new SetupObject(4,3,12),new SetupObject(6,3,20),new SetupObject(6,4,30)]
+
+  setupGame(setupObject[0]);
 
   scoreboard.defineAttributes();
   menu.defineAttributes();
   createSuccessFountain();
   createFailFountain();
+
 }
 
 
@@ -129,29 +120,15 @@ function draw() {
   noStroke();
   rect(0,0,sidebarWidth,height);
   pop();
-  //display the cards
-  for (var i = 0; i < cardNb; i++){
-    card[i].display();
-  }
-  //display the scoreboard
-  scoreboard.display();
-  //display the menu
-  menu.display();
-  if(runSuccess){
-    for (var i = 0; i < coordinates.length; i++){
-      runSuccessFountain(coordinates[i]);
-      if(successFountain.done){
-        resetSuccessFountain();
-      }
-    }
-  }
-  if(runFail){
-    for (var i = 0; i < coordinates.length; i++){
-      runFailFountain(coordinates[i]);
-      if(failFountain.done){
-        resetFailFountain();
-      }
-    }
+
+  switch (state) {
+    case "TITLE":
+    displayTitle();
+    break;
+
+    case "GAME":
+    displayGame();
+    break;
   }
 }
 
@@ -262,7 +239,7 @@ function setCardSize(){
   }
 }
 
-//randomizeCards()
+//createCards()
 //
 //shuffles the position and cardface arrays
 function createCards(){
@@ -282,6 +259,10 @@ function createCards(){
   }
   //shuffles preCard so that the cards are distributed randomly
   card = shuffle(preCard);
+  //allocates positions to cards
+  for (var i = 0; i < cardNb; i++){
+    card[i].givePosition(position[i]);
+  }
 }
 
 //resizePosition()
@@ -332,19 +313,19 @@ function createSuccessFountain() {
 //this function creates the particle object and the fountain that will use it
 function createFailFountain() {
   failParticle = {
-      size: [cardSize/10,cardSize/8],
-      sizePercent: [0.99],
-      angle: [80,100],
-      speed: [1],
-      lifetime: [85],
-      color: ["#7e7ebf","#b9baff","#a8a8ff", "#b5c9db", "#99d5c7"],
-      rate: [300,150],
-      limit: [40],
-      dxy: [cardSize/windowWidth/2.5,cardSize/windowHeight/2.5],
-      x: [0.5],
-      y: [0.5]
-    };
-    failFountain = new Fountain(null,failParticle);
+    size: [cardSize/10,cardSize/8],
+    sizePercent: [0.99],
+    angle: [80,100],
+    speed: [1],
+    lifetime: [85],
+    color: ["#7e7ebf","#b9baff","#a8a8ff", "#b5c9db", "#99d5c7"],
+    rate: [300,150],
+    limit: [40],
+    dxy: [cardSize/windowWidth/2.5,cardSize/windowHeight/2.5],
+    x: [0.5],
+    y: [0.5]
+  };
+  failFountain = new Fountain(null,failParticle);
 }
 
 //runSuccessFountain()
@@ -389,4 +370,65 @@ function resetFailFountain(){
   runFail = false;
   failFountain.reset(failParticle);
   coordinates = [];
+}
+
+//setupGame();
+//
+//sets up the game
+function setupGame(object){
+  column = object.column;
+  rangee = object.rangee;
+  cardNb = column*rangee;
+  attempts = 0;
+  nbAttempts = object.nbAttempts;
+  //gives values to an array of coordinates for x and for y
+  pXpY();
+  // push the x and y position values to an array of position objects
+  for (var i = 0; i < rangee; i++){
+    for (var j = 0; j < column; j++){
+      position.push(new Position(pX[j],pY[i]));
+    }
+  }
+
+  //adjust card size to canvas size
+  setCardSize();
+  //creates the cards
+  createCards();
+}
+
+//displayTitle()
+//
+//displays the title screen
+function displayTitle(){
+
+}
+
+//displayGame()
+//
+//Displays the game screen
+function displayGame(){
+  //display the cards
+  for (var i = 0; i < cardNb; i++){
+    card[i].display();
+  }
+  //display the scoreboard
+  scoreboard.display();
+  //display the menu
+  menu.display();
+  if(runSuccess){
+    for (var i = 0; i < coordinates.length; i++){
+      runSuccessFountain(coordinates[i]);
+      if(successFountain.done){
+        resetSuccessFountain();
+      }
+    }
+  }
+  if(runFail){
+    for (var i = 0; i < coordinates.length; i++){
+      runFailFountain(coordinates[i]);
+      if(failFountain.done){
+        resetFailFountain();
+      }
+    }
+  }
 }

@@ -1,5 +1,6 @@
 var defs;
 var of;
+var testRectangle = drawRectangle();
 
 function setup() {
     createCanvas(400, 400);
@@ -29,4 +30,14 @@ function draw() {
   noStroke();
   text(of.length, width/2, 20);
   stroke(0);
+  testRectangle;
+}
+
+function drawRectangle(){
+  push();
+  noStroke();
+  fill(255);
+  rect(12,12,60,60);
+  console.log("am happening")
+  pop();
 }
