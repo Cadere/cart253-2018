@@ -52,6 +52,10 @@ var successParticle;
 var runSuccess = false;
 var coordinates = [];
 
+var failFountain;
+var failParticle;
+var runFail = false;
+
 //variables for the sidebar
 //a variable to hold the scoreboard
 var scoreboard;
@@ -107,6 +111,7 @@ function setup() {
 
   scoreboard.defineAttributes();
   createSuccessFountain();
+  createFailFountain();
 }
 
 
@@ -128,6 +133,14 @@ function draw() {
       runSuccessFountain(coordinates[i]);
       if(successFountain.done){
         resetSuccessFountain();
+      }
+    }
+  }
+  if(runFail){
+    for (var i = 0; i < coordinates.length; i++){
+      runFailFountain(coordinates[i]);
+      if(failFountain.done){
+        resetFailFountain();
       }
     }
   }
@@ -171,7 +184,8 @@ function mouseClicked(){
         else{
           timerIsRunning = true;
           setTimeout(attemptReset, 1000);
-          resetSuccessFountain();
+          runFail = true;
+          // resetSuccessFountain();
         }
       }
 
@@ -284,13 +298,13 @@ function attemptReset(){
 //this function creates the particle object and the fountain that will use them
 function createSuccessFountain() {
   successParticle = {
-    size: [12,20],
+    size: [cardSize/10,cardSize/8],
     sizePercent: [0.99],
     angle: [0,360],
     acceleration: [0],
-    speed: [1.5],
+    speed: [1.2],
     lifetime: [90],
-    color: ["#eeefc0","#d5dd98","#f6dcd5","#f3b8ac"],
+    color: ["#f3f599","#f9df77","#f7cac1","#dc9291"],
     rate: [300,150],
     limit: [50],
     dxy: [0,0],
@@ -299,6 +313,26 @@ function createSuccessFountain() {
   };
 
   successFountain = new Fountain(null, successParticle);
+}
+
+//createFailFountain()
+//
+//this function creates the particle object and the fountain that will use it
+function createFailFountain() {
+  failParticle = {
+      size: [cardSize/10,cardSize/8],
+      sizePercent: [0.99],
+      angle: [80,100],
+      speed: [1],
+      lifetime: [85],
+      color: ["#7e7ebf","#b9baff","#a8a8ff", "#b5c9db", "#99d5c7"],
+      rate: [300,150],
+      limit: [40],
+      dxy: [cardSize/windowWidth/2.5,cardSize/windowHeight/2.5],
+      x: [0.5],
+      y: [0.5]
+    };
+    failFountain = new Fountain(null,failParticle);
 }
 
 //runSuccessFountain()
@@ -313,11 +347,34 @@ function runSuccessFountain(vector){
   pop();
 }
 
+//runFailFountain()
+//
+//this displays the Fountain
+function runFailFountain(vector){
+  push();
+  failFountain.newCoordinates(vector);
+  failFountain.Draw();
+  failFountain.Create();
+  failFountain.Step();
+  pop();
+}
+
 //resetSuccessFountain()
 //
 //this sets the variable runSuccess back to false
+//resets the fountain info to its original parameters
+//and empties the coordinates array
 function resetSuccessFountain(){
   runSuccess = false;
   successFountain.reset(successParticle);
+  coordinates = [];
+}
+
+//resetFailFountain();
+//
+//same as resetSuccessFountain
+function resetFailFountain(){
+  runFail = false;
+  failFountain.reset(failParticle);
   coordinates = [];
 }

@@ -10,7 +10,7 @@ function setup() {
       angle: [80,100],
       speed: [1],
       lifetime: [75],
-      color: ["#7e7ebf","#b9baff","#a8a8ff", "#99d5c7"],
+      color: ["#7e7ebf","#b9baff","#a8a8ff", "#b5c9db", "#99d5c7"],
       rate: [300,150],
       limit: [30],
       dxy: [0.1,0.1],
