@@ -68,7 +68,7 @@ var ttLakes;
 var ttLakesBold;
 
 // a variable for the state of the game
-var state = "TITLE";
+var state = "GAME";
 
 
 function preload() {
@@ -121,6 +121,9 @@ function draw() {
   rect(0,0,sidebarWidth,height);
   pop();
 
+  //display the menu
+  menu.display();
+
   switch (state) {
     case "TITLE":
     displayTitle();
@@ -134,48 +137,14 @@ function draw() {
 
 
 function mouseClicked(){
-  if (!timerIsRunning){
-    lastCardId = undefined;
-    //sets lastCardValue to the value of the card clicked
-    for (var i = 0; i < cardNb; i++){
-      card[i].clickedValue();
-      if(card[i].clickedValue()){
-        lastCardId = i;
-      }
-    }
-    if (lastCardId !== undefined && !card[lastCardId].turned){
-      //updates the cardValue object valueChecker with the value of the last card clicked
-      valueChecker.updateValue();
+  switch (state) {
+    case "TITLE":
+    handleTitle();
+    break;
 
-      //turns the card that has been clicked
-      card[lastCardId].turnCard();
-
-
-      //if the player has clicked a third time
-      //ie. selected 2 cards and wants to continue
-      //this compares the values of the 2 cards
-      //if the cards match, their found status becomes true
-      //afterwards value checker is resetted and all unfound cards are flipped back
-      if(valueChecker.clickedAgain){
-        attempts++;
-        if(valueChecker.compareValues()){
-          runSuccess = true;
-          for (var i = 0; i < cardNb; i++){
-            if(card[i].turned){
-              card[i].foundStatus();
-            }
-          }
-          valueChecker.reset();
-        }
-        else{
-          timerIsRunning = true;
-          setTimeout(attemptReset, 1000);
-          runFail = true;
-          // resetSuccessFountain();
-        }
-      }
-
-    }
+    case "GAME":
+    handleGame();
+    break;
   }
 }
 
@@ -413,8 +382,6 @@ function displayGame(){
   }
   //display the scoreboard
   scoreboard.display();
-  //display the menu
-  menu.display();
   if(runSuccess){
     for (var i = 0; i < coordinates.length; i++){
       runSuccessFountain(coordinates[i]);
@@ -429,6 +396,62 @@ function displayGame(){
       if(failFountain.done){
         resetFailFountain();
       }
+    }
+  }
+}
+
+//handleTitle()
+//
+//handles input from the title screen
+function handleTitle(){
+
+}
+
+//handleGame()
+//
+//handles input from the game
+function handleGame(){
+  if (!timerIsRunning){
+    lastCardId = undefined;
+    //sets lastCardValue to the value of the card clicked
+    for (var i = 0; i < cardNb; i++){
+      card[i].clickedValue();
+      if(card[i].clickedValue()){
+        lastCardId = i;
+      }
+    }
+    if (lastCardId !== undefined && !card[lastCardId].turned){
+      //updates the cardValue object valueChecker with the value of the last card clicked
+      valueChecker.updateValue();
+
+      //turns the card that has been clicked
+      card[lastCardId].turnCard();
+
+
+      //if the player has clicked a third time
+      //ie. selected 2 cards and wants to continue
+      //this compares the values of the 2 cards
+      //if the cards match, their found status becomes true
+      //afterwards value checker is resetted and all unfound cards are flipped back
+      if(valueChecker.clickedAgain){
+        attempts++;
+        if(valueChecker.compareValues()){
+          runSuccess = true;
+          for (var i = 0; i < cardNb; i++){
+            if(card[i].turned){
+              card[i].foundStatus();
+            }
+          }
+          valueChecker.reset();
+        }
+        else{
+          timerIsRunning = true;
+          setTimeout(attemptReset, 1000);
+          runFail = true;
+          // resetSuccessFountain();
+        }
+      }
+
     }
   }
 }
